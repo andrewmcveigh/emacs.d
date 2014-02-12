@@ -20,7 +20,7 @@
 (package-initialize)
 
 ;;; Set fullscreen 27"
-(setq default-frame-alist '((width . 421) (height . 99)))
+(setq default-frame-alist '((width . 362) (height . 92)))
 
 (defun left-vertial-frame ()
   (interactive)
@@ -233,23 +233,6 @@ return.")
 (add-hook 'scheme-mode-hook (paren-face-add-support scheme-font-lock-keywords-2))
 (add-hook 'slime-repl-mode-hook 'paren-face-add-keyword)
 
-;; (eval-after-load 'project-explorer
-;;   '(progn
-;;      (defvar project-explorer-mode-map)
-;;      (evil-make-overriding-map project-explorer-mode-map 'normal t)
-;;      (evil-define-key 'normal project-explorer-mode-map
-;;        "o" 'pe/return
-;;        "v" (lambda ()
-;;              (interactive)
-;;              (setq w (next-window))
-;;              (split-window w nil t)
-;;              (pe/return))
-;;        "s" (lambda ()
-;;              (interactive)
-;;              (setq w (next-window))
-;;              (split-window w nil)
-;;              (pe/return)))))
-
 (add-to-list 'load-path user-emacs-directory)
 (require 'nerdtree-project-explorer)
 (require 'clojure-accents)
@@ -287,3 +270,4 @@ return.")
 
 (setq whitespace-empty nil)
 
+(tool-bar-mode -1)
