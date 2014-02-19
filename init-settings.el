@@ -21,8 +21,9 @@
 (setq scroll-bar-mode nil)
 (scroll-bar-mode -1)
 
+(setq whitespace-line-column 80)
 (setq whitespace-style
-      '(face spaces tabs newline space-mark tab-mark newline-mark))
+      '(face lines spaces tabs newline space-mark tab-mark newline-mark))
 
 (setq whitespace-empty nil)
 
