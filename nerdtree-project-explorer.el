@@ -18,7 +18,7 @@
                     ;;   (pe/set-directory pe/project-root))
 ;;		    (pe/cache-clear)
 		    (pe/set-tree (current-buffer) 'refresh pe/data))
-              "o" 'pe/return
+              "o" 'pe/tab ;; 'pe/return
               "s" (lambda ()
                     (interactive)
                     (setq w (next-window))
