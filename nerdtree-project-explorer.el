@@ -17,8 +17,17 @@
                     ;; (let (project-root (funcall pe/project-root-function))
                     ;;   (pe/set-directory pe/project-root))
 ;;		    (pe/cache-clear)
-		    (pe/set-tree (current-buffer) 'refresh pe/data))
-              "o" 'pe/tab ;; 'pe/return
+		    (funcall pe/directory-tree-function
+			     default-directory
+			     (apply-partially 'pe/set-tree
+					      (current-buffer)
+					      'directory-change)))
+              "o" (lambda ()
+		    (interactive)
+		    (if (string/ends-with (pe/user-get-filename) "/")
+			(pe/tab)
+		      (pe/return))) ;; 'pe/return
+	      (kbd "<return>") 'pe/return
               "s" (lambda ()
                     (interactive)
                     (setq w (next-window))
