@@ -29,4 +29,7 @@
 
 (tool-bar-mode -1)
 
+(setq ac-ignore-case nil)
+(setq-default indent-tabs-mode nil)
+
 (provide 'init-settings)
