@@ -1,3 +1,5 @@
+(tool-bar-mode -1)
+(set-frame-position (selected-frame) 0 0)
 ;;; Set fullscreen 27"
 (setq default-frame-alist '((width . 362) (height . 92)))
 
@@ -27,7 +29,6 @@
 
 (setq whitespace-empty nil)
 
-(tool-bar-mode -1)
 
 (setq ac-ignore-case nil)
 (setq-default indent-tabs-mode nil)

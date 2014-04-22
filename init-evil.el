@@ -25,7 +25,7 @@
                                                 (evil-scroll-line-to-center
                                                  (line-number-at-pos))))
 
-(define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+(define-key evil-normal-state-map (kbd "C-p") 'project-explorer-helm)
 
 (define-key evil-normal-state-map (kbd "<") 'paredit-backward-barf-sexp)
 (define-key evil-normal-state-map (kbd ">") 'paredit-forward-barf-sexp)

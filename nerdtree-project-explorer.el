@@ -1,6 +1,13 @@
 (require 'project-explorer)
 (require 'evil)
 
+;;; Set up to use external command for dir listing
+(setq pe/directory-tree-function 'pe/get-directory-tree-external)
+
+;;; use gfind & grep to only list the nice stuff
+(setq pe/get-directory-tree-external-command
+      "/usr/local/bin/gfind . \\( ! -path '*/.*' \\) \\( -type d -printf \"%p/\\n\" , -type f -print \\) | grep -v -f ./.gitignore | grep -v '.git/'")
+
 (defun string/ends-with (s ending)
   "return non-nil if string S ends with ENDING."
   (let ((elength (length ending)))
@@ -14,20 +21,17 @@
             (evil-define-key 'normal project-explorer-mode-map
               "r" (lambda ()
                     (interactive)
-                    ;; (let (project-root (funcall pe/project-root-function))
-                    ;;   (pe/set-directory pe/project-root))
-;;		    (pe/cache-clear)
-		    (funcall pe/directory-tree-function
-			     default-directory
-			     (apply-partially 'pe/set-tree
-					      (current-buffer)
-					      'directory-change)))
+                    (funcall pe/directory-tree-function
+                             default-directory
+                             (apply-partially 'pe/set-tree
+                                              (current-buffer)
+                                              'refresh)))
               "o" (lambda ()
-		    (interactive)
-		    (if (string/ends-with (pe/user-get-filename) "/")
-			(pe/tab)
-		      (pe/return))) ;; 'pe/return
-	      (kbd "<return>") 'pe/return
+                    (interactive)
+                    (if (string/ends-with (pe/user-get-filename) "/")
+                        (pe/tab)
+                      (pe/return))) ;; 'pe/return
+              (kbd "<return>") 'pe/return
               "s" (lambda ()
                     (interactive)
                     (setq w (next-window))
@@ -48,7 +52,9 @@
                                (make-directory path)
                              (write-region "" nil path))
                          (message "Can't create directory in a file"))))
-	      "mc" 'pe/copy-file)
+              "mc" 'pe/copy-file
+              "md" 'pe/delete-file
+              "mm" 'pe/rename-file)
             project-explorer-mode-map))
 
 (add-hook 'project-explorer-mode-hook 'nerdtree-project-explorer-mode)

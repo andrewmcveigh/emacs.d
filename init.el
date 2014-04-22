@@ -26,6 +26,7 @@
     evil-paredit
     solarized-theme
     parenface-plus
+    helm
     ;; Clojure
     ;clojure-cheatsheet
     ac-nrepl
@@ -111,9 +112,9 @@ return.")
 ;(define-key cider-repl-mode-map (kbd "C-<down>") 'next-line)
 
 (add-to-list 'load-path user-emacs-directory)
-(require 'init-settings)
 (require 'init-functions)
 (require 'init-evil)
 (require 'nerdtree-project-explorer)
+(require 'init-settings)
 (require 'clojure-accents)
 ;; (require 'longlines)
