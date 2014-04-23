@@ -70,7 +70,7 @@
                                       nt/all-files-cmd))
                        (progn (setq pe/get-directory-tree-external-command
                                     nt/gitignore-files-cmd)))
-                     (refresh))
+                     (nt/refresh))
               "I" (lambda ()
                     (interactive)
                     (if pe/omit-enabled

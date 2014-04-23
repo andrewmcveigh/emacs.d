@@ -97,7 +97,8 @@ loaded."
 (defun accent/evil-leader-keys ()
   (evil-leader/set-key "ns" 'cider-set-ns
     "ef" 'accent/cider-load-file-buffer
-    "ee" 'cider-eval-expression-at-point
+    ;; "ef" 'cider-load-current-buffer
+    "ee" 'cider-eval-defun-at-point
     "gd" 'cider-jump))
 
 (defun accent/set-repl-accent (accent)
