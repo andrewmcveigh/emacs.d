@@ -26,6 +26,20 @@
                             (current-buffer)
                             'refresh)))
 
+(defun nt/balance-windows ()
+  (interactive)
+  (let* ((project-explorer-buffers (pe/get-project-explorer-buffers))
+         (window (cl-find-if
+                  (lambda (window)
+                    (and (memq (window-buffer window) project-explorer-buffers)
+                         (window-parameter window 'window-side)))
+                  (window-list))))
+    (when window
+      (es-set-window-body-width window pe/width)))
+  (balance-windows-area))
+
+(define-key evil-window-map "=" 'nt/balance-windows)
+
 (define-minor-mode nerdtree-project-explorer-mode
   "Use NERDTree bindings on project-explorer."
   :lighter " NT"
