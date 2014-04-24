@@ -28,6 +28,7 @@
 
 (defun nt/balance-windows ()
   (interactive)
+  (balance-windows-area)
   (let* ((project-explorer-buffers (pe/get-project-explorer-buffers))
          (window (cl-find-if
                   (lambda (window)
@@ -35,8 +36,7 @@
                          (window-parameter window 'window-side)))
                   (window-list))))
     (when window
-      (es-set-window-body-width window pe/width)))
-  (balance-windows-area))
+      (es-set-window-body-width window pe/width))))
 
 (define-key evil-window-map "=" 'nt/balance-windows)
 
