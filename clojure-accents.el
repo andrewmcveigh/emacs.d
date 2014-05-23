@@ -46,10 +46,11 @@ loaded."
 
 (defun accent/cider-load-file-buffer (&optional p)
   (interactive "P")
-  (accent/cider-send-load-file (buffer-substring-no-properties (point-min)
-                                                               (point-max))
-                               (plist-get buffer-meta 'filename)
-                               (plist-get buffer-meta 'name)))
+  (accent/cider-send-load-file
+   (buffer-substring-no-properties (point-min)
+                                   (point-max))
+   (plist-get buffer-meta 'filename)
+   (plist-get buffer-meta 'name)))
 
 (defun accent/nrepl-send-string (input callback &optional ns session)
   "Send the request INPUT and register the CALLBACK as the response handler.
@@ -94,10 +95,22 @@ loaded."
               ((string-match "\.cljx$" file)
                (setq buffer-meta (plist-put buffer-meta 'filetype "cljx"))))))))
 
+(defun accent/cider-pprint-load-current-buffer ()
+  "Evaluate the current top-level form at point and pprint its value in a popup buffer."
+  (interactive)
+  (let ((form (cider-defun-at-point))
+        (result-buffer (cider-popup-buffer cider-result-buffer nil)))
+    (cider-tooling-eval (cider-format-pprint-eval form)
+                        (cider-popup-eval-out-handler result-buffer)
+                        (cider-current-ns))))
+
+(setq cider-prompt-save-file-on-load nil)
+
 (defun accent/evil-leader-keys ()
-  (evil-leader/set-key "ns" 'cider-set-ns
-    "ef" 'accent/cider-load-file-buffer
-    ;; "ef" 'cider-load-current-buffer
+  (evil-leader/set-key
+    "ns" 'cider-repl-set-ns
+    ;; "ef" 'accent/cider-load-file-buffer
+    "ef" 'cider-load-current-buffer
     "ee" 'cider-eval-defun-at-point
     "gd" 'cider-jump))
 
@@ -136,7 +149,7 @@ loaded."
   (evil-paredit-mode))
 
 (defun cider-mode-setup ()
-  (ac-nrepl-setup)
+  ;; (ac-nrepl-setup)
   (evil-pparedit-mode))
 
 (add-hook 'clojure-mode-hook 'clojure-accents-mode)

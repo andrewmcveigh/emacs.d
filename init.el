@@ -60,7 +60,7 @@
   (evil-paredit-mode))
 
 (defun cider-mode-setup ()
-  (ac-nrepl-setup)
+  ;; (ac-nrepl-setup)
   (evil-pparedit-mode))
 
 ;;; Configure CIDER
