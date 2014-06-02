@@ -7,7 +7,10 @@
 (global-linum-mode 1)
 (column-number-mode 1)
 
-(global-whitespace-mode +1)
+(setq require-final-newline nil)
+(setq mode-require-final-newline nil)
+;; (global-whitespace-mode +1)
+(global-ethan-wspace-mode 1)
 
 ;;; Set font
 (set-face-attribute 'default nil :font "Monaco")
@@ -23,13 +26,11 @@
 (setq scroll-bar-mode nil)
 (scroll-bar-mode -1)
 
-(setq whitespace-line-column 80)
-(setq whitespace-style
-      '(face lines spaces tabs newline space-mark tab-mark newline-mark))
+;; (setq whitespace-line-column 80)
+;; (setq whitespace-style
+;;       '(face lines spaces tabs newline space-mark tab-mark newline-mark))
 
-(setq whitespace-empty nil)
-
-
+;; (setq whitespace-empty t)
 (setq ac-ignore-case nil)
 (setq-default indent-tabs-mode nil)
 

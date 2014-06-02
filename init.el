@@ -33,6 +33,9 @@
     cider
     clojure-mode
     project-explorer
+
+    fill-column-indicator
+    ethan-wspace
     )
   "My packages to install.")
 
@@ -45,10 +48,16 @@
 (require 'clojure-mode)
 (require 'project-explorer)
 (require 'ac-nrepl)
+(require 'ethan-wspace)
+(require 'fill-column-indicator)
 
 ;; Use auto-complete as completion at point
 (defun set-auto-complete-as-completion-at-point-function ()
   (setq completion-at-point-functions '(auto-complete)))
+
+(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(global-fci-mode 1)
+(setq fci-rule-column 80)
 
 (add-hook 'auto-complete-mode-hook
           'set-auto-complete-as-completion-at-point-function)
