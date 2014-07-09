@@ -35,7 +35,6 @@
     project-explorer
 
     fill-column-indicator
-    ethan-wspace
     )
   "My packages to install.")
 
@@ -48,7 +47,6 @@
 (require 'clojure-mode)
 (require 'project-explorer)
 (require 'ac-nrepl)
-(require 'ethan-wspace)
 (require 'fill-column-indicator)
 
 ;; Use auto-complete as completion at point

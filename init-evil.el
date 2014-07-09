@@ -49,6 +49,17 @@
 ;;; visual mode
 (define-key evil-visual-state-map (kbd "W") 'paredit-wrap-round)
 
+(evil-define-key 'normal evil-paredit-mode-map
+  (kbd "d") 'evil-paredit-delete
+  (kbd "c") 'evil-paredit-change
+  (kbd "y") 'evil-paredit-yank
+  (kbd "D") 'evil-paredit-delete-line
+  (kbd "C") 'evil-paredit-change-line
+  (kbd "S") 'paredit-splice-sexp
+  (kbd "Y") 'evil-paredit-yank-line
+  (kbd "X") 'paredit-backward-delete
+  (kbd "x") 'paredit-forward-delete)
+
 ;;; evil leader mappings
 (evil-leader/set-leader ",")
 (evil-leader/set-key

@@ -7,10 +7,9 @@
 (global-linum-mode 1)
 (column-number-mode 1)
 
-(setq require-final-newline nil)
-(setq mode-require-final-newline nil)
+;; (setq require-final-newline nil)
+(setq mode-require-final-newline t)
 ;; (global-whitespace-mode +1)
-(global-ethan-wspace-mode 1)
 
 ;;; Set font
 (set-face-attribute 'default nil :font "Monaco")
