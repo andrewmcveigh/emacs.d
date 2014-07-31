@@ -33,4 +33,7 @@
 (setq ac-ignore-case nil)
 (setq-default indent-tabs-mode nil)
 
+(add-to-list 'auto-mode-alist '("\\.vm\\'" . html-mode))
+(add-hook 'html-mode-hook (lambda () (vtl-mode 1)))
+
 (provide 'init-settings)
