@@ -42,6 +42,7 @@
   (unless (package-installed-p p)
     (package-install p)))
 
+(require 'cider)
 (require 'paredit)
 (require 'parenface-plus)
 (require 'clojure-mode)

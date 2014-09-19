@@ -1,3 +1,0 @@
-[submodule "cider"]
-	path = cider
-	url = https://github.com/clojure-emacs/cider.git
