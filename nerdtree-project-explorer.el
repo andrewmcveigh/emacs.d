@@ -1,6 +1,7 @@
 (require 'project-explorer)
 (require 'evil)
 
+;;; /usr/local/bin/gfind . \( ! -path '*/.*' \) \( -type d -printf "%p/\\n" , -type f -print \) | grep -v -f ./.gitignore | grep -v '.git/'
 (defvar nt/gitignore-files-cmd
   "/usr/local/bin/gfind . \\( ! -path '*/.*' \\) \\( -type d -printf \"%p/\\n\" , -type f -print \\) | grep -v -f ./.gitignore | grep -v '.git/'")
 

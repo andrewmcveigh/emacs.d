@@ -112,7 +112,7 @@ loaded."
     "ef" 'accent/cider-load-file-buffer
     ;; "ef" 'cider-load-current-buffer
     "ee" 'cider-eval-defun-at-point
-    "gd" 'cider-jump))
+    "gd" 'cider-jump-to-var))
 
 (defun accent/set-repl-accent (accent)
   (setq buffer-meta (plist-put buffer-meta 'filetype accent)))
@@ -154,5 +154,7 @@ loaded."
 
 (add-hook 'clojure-mode-hook 'clojure-accents-mode)
 (add-hook 'cider-repl-mode-hook 'clojure-accents-mode)
+
+(put 'defcomponent 'clojure-backtracking-indent '(4 4 (2)))
 
 (provide 'clojure-accents)
