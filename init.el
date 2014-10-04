@@ -12,10 +12,12 @@
 
 ;; ... and melpa. Melpa packages that exist on marmalade will have
 ;; precendence.
+(add-to-list 'package-archives '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-;;
+(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+
 ;; And load things!
-;; (package-refresh-contents) ;; Uncomment if refresh needed E.G., on first use.
+;;(package-refresh-contents) ;; Uncomment if refresh needed E.G., on first use.
 (package-initialize)
 
 (defvar my-packages
@@ -32,7 +34,8 @@
     ac-nrepl
     cider
     clojure-mode
-    project-explorer
+    ;;project-explorer
+    neotree
 
     fill-column-indicator
     )
@@ -46,7 +49,8 @@
 (require 'paredit)
 (require 'parenface-plus)
 (require 'clojure-mode)
-(require 'project-explorer)
+(require 'neotree)
+;;(require 'project-explorer)
 (require 'ac-nrepl)
 (require 'fill-column-indicator)
 
@@ -119,10 +123,11 @@ return.")
 ;(define-key cider-repl-mode-map (kbd "C-<up>") 'previous-line)
 ;(define-key cider-repl-mode-map (kbd "C-<down>") 'next-line)
 
-(add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'init-functions)
 (require 'init-evil)
-(require 'nerdtree-project-explorer)
+;;(require 'nerdtree-project-explorer)
+(require 'neotree-evil)
 (require 'init-settings)
 (require 'clojure-accents)
 (require 'vtl)

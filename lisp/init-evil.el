@@ -63,7 +63,7 @@
 ;;; evil leader mappings
 (evil-leader/set-leader ",")
 (evil-leader/set-key
-  "nt" 'project-explorer-open
+  "nt" 'neotree-toggle
   "w[" 'paredit-wrap-square
   "w{" 'paredit-wrap-curly
   "w\"" (lambda ()
