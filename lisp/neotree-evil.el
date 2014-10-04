@@ -30,4 +30,7 @@
     map)
   "Keymap for `neotree-mode'.")
 
+(setq neo-hidden-files-regexp "^\\.")
+(setq neo-keymap-style 'concise)
+
 (provide 'neotree-evil)
