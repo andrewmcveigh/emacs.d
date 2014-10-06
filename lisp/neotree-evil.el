@@ -22,19 +22,10 @@
                     (setq w (next-window))
                     (split-window w nil)
                     (neotree-enter))
-              "ma" (lambda ()
-                     (interactive)
-                     (let* ((file (read-from-minibuffer "Create (directories end with /): "))
-                            (dir (pe/get-filename))
-                            (path (mapconcat 'identity `(,dir ,file) "")))
-                       (if (string/ends-with dir "/")
-                           (if (string/ends-with file "/")
-                               (make-directory path)
-                             (write-region "" nil path))
-                         (message "Can't create directory in a file"))))
-              "mc" 'pe/copy-file
-              "md" 'pe/delete-file
-              "mm" 'pe/rename-file
+              "ma" 'neotree-create-node
+              ;; "mc" 'pe/copy-file
+              "md" 'neotree-delete-node
+              "mm" 'neotree-rename-node
               "gi" (lambda ()
                      (interactive)
                      (if (string= pe/get-directory-tree-external-command
@@ -55,6 +46,6 @@
                              (pe/toggle-omit t)))))
             neotree-mode-map))
 
-(setq neo-hidden-files-regexp "^\\.")
+(setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$")
 
 (provide 'neotree-evil)
