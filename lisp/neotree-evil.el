@@ -26,6 +26,7 @@
               ;; "mc" 'pe/copy-file
               "md" 'neotree-delete-node
               "mm" 'neotree-rename-node
+              "gg" 'evil-goto-first-line
               "gi" (lambda ()
                      (interactive)
                      (if (string= pe/get-directory-tree-external-command
