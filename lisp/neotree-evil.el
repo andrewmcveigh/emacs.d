@@ -1,36 +1,60 @@
-(defvar neotree-mode-map
-  (let ((map (make-sparse-keymap)))
-    ;; (define-key map (kbd "SPC") 'neotree-enter)
-    ;; (define-key map (kbd "TAB") 'neotree-enter)
-    (define-key map (kbd "RET") 'neotree-enter)
-    (define-key map (kbd "o") '(lambda () (forward-word) (neotree-enter)))
-    (define-key map (kbd "g") 'neotree-refresh)
-    (define-key map (kbd "p") 'previous-line)
-    (define-key map (kbd "n") 'next-line)
-    (define-key map (kbd "A") 'neotree-stretch-toggle)
-    (define-key map (kbd "H") 'neotree-hidden-file-toggle)
-    (define-key map (kbd "q") 'neotree-hide)
-    (define-key map (kbd "C-x C-f") 'find-file-other-window)
-    (define-key map (kbd "C-x 1") 'neotree-empty-fn)
-    (define-key map (kbd "C-x 2") 'neotree-empty-fn)
-    (define-key map (kbd "C-x 3") 'neotree-empty-fn)
-    (define-key map (kbd "C-c C-f") 'find-file-other-window)
-    (define-key map (kbd "C-c C-c") 'neotree-change-root)
-    (cond
-     ((eq neo-keymap-style 'default)
-      (define-key map (kbd "C-c C-n") 'neotree-create-node)
-      (define-key map (kbd "C-c C-d") 'neotree-delete-node)
-      (define-key map (kbd "C-c C-r") 'neotree-rename-node))
-     ((eq neo-keymap-style 'concise)
-      (define-key map (kbd "c") 'neotree-create-node)
-      (define-key map (kbd "+") 'neotree-create-node)
-      (define-key map (kbd "d") 'neotree-delete-node)
-      (define-key map (kbd "r") 'neotree-rename-node)
-      (define-key map (kbd "e") 'neotree-enter)))
-    map)
-  "Keymap for `neotree-mode'.")
+(require 'neotree)
+(require 'evil)
+
+(define-minor-mode neotree-evil
+  "Use NERDTree bindings on neotree."
+  :lighter " NT"
+  :keymap (progn
+            (evil-make-overriding-map neotree-mode-map 'normal t)
+            (evil-define-key 'normal neotree-mode-map
+              "r" 'neotree-refresh
+              "o" (lambda ()
+                    (interactive)
+                    (neotree-enter))
+              (kbd "<return>") 'neotree-enter
+              "s" (lambda ()
+                    (interactive)
+                    (setq w (next-window))
+                    (split-window w nil t)
+                    (neotree-enter))
+              "i" (lambda ()
+                    (interactive)
+                    (setq w (next-window))
+                    (split-window w nil)
+                    (neotree-enter))
+              "ma" (lambda ()
+                     (interactive)
+                     (let* ((file (read-from-minibuffer "Create (directories end with /): "))
+                            (dir (pe/get-filename))
+                            (path (mapconcat 'identity `(,dir ,file) "")))
+                       (if (string/ends-with dir "/")
+                           (if (string/ends-with file "/")
+                               (make-directory path)
+                             (write-region "" nil path))
+                         (message "Can't create directory in a file"))))
+              "mc" 'pe/copy-file
+              "md" 'pe/delete-file
+              "mm" 'pe/rename-file
+              "gi" (lambda ()
+                     (interactive)
+                     (if (string= pe/get-directory-tree-external-command
+                                  nt/gitignore-files-cmd)
+                         (progn (setq pe/get-directory-tree-external-command
+                                      nt/all-files-cmd))
+                       (progn (setq pe/get-directory-tree-external-command
+                                    nt/gitignore-files-cmd)))
+                     (nt/refresh))
+              "I" (lambda ()
+                    (interactive)
+                    (if pe/omit-enabled
+                        (progn (setq pe/directory-tree-function
+                                     'pe/get-directory-tree-async)
+                               (pe/toggle-omit nil))
+                      (progn (setq pe/directory-tree-function
+                                   'pe/get-directory-tree-external)
+                             (pe/toggle-omit t)))))
+            neotree-mode-map))
 
 (setq neo-hidden-files-regexp "^\\.")
-(setq neo-keymap-style 'concise)
 
 (provide 'neotree-evil)
