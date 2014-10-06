@@ -46,6 +46,6 @@
                              (pe/toggle-omit t)))))
             neotree-mode-map))
 
-(setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$")
+(setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$\\|^target\\|^pom\\.*")
 
 (provide 'neotree-evil)
