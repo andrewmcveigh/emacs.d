@@ -17,7 +17,7 @@
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 
 ;; And load things!
-;;(package-refresh-contents) ;; Uncomment if refresh needed E.G., on first use.
+;; (package-refresh-contents) ;; Uncomment if refresh needed E.G., on first use.
 (package-initialize)
 
 (defvar my-packages

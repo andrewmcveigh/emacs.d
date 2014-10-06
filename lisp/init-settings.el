@@ -2,7 +2,9 @@
 (tool-bar-mode -1)
 (set-frame-position (selected-frame) 0 0)
 ;;; Set fullscreen 27"
-(setq default-frame-alist '((width . 191) (height . 45)))
+;; (setq default-frame-alist '((width . 191) (height . 45)))
+
+(add-hook 'after-init-hook 'toggle-frame-maximized)
 
 ;;; display line numbers in margin, col nums at bottom.
 (global-linum-mode 1)
