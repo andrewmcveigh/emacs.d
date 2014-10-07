@@ -84,4 +84,6 @@
                                (interactive)
                                (evil-window-increase-width 3)))
 
+(define-key evil-window-map "=" 'balance-windows-area)
+
 (provide 'init-evil)
