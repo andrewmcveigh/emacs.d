@@ -39,4 +39,8 @@
 (add-to-list 'auto-mode-alist '("\\.vm\\'" . html-mode))
 (add-hook 'html-mode-hook (lambda () (vtl-mode 1)))
 
+(setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
+
+(setq org-time-clocksum-use-effort-durations t)
+
 (provide 'init-settings)
