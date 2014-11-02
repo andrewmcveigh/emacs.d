@@ -29,14 +29,11 @@
     solarized-theme
     parenface-plus
     helm
+    company
     ;; Clojure
-    ;clojure-cheatsheet
-    ac-nrepl
     cider
     clojure-mode
-    ;;project-explorer
     neotree
-
     fill-column-indicator
     )
   "My packages to install.")
@@ -45,13 +42,12 @@
   (unless (package-installed-p p)
     (package-install p)))
 
+(require 'company)
 (require 'cider)
 (require 'paredit)
 (require 'parenface-plus)
 (require 'clojure-mode)
 (require 'neotree)
-;;(require 'project-explorer)
-(require 'ac-nrepl)
 (require 'fill-column-indicator)
 
 ;; Use auto-complete as completion at point
@@ -78,6 +74,8 @@
 ;;; Configure CIDER
 (add-hook 'cider-repl-mode-hook 'cider-mode-setup)
 (add-hook 'clojure-mode-hook 'cider-mode-setup)
+(setq cider-repl-display-in-current-window t)
+(setq cider-repl-use-clojure-font-lock t)
 
 ;(add-hook 'cider-interaction-mode-hook 'cider-mode-setup)
 (eval-after-load "auto-complete"
@@ -89,7 +87,8 @@
 ;; eldoc in clojure
 (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
 
-(global-auto-complete-mode)
+(add-hook 'cider-repl-mode-hook 'company-mode)
+(add-hook 'cider-mode-hook 'company-mode)
 
 ;; Cider... don't annoy me
 (setq cider-hide-special-buffers t)
@@ -126,9 +125,7 @@ return.")
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'init-functions)
 (require 'init-evil)
-;;(require 'nerdtree-project-explorer)
 (require 'neotree-evil)
 (require 'init-settings)
 (require 'clojure-accents)
 (require 'vtl)
-;; (require 'longlines)
