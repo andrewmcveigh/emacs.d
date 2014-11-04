@@ -15,6 +15,7 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(markdown-mode . "melpa-stable") t)
 
 ;; And load things!
 ;; (package-refresh-contents) ;; Uncomment if refresh needed E.G., on first use.
@@ -30,6 +31,7 @@
     parenface-plus
     helm
     company
+    markdown-mode
     ;; Clojure
     cider
     clojure-mode
@@ -49,8 +51,10 @@
 (require 'clojure-mode)
 (require 'neotree)
 (require 'fill-column-indicator)
+(require 'markdown-mode)
 
 (add-hook 'after-init-hook 'global-company-mode)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;; Use auto-complete as completion at point
 (defun set-auto-complete-as-completion-at-point-function ()
