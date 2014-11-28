@@ -35,7 +35,7 @@
 ;;; Backspace jump % normal
 (define-key evil-normal-state-map (kbd "\d") 'evil-jump-item)
 
-(define-key evil-normal-state-map (kbd "K") 'ac-nrepl-popup-doc)
+(define-key evil-normal-state-map (kbd "K") 'cider-doc)
 
 (define-key evil-normal-state-map (kbd "<left>") 'evil-window-left)
 (define-key evil-normal-state-map (kbd "<right>") 'evil-window-right)
