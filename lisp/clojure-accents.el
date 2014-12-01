@@ -109,9 +109,16 @@ loaded."
 (defun accent/evil-leader-keys ()
   (evil-leader/set-key
     "ns" 'cider-repl-set-ns
-    "ef" 'accent/cider-load-file-buffer
-    ;; "ef" 'cider-load-current-buffer
+    "ef" 'cider-load-buffer
     "ee" 'cider-eval-defun-at-point
+    "ei" (lambda ()
+           (interactive)
+           (evil-jump-item)
+           (evil-visual-char)
+           (evil-jump-item)
+           (cider-eval-last-sexp-and-replace))
+    "je" 'cider-jump-to-compilation-error
+    "jb" 'cider-visit-error-buffer
     "gd" 'cider-jump-to-var))
 
 (defun accent/set-repl-accent (accent)
