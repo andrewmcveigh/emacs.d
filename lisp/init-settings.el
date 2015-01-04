@@ -10,9 +10,6 @@
 (global-linum-mode 1)
 (column-number-mode 1)
 
-;; (setq require-final-newline nil)
-(setq mode-require-final-newline t)
-;; (global-whitespace-mode +1)
 
 ;;; Set font
 (set-face-attribute 'default nil :font "Monaco")
@@ -28,11 +25,14 @@
 (setq scroll-bar-mode nil)
 (scroll-bar-mode -1)
 
-;; (setq whitespace-line-column 80)
-;; (setq whitespace-style
-;;       '(face lines spaces tabs newline space-mark tab-mark newline-mark))
+(setq require-final-newline nil)
+;; (setq mode-require-final-newline t)
+(global-whitespace-mode +1)
+(setq whitespace-line-column 80)
+(setq whitespace-style
+      '(face lines-tail spaces tabs newline space-mark tab-mark newline-mark))
+(setq whitespace-empty t)
 
-;; (setq whitespace-empty t)
 (setq ac-ignore-case nil)
 (setq-default indent-tabs-mode nil)
 
@@ -42,5 +42,16 @@
 (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
 
 (setq org-time-clocksum-use-effort-durations t)
+
+(defun indent-or-complete ()
+  (interactive)
+  (if (minibufferp)
+      (minibuffer-complete)
+    (if (and (looking-at "\\_>"))
+        (company-complete-common)
+      (indent-according-to-mode))))
+
+(global-set-key [tab] 'indent-or-complete)
+(setq company-idle-delay 0.2)
 
 (provide 'init-settings)
