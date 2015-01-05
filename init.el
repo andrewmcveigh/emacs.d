@@ -32,6 +32,7 @@
     helm
     company
     markdown-mode
+    linum-relative
     ;; Clojure
     cider
     clojure-mode
@@ -50,6 +51,7 @@
 (require 'clojure-mode)
 (require 'neotree)
 (require 'markdown-mode)
+(require 'linum-relative)
 
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
