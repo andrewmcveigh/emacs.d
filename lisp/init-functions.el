@@ -10,4 +10,20 @@
   (set-frame-size (selected-frame) 148 135)
   (set-frame-position (selected-frame) 2562 -63))
 
+(defun cider-repl-stop-go ()
+  (interactive)
+  (save-some-buffers)
+  (with-current-buffer (cider-current-repl-buffer)
+    (goto-char (point-max))
+    (insert "(user/stop) (user/go)")
+    (cider-repl-return)))
+
+(defun cider-repl-reset ()
+  (interactive)
+  (save-some-buffers)
+  (with-current-buffer (cider-current-repl-buffer)
+    (goto-char (point-max))
+    (insert "(user/reset)")
+    (cider-repl-return)))
+
 (provide 'init-functions)
