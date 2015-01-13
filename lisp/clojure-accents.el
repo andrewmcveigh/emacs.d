@@ -163,5 +163,6 @@ loaded."
 (add-hook 'cider-repl-mode-hook 'clojure-accents-mode)
 
 (put 'defcomponent 'clojure-backtracking-indent '(4 4 (2)))
+(put 'task-fn 'clojure-backtracking-indent '((2) 2))
 
 (provide 'clojure-accents)
