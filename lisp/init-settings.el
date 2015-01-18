@@ -1,3 +1,4 @@
+(setq ring-bell-function #'ignore)
 (setq ns-use-srgb-colorspace t)
 (tool-bar-mode -1)
 (set-frame-position (selected-frame) 0 0)
