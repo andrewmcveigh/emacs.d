@@ -22,6 +22,8 @@
                     (setq w (next-window))
                     (split-window w nil)
                     (neotree-enter))
+              "n" 'evil-search-next
+              "N" 'evil-search-next
               "ma" 'neotree-create-node
               ;; "mc" 'pe/copy-file
               "md" 'neotree-delete-node
