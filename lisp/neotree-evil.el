@@ -23,7 +23,7 @@
                     (split-window w nil)
                     (neotree-enter))
               "n" 'evil-search-next
-              "N" 'evil-search-next
+              "N" 'evil-search-previous
               "ma" 'neotree-create-node
               ;; "mc" 'pe/copy-file
               "md" 'neotree-delete-node
