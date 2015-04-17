@@ -1,5 +1,18 @@
 (require 'neotree)
 (require 'evil)
+(require 'dired)
+
+(defun neotree-copy-file ()
+  (interactive)
+  (let* ((current-path (neo-buffer--get-filename-current-line))
+         (msg (format "Copy [%s] to: "
+                      (neo-path--file-short-name current-path)))
+         (to-path (read-file-name msg (file-name-directory current-path))))
+    (dired-copy-file current-path to-path t))
+  (neo-buffer--refresh t))
+
+(defun neotree-open (&optional arg)
+  (neo-buffer--executor arg 'neo-open-file 'neo-open-dir))
 
 (define-minor-mode neotree-evil
   "Use NERDTree bindings on neotree."
@@ -10,22 +23,22 @@
               "r" 'neotree-refresh
               "o" (lambda ()
                     (interactive)
-                    (neotree-enter))
-              (kbd "<return>") 'neotree-enter
+                    (neotree-open))
+              (kbd "<return>") 'neotree-open
               "s" (lambda ()
                     (interactive)
                     (setq w (next-window))
                     (split-window w nil t)
-                    (neotree-enter))
+                    (neotree-open))
               "i" (lambda ()
                     (interactive)
                     (setq w (next-window))
                     (split-window w nil)
-                    (neotree-enter))
+                    (neotree-open))
               "n" 'evil-search-next
               "N" 'evil-search-previous
               "ma" 'neotree-create-node
-              ;; "mc" 'pe/copy-file
+              "mc" 'neotree-copy-file
               "md" 'neotree-delete-node
               "mm" 'neotree-rename-node
               "gg" 'evil-goto-first-line
