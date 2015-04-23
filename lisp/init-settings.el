@@ -1,6 +1,7 @@
 (setq ring-bell-function #'ignore)
 (add-to-list 'exec-path "$HOME/bin")
 (setq ns-use-srgb-colorspace t)
+(setq julia-basic-repl-path "$HOME/bin/julia")
 (tool-bar-mode -1)
 (set-frame-position (selected-frame) 0 0)
 ;;; Set fullscreen 27"

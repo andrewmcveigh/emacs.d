@@ -80,10 +80,14 @@
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()
                                (interactive)
-                               (evil-window-decrease-width 3)))
+                               (neo-buffer--unlock-width)
+                               (evil-window-decrease-width 3)
+                               (neo-buffer--lock-width)))
 (global-set-key (kbd "s-\>") (lambda ()
                                (interactive)
-                               (evil-window-increase-width 3)))
+                               (neo-buffer--unlock-width)
+                               (evil-window-increase-width 3)
+                               (neo-buffer--lock-width)))
 
 (define-key evil-window-map "=" 'balance-windows-area)
 

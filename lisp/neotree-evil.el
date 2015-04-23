@@ -11,9 +11,6 @@
     (dired-copy-file current-path to-path t))
   (neo-buffer--refresh t))
 
-(defun neotree-open (&optional arg)
-  (neo-buffer--executor arg 'neo-open-file 'neo-open-dir))
-
 (define-minor-mode neotree-evil
   "Use NERDTree bindings on neotree."
   :lighter " NT"
@@ -21,20 +18,10 @@
             (evil-make-overriding-map neotree-mode-map 'normal t)
             (evil-define-key 'normal neotree-mode-map
               "r" 'neotree-refresh
-              "o" (lambda ()
-                    (interactive)
-                    (neotree-open))
-              (kbd "<return>") 'neotree-open
-              "s" (lambda ()
-                    (interactive)
-                    (setq w (next-window))
-                    (split-window w nil t)
-                    (neotree-open))
-              "i" (lambda ()
-                    (interactive)
-                    (setq w (next-window))
-                    (split-window w nil)
-                    (neotree-open))
+              "o" 'neotree-enter
+              (kbd "<return>") 'neotree-enter
+              "i" 'neotree-enter-horizontal-split
+              "s" 'neotree-enter-vertical-split
               "n" 'evil-search-next
               "N" 'evil-search-previous
               "ma" 'neotree-create-node
