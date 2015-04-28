@@ -44,14 +44,6 @@ loaded."
                    "file-name" file-name))
      (cider-load-file-handler buffer))))
 
-(defun accent/cider-load-file-buffer (&optional p)
-  (interactive "P")
-  (accent/cider-send-load-file
-   (buffer-substring-no-properties (point-min)
-                                   (point-max))
-   (plist-get buffer-meta 'filename)
-   (plist-get buffer-meta 'name)))
-
 (defun accent/nrepl-send-string (input callback &optional ns session)
   "Send the request INPUT and register the CALLBACK as the response handler.
 See command `nrepl-eval-request' for details on how NS and SESSION are processed."
@@ -117,6 +109,7 @@ loaded."
            (evil-visual-char)
            (evil-jump-item)
            (cider-eval-last-sexp-and-replace))
+    "er" 'cider-eval-last-sexp-and-replace
     "je" 'cider-jump-to-compilation-error
     "jb" 'cider-visit-error-buffer
     "gd" 'cider-jump-to-var))

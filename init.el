@@ -37,6 +37,9 @@
     cider
     clojure-mode
     neotree
+    rainbow-mode
+    projectile
+    helm-projectile
     )
   "My packages to install.")
 
@@ -52,6 +55,8 @@
 (require 'neotree)
 (require 'markdown-mode)
 (require 'linum-relative)
+(require 'rainbow-mode)
+(require 'projectile)
 
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))

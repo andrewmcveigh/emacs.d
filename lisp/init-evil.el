@@ -25,7 +25,7 @@
                                                 (evil-scroll-line-to-center
                                                  (line-number-at-pos))))
 
-(define-key evil-normal-state-map (kbd "C-p") 'helm-for-files)
+(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
 
 (define-key evil-normal-state-map (kbd "<") 'paredit-backward-barf-sexp)
 (define-key evil-normal-state-map (kbd ">") 'paredit-forward-barf-sexp)
@@ -36,11 +36,6 @@
 (define-key evil-normal-state-map (kbd "\d") 'evil-jump-item)
 
 (define-key evil-normal-state-map (kbd "K") 'cider-doc)
-
-(define-key evil-normal-state-map (kbd "<left>") 'evil-window-left)
-(define-key evil-normal-state-map (kbd "<right>") 'evil-window-right)
-(define-key evil-normal-state-map (kbd "<up>") 'evil-window-up)
-(define-key evil-normal-state-map (kbd "<down>") 'evil-window-down)
 
 ;;; motions
 ;;; Backspace jump % motion
@@ -61,7 +56,7 @@
   (kbd "x") 'paredit-forward-delete)
 
 ;;; evil leader mappings
-(evil-leader/set-leader ",")
+(evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
   "c=" 'delete-trailing-whitespace
   "nt" 'neotree-toggle
@@ -75,7 +70,12 @@
   "cl" (lambda ()
          (interactive)
          (comment-or-uncomment-region (line-beginning-position)
-                                      (line-end-position))))
+                                      (line-end-position)))
+  "c<SPC>" (lambda ()
+             (interactive)
+             (comment-or-uncomment-region (line-beginning-position)
+                                          (line-end-position)))
+  "pf" 'helm-projectile-find-file)
 
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()
