@@ -57,6 +57,7 @@
 (require 'linum-relative)
 (require 'rainbow-mode)
 (require 'projectile)
+(require 'helm-projectile)
 
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))

@@ -1,4 +1,15 @@
 (setq ring-bell-function #'ignore)
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; (defun change-dir (dir)
+;;   ""
+;;   (interactive "dir")
+;;   (message "prefix %S" dir)
+;;   ;(neo-global--open-dir dir)
+  )
+
+;; (defalias 'cd 'change-dir)
+(defalias 'ncd 'neotree-dir)
 (add-to-list 'exec-path "$HOME/bin")
 (setq ns-use-srgb-colorspace t)
 (setq julia-basic-repl-path "$HOME/bin/julia")

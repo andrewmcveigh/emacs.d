@@ -1,4 +1,4 @@
-(require 'evil)
+
 (require 'evil-leader)
 (require 'evil-paredit)
 
@@ -31,6 +31,11 @@
 (define-key evil-normal-state-map (kbd ">") 'paredit-forward-barf-sexp)
 (define-key evil-normal-state-map (kbd "S") 'paredit-splice-sexp)
 (define-key evil-normal-state-map (kbd "W") 'paredit-wrap-round)
+
+(define-key evil-normal-state-map (kbd "<left>") 'evil-window-left)
+(define-key evil-normal-state-map (kbd "<right>") 'evil-window-right)
+(define-key evil-normal-state-map (kbd "<up>") 'evil-window-up)
+(define-key evil-normal-state-map (kbd "<down>") 'evil-window-down)
 
 ;;; Backspace jump % normal
 (define-key evil-normal-state-map (kbd "\d") 'evil-jump-item)
