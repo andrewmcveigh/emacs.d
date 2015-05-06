@@ -40,6 +40,11 @@
     rainbow-mode
     projectile
     helm-projectile
+    golden-ratio
+    powerline
+    powerline-evil
+    diminish
+    clj-refactor
     )
   "My packages to install.")
 
@@ -58,9 +63,18 @@
 (require 'rainbow-mode)
 (require 'projectile)
 (require 'helm-projectile)
+(require 'golden-ratio)
+(require 'powerline)
+(require 'powerline-evil)
+(require 'diminish)
+(require 'clj-refactor)
 
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(add-hook 'clojure-mode-hook (lambda ()
+                               (clj-refactor-mode 1)
+                               ;; insert keybinding setup here
+                               ))
 
 ;; Use auto-complete as completion at point
 (defun set-auto-complete-as-completion-at-point-function ()

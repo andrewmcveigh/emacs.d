@@ -32,10 +32,10 @@
 (define-key evil-normal-state-map (kbd "S") 'paredit-splice-sexp)
 (define-key evil-normal-state-map (kbd "W") 'paredit-wrap-round)
 
-(define-key evil-normal-state-map (kbd "<left>") 'evil-window-left)
-(define-key evil-normal-state-map (kbd "<right>") 'evil-window-right)
-(define-key evil-normal-state-map (kbd "<up>") 'evil-window-up)
-(define-key evil-normal-state-map (kbd "<down>") 'evil-window-down)
+(define-key evil-normal-state-map (kbd "<left>") 'windmove-left)
+(define-key evil-normal-state-map (kbd "<right>") 'windmove-right)
+(define-key evil-normal-state-map (kbd "<up>") 'windmove-up)
+(define-key evil-normal-state-map (kbd "<down>") 'windmove-down)
 
 ;;; Backspace jump % normal
 (define-key evil-normal-state-map (kbd "\d") 'evil-jump-item)

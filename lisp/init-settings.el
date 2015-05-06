@@ -1,23 +1,25 @@
 (setq ring-bell-function #'ignore)
+(add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
+(add-to-list 'golden-ratio-exclude-modes "cider-repl-mode")
+(golden-ratio-mode 1)
+(powerline-default-theme)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; (defun change-dir (dir)
-;;   ""
-;;   (interactive "dir")
-;;   (message "prefix %S" dir)
-;;   ;(neo-global--open-dir dir)
-  )
+(defun cd-energy (dir)
+  (interactive (list
+                (progn (cd "~/Projects/uswitch/energy")
+                       (read-file-name "Open energy dir:"))) )
+  (message "prefix %S" dir)
+  (cd dir)
+  (neo-global--open-dir dir))
 
-;; (defalias 'cd 'change-dir)
+(defalias 'ecd 'cd-energy)
 (defalias 'ncd 'neotree-dir)
 (add-to-list 'exec-path "$HOME/bin")
 (setq ns-use-srgb-colorspace t)
 (setq julia-basic-repl-path "$HOME/bin/julia")
 (tool-bar-mode -1)
 (set-frame-position (selected-frame) 0 0)
-;;; Set fullscreen 27"
-;; (setq default-frame-alist '((width . 191) (height . 45)))
-
 (add-hook 'after-init-hook 'toggle-frame-maximized)
 
 ;;; display line numbers in margin, col nums at bottom.
