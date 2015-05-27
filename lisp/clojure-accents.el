@@ -114,6 +114,8 @@ loaded."
     "jb" 'cider-visit-error-buffer
     "gd" 'cider-jump-to-var))
 
+(define-key evil-normal-state-map "gf" 'cider-jump-to-var)
+
 (defun accent/set-repl-accent (accent)
   (setq buffer-meta (plist-put buffer-meta 'filetype accent)))
 

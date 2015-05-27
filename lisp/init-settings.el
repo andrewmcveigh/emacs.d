@@ -1,9 +1,9 @@
 (setq ring-bell-function #'ignore)
 (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
-(add-to-list 'golden-ratio-exclude-modes "cider-repl-mode")
 (golden-ratio-mode 1)
 (powerline-default-theme)
 (defalias 'yes-or-no-p 'y-or-n-p)
+(add-hook 'clojure-mode-hook (lambda () (yas/minor-mode 1)))
 
 (defun cd-energy (dir)
   (interactive (list

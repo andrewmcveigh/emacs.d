@@ -60,10 +60,30 @@
   (kbd "X") 'paredit-backward-delete
   (kbd "x") 'paredit-forward-delete)
 
+
+(defun re-replace-in-region (start end match replacement)
+  (goto-char start)
+  (while (and (< (point) end) (re-search-forward match end t))
+    (replace-match replacement)))
+
+(defun evil-remove-too-much-space (start end)
+  (interactive "r")
+  (save-excursion
+    (if (and start end)
+        (re-replace-in-region start end " +" " "))
+    (indent-region start end)))
+
+(defun evil-remove-too-much-space-in-current-paragraph ()
+  (interactive)
+  (mark-paragraph)
+  (evil-remove-too-much-space (region-beginning) (region-end)))
+
 ;;; evil leader mappings
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
   "c=" 'delete-trailing-whitespace
+  "e=" 'evil-remove-too-much-space
+  "=ip" 'evil-remove-too-much-space-in-current-paragraph
   "nt" 'neotree-toggle
   "w[" 'paredit-wrap-square
   "w{" 'paredit-wrap-curly
@@ -80,7 +100,8 @@
              (interactive)
              (comment-or-uncomment-region (line-beginning-position)
                                           (line-end-position)))
-  "pf" 'helm-projectile-find-file)
+  "pf" 'helm-projectile-find-file
+  "fu" 'cljr-find-usages)
 
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()
