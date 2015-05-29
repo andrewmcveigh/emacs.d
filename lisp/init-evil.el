@@ -49,6 +49,31 @@
 ;;; visual mode
 (define-key evil-visual-state-map (kbd "W") 'paredit-wrap-round)
 
+(evil-define-operator evil-yank-eol (beg end type register yank-handler)
+  "Saves 'til end of line into the kill-ring."
+  :motion nil
+  :keep-visual t
+  (interactive "<R><x>")
+  ;; act linewise in Visual state
+  (let* ((beg (or beg (point)))
+         (end (or end beg)))
+    (when (evil-visual-state-p)
+      (unless (memq type '(line block))
+        (let ((range (evil-expand beg end 'line)))
+          (setq beg (evil-range-beginning range)
+                end (evil-range-end range)
+                type (evil-type range))))
+      (evil-exit-visual-state))
+    (cond
+     ((eq type 'block)
+      (let ((temporary-goal-column most-positive-fixnum)
+            (last-command 'next-line))
+        (evil-yank beg end 'block register yank-handler)))
+     ((eq type 'line)
+      (evil-yank beg end type register yank-handler))
+     (t
+      (evil-yank beg (line-end-position) type register yank-handler)))))
+
 (evil-define-key 'normal evil-paredit-mode-map
   (kbd "d") 'evil-paredit-delete
   (kbd "c") 'evil-paredit-change
@@ -56,7 +81,7 @@
   (kbd "D") 'evil-paredit-delete-line
   (kbd "C") 'evil-paredit-change-line
   (kbd "S") 'paredit-splice-sexp
-  (kbd "Y") 'evil-paredit-yank-line
+  (kbd "Y") 'evil-yank-eol
   (kbd "X") 'paredit-backward-delete
   (kbd "x") 'paredit-forward-delete)
 
