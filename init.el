@@ -37,6 +37,7 @@
     ;; Clojure
     cider
     clojure-mode
+    inf-clojure
     neotree
     projectile
     helm-projectile
@@ -57,6 +58,7 @@
 ;; Packages...
 (require 'company)
 (require 'cider)
+(require 'inf-clojure)
 (require 'paredit)
 (require 'parenface-plus)
 (require 'clojure-mode)
@@ -76,6 +78,7 @@
 (require 'init-clojure)
 (require 'init-evil)
 (require 'init-keybindings)
+(require 'init-lisp)
 (require 'init-neotree)
 (require 'init-settings)
 (require 'init-theme)

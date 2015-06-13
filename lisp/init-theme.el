@@ -1,7 +1,7 @@
 (require 'powerline)
-(load-theme 'solarized-dark t)
+
+(setq powerline-default-separator 'utf-8)
 (powerline-center-evil-theme)
-(setq powerline-color1 "#222")
-(setq powerline-color2 "#444")
+(load-theme 'solarized-dark t)
 
 (provide 'init-theme)

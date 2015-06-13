@@ -28,7 +28,8 @@
 (column-number-mode 1)
 
 ;;; Set font
-(set-face-attribute 'default nil :font "Monaco")
+(add-to-list 'default-frame-alist '(font . "Monaco for Powerline-12"))
+(set-face-attribute 'default nil :font "Monaco for Powerline-12")
 
 ;;; Close with CMD-w
 (global-set-key (kbd "s-w") 'delete-window)

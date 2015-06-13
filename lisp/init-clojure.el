@@ -32,7 +32,8 @@
   (evil-leader/set-key
     "ns" 'cider-repl-set-ns
     "ef" 'cider-load-buffer
-    "ee" 'cider-eval-defun-at-point
+    "ed" 'cider-eval-defun-at-point
+    "ee" 'cider-eval-last-sexp
     "er" 'cider-eval-last-sexp-and-replace
     "je" 'cider-jump-to-compilation-error
     "jb" 'cider-visit-error-buffer))
@@ -58,5 +59,10 @@
 (add-hook 'clojure-mode-hook 'cljr-setup)
 (add-hook 'clojure-mode-hook 'yas-setup)
 (eval-after-load "auto-complete" '(add-to-list 'ac-modes 'cider-repl-mode))
+
+;;; Library Functions
+(defun cljs-node-repl ()
+  (interactive)
+  (run-clojure "lein trampoline run -m clojure.main repl.clj"))
 
 (provide 'init-clojure)
