@@ -51,4 +51,4 @@
 
 (setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$\\|^target$\\|^pom\\.*")
 
-(provide 'neotree-evil)
+(provide 'init-neotree)

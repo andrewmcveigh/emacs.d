@@ -1,4 +1,3 @@
-
 (require 'evil-leader)
 (require 'evil-paredit)
 

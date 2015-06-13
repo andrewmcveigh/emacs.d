@@ -1,9 +1,10 @@
 (setq ring-bell-function #'ignore)
 (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
 (golden-ratio-mode 1)
-(powerline-default-theme)
+
+(when (memq window-system '(mac ns)) (exec-path-from-shell-initialize))
+
 (defalias 'yes-or-no-p 'y-or-n-p)
-(add-hook 'clojure-mode-hook (lambda () (yas/minor-mode 1)))
 
 (defun cd-energy (dir)
   (interactive (list
@@ -15,9 +16,9 @@
 
 (defalias 'ecd 'cd-energy)
 (defalias 'ncd 'neotree-dir)
+
 (add-to-list 'exec-path "$HOME/bin")
 (setq ns-use-srgb-colorspace t)
-(setq julia-basic-repl-path "$HOME/bin/julia")
 (tool-bar-mode -1)
 (set-frame-position (selected-frame) 0 0)
 (add-hook 'after-init-hook 'toggle-frame-maximized)
@@ -25,7 +26,6 @@
 ;;; display line numbers in margin, col nums at bottom.
 (global-linum-mode 1)
 (column-number-mode 1)
-
 
 ;;; Set font
 (set-face-attribute 'default nil :font "Monaco")
