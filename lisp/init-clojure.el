@@ -38,6 +38,7 @@
     "jb" 'cider-visit-error-buffer))
 
 (define-key evil-normal-state-map "gf" 'cider-jump-to-var)
+(define-key evil-normal-state-map (kbd "K") 'cider-doc)
 
 ;;; Modes
 (define-minor-mode evil-clojure-mode

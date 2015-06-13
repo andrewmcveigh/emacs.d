@@ -19,7 +19,7 @@
 (add-to-list 'package-pinned-packages '(markdown-mode . "melpa-stable") t)
 
 ;; And load things!
- ;; (package-refresh-contents) ;; Uncomment if refresh needed E.G., on first use.
+;; (package-refresh-contents) ;; Uncomment if refresh needed E.G., on first use.
 (package-initialize)
 
 (defvar my-packages
@@ -34,8 +34,6 @@
     company
     markdown-mode
     linum-relative
-    smart-mode-line
-    smart-mode-line-powerline-theme
     ;; Clojure
     cider
     clojure-mode
@@ -54,6 +52,7 @@
 
 ;; Load ./lisp sources
 (add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp/packages/powerline")
 
 ;; Packages...
 (require 'company)
@@ -64,14 +63,11 @@
 (require 'neotree)
 (require 'markdown-mode)
 (require 'linum-relative)
-(require 'rainbow-mode)
 (require 'projectile)
 (require 'helm-projectile)
 (require 'golden-ratio)
-(require 'diminish)
 (require 'clj-refactor)
-(require 'smart-mode-line)
-(require 'smart-mode-line-powerline-theme)
+(require 'powerline)
 (require 'exec-path-from-shell)
 
 ;; ./lisp/*.el

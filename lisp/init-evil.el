@@ -1,50 +1,43 @@
 (require 'evil-leader)
 (require 'evil-paredit)
 
+;;; Settings
 (evil-mode t)
 (global-evil-leader-mode)
 
-;;; paredit init in lisp(s)
-;(add-hook 'clojure-mode-hook 'evil-pparedit-mode)
-(add-hook 'emacs-lisp-mode-hook 'evil-pparedit-mode)
+;;; Helper Functions
+(defun scroll-up-half-page ()
+  (interactive)
+  (evil-scroll-up nil)
+  (evil-scroll-line-to-center
+   (line-number-at-pos)))
 
+(defun scroll-down-half-page ()
+  (interactive)
+  (evil-scroll-down nil)
+  (evil-scroll-line-to-center
+   (line-number-at-pos)))
+
+;;; Keybindings
 ;;; normal mode
 (define-key evil-normal-state-map (kbd "C-\<") 'paredit-backward-slurp-sexp)
 (define-key evil-normal-state-map (kbd "C-\>") 'paredit-forward-slurp-sexp)
-
-(define-key evil-normal-state-map (kbd "C-u") (lambda ()
-                                                (interactive)
-                                                (evil-scroll-up nil)
-                                                (evil-scroll-line-to-center
-                                                 (line-number-at-pos))))
-
-(define-key evil-normal-state-map (kbd "C-d") (lambda ()
-                                                (interactive)
-                                                (evil-scroll-down nil)
-                                                (evil-scroll-line-to-center
-                                                 (line-number-at-pos))))
-
+(define-key evil-normal-state-map (kbd "C-u") 'scroll-up-half-page)
+(define-key evil-normal-state-map (kbd "C-d") 'scroll-down-half-page)
 (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
-
 (define-key evil-normal-state-map (kbd "<") 'paredit-backward-barf-sexp)
 (define-key evil-normal-state-map (kbd ">") 'paredit-forward-barf-sexp)
 (define-key evil-normal-state-map (kbd "S") 'paredit-splice-sexp)
 (define-key evil-normal-state-map (kbd "W") 'paredit-wrap-round)
-
 (define-key evil-normal-state-map (kbd "<left>") 'windmove-left)
 (define-key evil-normal-state-map (kbd "<right>") 'windmove-right)
 (define-key evil-normal-state-map (kbd "<up>") 'windmove-up)
 (define-key evil-normal-state-map (kbd "<down>") 'windmove-down)
-
 ;;; Backspace jump % normal
 (define-key evil-normal-state-map (kbd "\d") 'evil-jump-item)
-
-(define-key evil-normal-state-map (kbd "K") 'cider-doc)
-
 ;;; motions
 ;;; Backspace jump % motion
 (define-key evil-motion-state-map (kbd "\d") 'evil-jump-item)
-
 ;;; visual mode
 (define-key evil-visual-state-map (kbd "W") 'paredit-wrap-round)
 
