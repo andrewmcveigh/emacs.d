@@ -73,6 +73,7 @@
 (require 'exec-path-from-shell)
 
 ;; ./lisp/*.el
+(require 'powerline)
 (require 'electric-return)
 (require 'init-autocomplete)
 (require 'init-clojure)
