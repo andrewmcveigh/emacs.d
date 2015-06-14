@@ -29,7 +29,8 @@
     evil-leader
     evil-paredit
     solarized-theme
-    parenface-plus
+    material-theme
+    paren-face
     helm
     company
     markdown-mode
@@ -60,7 +61,8 @@
 (require 'cider)
 (require 'inf-clojure)
 (require 'paredit)
-(require 'parenface-plus)
+(require 'evil-paredit)
+(require 'paren-face)
 (require 'clojure-mode)
 (require 'neotree)
 (require 'markdown-mode)

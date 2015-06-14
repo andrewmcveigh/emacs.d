@@ -58,6 +58,7 @@
 (add-hook 'clojure-mode-hook 'evil-paredit-mode)
 (add-hook 'clojure-mode-hook 'cljr-setup)
 (add-hook 'clojure-mode-hook 'yas-setup)
+(add-hook 'clojure-mode-hook 'paren-face-mode)
 (eval-after-load "auto-complete" '(add-to-list 'ac-modes 'cider-repl-mode))
 
 ;;; Library Functions

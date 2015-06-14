@@ -27,5 +27,6 @@
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'evil-elisp-mode)
+(add-hook 'emacs-lisp-mode-hook 'paren-face-mode)
 
 (provide 'init-lisp)

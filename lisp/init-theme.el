@@ -15,12 +15,15 @@
 (setq underline-minimum-offset 4)
 (setq x-underline-at-descent-line t)
 
-(setq solarized-high-contrast-mode-line t)
-(load-theme 'solarized-dark t)
+;; (setq solarized-high-contrast-mode-line t)
+;; (load-theme 'solarized-dark t)
+(load-theme 'material t)
 
 (set-face-attribute 'mode-line nil
                     :foreground "#333333"
                     :background "#2aa198"
                     :box nil)
+
+(setq paren-face-regexp "[({})]")
 
 (provide 'init-theme)
