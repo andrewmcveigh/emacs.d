@@ -15,13 +15,16 @@
     "er" 'eval-last-sexp-and-replace
     "t"  'pop-mark-or-tag))
 
-(define-key evil-normal-state-map "gf" 'find-function)
+(defun evil-elisp-keymapping ()
+  (define-key evil-normal-state-map "gf" 'find-function))
 
 ;;; Modes
 (define-minor-mode evil-elisp-mode
   "Evil Elisp"
   :lighter " el&"
-  (evil-elisp-leader-keys))
+  (progn
+    (evil-elisp-leader-keys)
+    (evil-elisp-keymapping)))
 
 ;;; Hooks
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)

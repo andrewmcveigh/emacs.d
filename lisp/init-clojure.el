@@ -47,14 +47,17 @@
     "cq" 'cider-quit
     "cj" 'cider-jack-in))
 
-(define-key evil-normal-state-map "gf" 'cider-jump-to-var)
-(define-key evil-normal-state-map (kbd "K") 'cider-doc)
+(defun evil-clojure-keymapping ()
+  (define-key evil-normal-state-map "gf" 'cider-find-var)
+  (define-key evil-normal-state-map (kbd "K") 'cider-doc))
 
 ;;; Modes
 (define-minor-mode evil-clojure-mode
   "Evil Clojure*"
   :lighter " cl&"
-  (evil-clojure-leader-keys))
+  (progn
+    (evil-clojure-leader-keys)
+    (evil-clojure-keymapping)))
 
 ;;; Hooks
 (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
