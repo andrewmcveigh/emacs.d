@@ -16,6 +16,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(markdown-mode . "melpa-stable") t)
 
 ;; And load things!
@@ -29,12 +30,12 @@
     evil-leader
     evil-paredit
     solarized-theme
-    material-theme
     paren-face
     helm
     company
     markdown-mode
     linum-relative
+    dockerfile-mode
     ;; Clojure
     cider
     clojure-mode
@@ -55,6 +56,7 @@
 ;; Load ./lisp sources
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp/packages/powerline")
+(add-to-list 'load-path "~/.emacs.d/lisp/packages/material-theme")
 
 ;; Packages...
 (require 'company)
@@ -73,9 +75,11 @@
 (require 'clj-refactor)
 (require 'powerline)
 (require 'exec-path-from-shell)
+(require 'dockerfile-mode)
 
 ;; ./lisp/*.el
 (require 'powerline)
+(require 'material-theme)
 (require 'electric-return)
 (require 'init-autocomplete)
 (require 'init-clojure)

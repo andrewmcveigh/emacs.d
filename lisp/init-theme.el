@@ -2,7 +2,6 @@
 
 (powerline-center-evil-theme)
 
-
 (setq powerline-default-separator 'utf-8)
 
 (setq powerline-color1 "#073642")
@@ -19,11 +18,11 @@
 ;; (load-theme 'solarized-dark t)
 (load-theme 'material t)
 
-(set-face-attribute 'mode-line nil
-                    :foreground "#333333"
-                    :background "#2aa198"
-                    :box nil)
+;; (set-face-attribute 'mode-line nil
+;;                     :foreground "#333333"
+;;                     :background "#2aa198"
+;;                     :box nil)
 
-(setq paren-face-regexp "[({})]")
+(setq paren-face-regexp "[()]")
 
 (provide 'init-theme)

@@ -54,6 +54,8 @@
 (setq-default indent-tabs-mode nil)
 
 (add-to-list 'auto-mode-alist '("\\.vm\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+
 (add-hook 'html-mode-hook (lambda () (vtl-mode 1)))
 
 (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))

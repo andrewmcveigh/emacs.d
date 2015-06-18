@@ -27,6 +27,11 @@
 (defun yas-setup ()
   (yas/minor-mode 1))
 
+(defun cider-auto-connect ()
+  (interactive)
+  (let ((local-p (cadr (car (cider-locate-running-nrepl-ports nil)))))
+    (cider-connect "localhost" local-p)))
+
 ;;; Keybindings
 (defun evil-clojure-leader-keys ()
   (evil-leader/set-key
@@ -36,7 +41,11 @@
     "ee" 'cider-eval-last-sexp
     "er" 'cider-eval-last-sexp-and-replace
     "je" 'cider-jump-to-compilation-error
-    "jb" 'cider-visit-error-buffer))
+    "jb" 'cider-visit-error-buffer
+    "cc" 'cider-auto-connect
+    "cr" 'cider-connect
+    "cq" 'cider-quit
+    "cj" 'cider-jack-in))
 
 (define-key evil-normal-state-map "gf" 'cider-jump-to-var)
 (define-key evil-normal-state-map (kbd "K") 'cider-doc)
