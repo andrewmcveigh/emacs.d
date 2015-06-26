@@ -14,6 +14,8 @@
 (setq cider-repl-popup-stacktraces t)
 (setq cider-hide-special-buffers t)
 (setq cider-popup-stacktraces nil)
+(add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
+(add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
 
 (put 'defcomponent 'clojure-backtracking-indent '(4 4 (2)))
 (put 'task-fn 'clojure-backtracking-indent '((2) 2))
@@ -43,9 +45,12 @@
     "je" 'cider-jump-to-compilation-error
     "jb" 'cider-visit-error-buffer
     "cc" 'cider-auto-connect
-    "cr" 'cider-connect
+    "cj" 'cider-jack-in
     "cq" 'cider-quit
-    "cj" 'cider-jack-in))
+    "cr" 'cider-connect
+    "cz" 'cider-switch-to-relevant-repl-buffer
+    "fu" 'cljr-find-usages
+    "fg" 'rgrep))
 
 (defun evil-clojure-keymapping ()
   (define-key evil-normal-state-map "gf" 'cider-find-var)

@@ -17,6 +17,8 @@
   :keymap (progn
             (evil-make-overriding-map neotree-mode-map 'normal t)
             (evil-define-key 'normal neotree-mode-map
+              "C" 'neotree-change-root
+              "U" 'neotree-select-up-node
               "r" 'neotree-refresh
               "o" 'neotree-enter
               (kbd "<return>") 'neotree-enter

@@ -117,8 +117,7 @@
              (interactive)
              (comment-or-uncomment-region (line-beginning-position)
                                           (line-end-position)))
-  "pf" 'helm-projectile-find-file
-  "fu" 'cljr-find-usages)
+  "pf" 'helm-projectile-find-file)
 
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()
