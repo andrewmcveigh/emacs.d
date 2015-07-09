@@ -2,6 +2,9 @@
 (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
 (golden-ratio-mode 1)
 
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(add-to-list 'auto-mode-alist '("[A-Z]\\.md\\'" . gfm-mode))
+
 (when (memq window-system '(mac ns)) (exec-path-from-shell-initialize))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
