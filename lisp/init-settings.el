@@ -31,6 +31,8 @@
 (column-number-mode 1)
 
 ;;; Set font
+;; (add-to-list 'default-frame-alist '(font . "Fira Code"))
+;; (set-face-attribute 'default nil :font "Fira Code")
 (add-to-list 'default-frame-alist '(font . "Monaco for Powerline-12"))
 (set-face-attribute 'default nil :font "Monaco for Powerline-12")
 

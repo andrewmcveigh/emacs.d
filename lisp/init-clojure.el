@@ -26,6 +26,14 @@
   ;; insert keybinding setup here
   )
 
+(defun jump-to-var ()
+  (interactive)
+  (cider--find-var (cider-symbol-at-point)))
+
+(defun doc-for-var ()
+  (interactive)
+  (cider-doc-lookup (cider-symbol-at-point)))
+
 (defun yas-setup ()
   (yas/minor-mode 1))
 
@@ -50,11 +58,14 @@
     "cr" 'cider-connect
     "cz" 'cider-switch-to-relevant-repl-buffer
     "fu" 'cljr-find-usages
-    "fg" 'rgrep))
+    "fg" 'rgrep
+    "rtf" 'cljr-thread-first-all
+    "rtl" 'cljr-thread-last-all
+    "ref" 'cljr-extract-function))
 
 (defun evil-clojure-keymapping ()
-  (define-key evil-normal-state-map "gf" 'cider-find-var)
-  (define-key evil-normal-state-map (kbd "K") 'cider-doc))
+  (define-key evil-normal-state-map "gf" 'jump-to-var)
+  (define-key evil-normal-state-map (kbd "K") 'doc-for-var))
 
 ;;; Modes
 (define-minor-mode evil-clojure-mode

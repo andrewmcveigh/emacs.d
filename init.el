@@ -18,6 +18,8 @@
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(markdown-mode . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(haskell-mode . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(go-mode . "melpa-stable") t)
 
 ;; And load things!
 ;; (package-refresh-contents) ;; Uncomment if refresh needed E.G., on first use.
@@ -46,6 +48,14 @@
     golden-ratio
     clj-refactor
     exec-path-from-shell
+
+    go-mode
+    haskell-mode
+    elm-mode
+    f
+    let-alist
+    s
+    idris-mode
     )
   "My packages to install.")
 
@@ -76,6 +86,12 @@
 (require 'powerline)
 (require 'exec-path-from-shell)
 (require 'dockerfile-mode)
+(require 'haskell-mode)
+(require 'elm-mode)
+(require 'go-mode)
+(require 'org)
+(require 'ob-clojure)
+(require 'idris-mode)
 
 ;; ./lisp/*.el
 (require 'powerline)
@@ -84,8 +100,26 @@
 (require 'init-autocomplete)
 (require 'init-clojure)
 (require 'init-evil)
+(require 'init-haskell)
 (require 'init-keybindings)
 (require 'init-lisp)
 (require 'init-neotree)
 (require 'init-settings)
 (require 'init-theme)
+(require 'init-org)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values
+   (quote
+    ((eval define-clojure-indent
+           (fnode
+            (quote defun)))))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
