@@ -17,6 +17,8 @@
 (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
 (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
 
+(setq cljr-favor-prefix-notation nil)
+
 (put 'defcomponent 'clojure-backtracking-indent '(4 4 (2)))
 (put 'task-fn 'clojure-backtracking-indent '((2) 2))
 
@@ -87,6 +89,7 @@
 (add-hook 'clojure-mode-hook 'cljr-setup)
 (add-hook 'clojure-mode-hook 'yas-setup)
 (add-hook 'clojure-mode-hook 'paren-face-mode)
+(add-hook 'clojure-mode-hook 'hs-minor-mode)
 (eval-after-load "auto-complete" '(add-to-list 'ac-modes 'cider-repl-mode))
 
 ;;; Library Functions

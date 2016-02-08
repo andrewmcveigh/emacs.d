@@ -16,8 +16,10 @@
              '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
-(add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(clojure-mode . "melpa-stable") t)
+;(add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(markdown-mode . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(markdown-preview-mode . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(haskell-mode . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(go-mode . "melpa-stable") t)
 
@@ -56,6 +58,8 @@
     let-alist
     s
     idris-mode
+    markdown-preview-mode
+    websocket
     )
   "My packages to install.")
 
@@ -67,6 +71,8 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/lisp/packages/powerline")
 (add-to-list 'load-path "~/.emacs.d/lisp/packages/material-theme")
+(add-to-list 'load-path "~/.emacs.d/lisp/packages/material-theme")
+(add-to-list 'load-path "~/.emacs.d/lisp/packages/websocket")
 
 ;; Packages...
 (require 'company)
@@ -92,6 +98,8 @@
 (require 'org)
 (require 'ob-clojure)
 (require 'idris-mode)
+(require 'markdown-preview-mode)
+(require 'websocket)
 
 ;; ./lisp/*.el
 (require 'powerline)
@@ -107,6 +115,7 @@
 (require 'init-settings)
 (require 'init-theme)
 (require 'init-org)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
