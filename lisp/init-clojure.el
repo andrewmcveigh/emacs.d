@@ -63,7 +63,10 @@
     "fg" 'rgrep
     "rtf" 'cljr-thread-first-all
     "rtl" 'cljr-thread-last-all
-    "ref" 'cljr-extract-function))
+    "ref" 'cljr-extract-function
+    "===" 'clojure-align
+    (kbd "RET") 'cider-repl-return
+    ))
 
 (defun evil-clojure-keymapping ()
   (define-key evil-normal-state-map "gf" 'jump-to-var)

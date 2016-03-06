@@ -6,6 +6,7 @@
 (add-to-list 'auto-mode-alist '("[A-Z]\\.md\\'" . gfm-mode))
 
 (when (memq window-system '(mac ns)) (exec-path-from-shell-initialize))
+(menu-bar-mode -99)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -108,5 +109,7 @@
 
 (global-set-key [tab] 'indent-or-complete)
 (setq company-idle-delay 0.2)
+
+(setq x-select-enable-clipboard nil)
 
 (provide 'init-settings)

@@ -20,13 +20,10 @@
 
 ;;; Keybindings
 ;;; normal mode
-(define-key evil-normal-state-map (kbd "C-\<") 'paredit-backward-slurp-sexp)
-(define-key evil-normal-state-map (kbd "C-\>") 'paredit-forward-slurp-sexp)
 (define-key evil-normal-state-map (kbd "C-u") 'scroll-up-half-page)
 (define-key evil-normal-state-map (kbd "C-d") 'scroll-down-half-page)
 (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file)
-(define-key evil-normal-state-map (kbd "<") 'paredit-backward-barf-sexp)
-(define-key evil-normal-state-map (kbd ">") 'paredit-forward-barf-sexp)
+
 (define-key evil-normal-state-map (kbd "S") 'paredit-splice-sexp)
 (define-key evil-normal-state-map (kbd "W") 'paredit-wrap-round)
 (define-key evil-normal-state-map (kbd "<left>") 'windmove-left)
@@ -40,6 +37,10 @@
 (define-key evil-motion-state-map (kbd "\d") 'evil-jump-item)
 ;;; visual mode
 (define-key evil-visual-state-map (kbd "W") 'paredit-wrap-round)
+
+;;; paredit
+(define-key evil-normal-state-map (kbd "<") 'paredit-forward-barf-sexp)
+(define-key evil-normal-state-map (kbd ">") 'paredit-forward-slurp-sexp)
 
 (evil-define-operator evil-yank-eol (beg end type register yank-handler)
   "Saves 'til end of line into the kill-ring."
@@ -99,6 +100,9 @@
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
   "c=" 'delete-trailing-whitespace
+  "yy" 'pbcopy
+  "pp" 'pbpaste
+  "dd" 'pbcut
   "e=" 'evil-remove-too-much-space
   "=ip" 'evil-remove-too-much-space-in-current-paragraph
   "nt" 'neotree-toggle
@@ -117,7 +121,9 @@
              (interactive)
              (comment-or-uncomment-region (line-beginning-position)
                                           (line-end-position)))
-  "pf" 'helm-projectile-find-file)
+  "pf" 'helm-projectile-find-file
+  "p," 'paredit-backward-barf-sexp
+  "p." 'paredit-backward-slurp-sexp)
 
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()
