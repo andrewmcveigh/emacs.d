@@ -22,6 +22,7 @@
 (add-to-list 'package-pinned-packages '(markdown-preview-mode . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(haskell-mode . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(go-mode . "melpa-stable") t)
+(add-to-list 'package-pinned-packages '(geiser . "melpa-stable") t)
 
 ;; And load things!
 ;; (package-refresh-contents) ;; Uncomment if refresh needed E.G., on first use.
@@ -60,6 +61,10 @@
     idris-mode
     markdown-preview-mode
     websocket
+
+    ;; Racket
+    geiser
+    pixie-mode
     )
   "My packages to install.")
 
@@ -100,6 +105,8 @@
 (require 'idris-mode)
 (require 'markdown-preview-mode)
 (require 'websocket)
+(require 'geiser)
+(require 'pixie-mode)
 
 ;; ./lisp/*.el
 (require 'powerline)
