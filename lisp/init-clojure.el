@@ -70,6 +70,16 @@
     (kbd "RET") 'cider-repl-return
     ))
 
+(defvar load-command
+  "(load-file \"%s\")\n")
+
+(defun load-file (file-name)
+  "Load a Clojure file FILE-NAME into the inferior Clojure process."
+  (comint-check-source file-name) ; Check to see if buffer needs saved.
+  (setq inf-clojure-prev-l/c-dir/file (cons (file-name-directory    file-name)
+                                            (file-name-nondirectory file-name)))
+  (comint-send-string (inf-clojure-proc) (format load-command file-name)))
+
 (defun root-dir ()
   (or (projectile-project-root)
       (let ((backend (vc-deduce-backend)))
@@ -79,14 +89,20 @@
 
 (defun load-current-buffer ()
   (interactive)
+  (save-buffer)
+  (when (not (inf-clojure-connected-p))
+    (let ((b (window-buffer (minibuffer-selected-window))))
+      (run-clojure inf-clojure-program)
+      (pop-to-buffer-same-window b)))
   (let ((f (buffer-file-name (window-buffer (minibuffer-selected-window))))
         (root (root-dir)))
-    (if root
-        (inf-clojure-load-file (s-replace (expand-file-name root) "" f))   
+    (if root (load-file (s-replace (expand-file-name root) "" f))   
       (message "Not in VC dir, cannot infer project root"))))
+
 
 (defun evil-pixie-leader-keys ()
   (evil-leader/set-key
+    "ns" 'set-ns
     "ef" 'load-current-buffer
     "ee" 'inf-clojure-eval-last-sexp
     "en" 'inf-clojure-eval-form-and-next

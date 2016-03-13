@@ -123,7 +123,8 @@
                                           (line-end-position)))
   "pf" 'helm-projectile-find-file
   "p," 'paredit-backward-barf-sexp
-  "p." 'paredit-backward-slurp-sexp)
+  "p." 'paredit-backward-slurp-sexp
+  "s" 'save-buffer)
 
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()
