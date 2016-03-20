@@ -64,7 +64,10 @@
 
     ;; Racket
     geiser
-    pixie-mode
+    
+    ;; Magit
+    magit
+    evil-magit
     )
   "My packages to install.")
 
@@ -106,7 +109,8 @@
 (require 'markdown-preview-mode)
 (require 'websocket)
 (require 'geiser)
-(require 'pixie-mode)
+(require 'magit)
+(require 'evil-magit)
 
 ;; ./lisp/*.el
 (require 'powerline)
@@ -115,10 +119,12 @@
 (require 'init-autocomplete)
 (require 'init-clojure)
 (require 'init-evil)
+(require 'init-evil-magit)
 (require 'init-haskell)
 (require 'init-keybindings)
 (require 'init-lisp)
 (require 'init-neotree)
+(require 'init-pixie)
 (require 'init-settings)
 (require 'init-theme)
 (require 'init-org)
@@ -131,6 +137,11 @@
  '(safe-local-variable-values
    (quote
     ((eval define-clojure-indent
+           (defexpr
+             (quote
+              (2 nil nil
+                 (1)))))
+     (eval define-clojure-indent
            (fnode
             (quote defun)))))))
 (custom-set-faces
