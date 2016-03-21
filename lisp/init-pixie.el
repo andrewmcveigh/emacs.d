@@ -9,7 +9,7 @@
   (defmacro setq-local (var val)
     `(set (make-local-variable ',var) ,val)))
 
-(defvar pixie-inf-lisp-program "pixie-vm")
+(defvar pixie-inf-lisp-program "inf-pixie-dust.sh")
 
 (defvar pixie-inf-lisp-load-command "(load-file \"%s\")\n")
 
