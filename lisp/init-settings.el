@@ -37,11 +37,11 @@
 ;; (set-face-attribute 'default nil :font "Monoco-15")
 
 (when (window-system)
-  (set-default-font "Fira Code"))
+  (set-default-font "Fira Mono"))
 
-(add-to-list 'default-frame-alist '(font . "Fira Code-15"))
+(add-to-list 'default-frame-alist '(font . "Fira Mono-11"))
 
-(set-face-attribute 'default nil :font "Fira Code-15")
+(set-face-attribute 'default nil :font "Fira Mono-11")
 
 (let ((alist '(
                (33 . ".\\(?:\\(?:==\\)\\|[!=]\\)")

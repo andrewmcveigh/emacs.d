@@ -37,6 +37,6 @@
 ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 (add-hook 'compilation-mode-hook 'evil-mode)
 
-(add-hook 'idris-mode-hook (lambda () (load-theme 'idris-material-theme t)))
+;; (add-hook 'idris-mode-hook (lambda () (load-theme 'idris-material-theme t)))
 
 (provide 'init-haskell)

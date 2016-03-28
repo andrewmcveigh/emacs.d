@@ -68,6 +68,11 @@
     ;; Magit
     magit
     evil-magit
+    
+    ;; Theme
+    material-theme
+    powerline
+    powerline-evil
     )
   "My packages to install.")
 
@@ -77,10 +82,6 @@
 
 ;; Load ./lisp sources
 (add-to-list 'load-path "~/.emacs.d/lisp")
-(add-to-list 'load-path "~/.emacs.d/lisp/packages/powerline")
-(add-to-list 'load-path "~/.emacs.d/lisp/packages/material-theme")
-(add-to-list 'load-path "~/.emacs.d/lisp/packages/material-theme")
-(add-to-list 'load-path "~/.emacs.d/lisp/packages/websocket")
 
 ;; Packages...
 (require 'company)
@@ -97,7 +98,6 @@
 (require 'helm-projectile)
 (require 'golden-ratio)
 (require 'clj-refactor)
-(require 'powerline)
 (require 'exec-path-from-shell)
 (require 'dockerfile-mode)
 (require 'haskell-mode)
@@ -111,10 +111,11 @@
 (require 'geiser)
 (require 'magit)
 (require 'evil-magit)
+(require 'powerline)
+(require 'powerline-evil)
+(require 'material-theme)
 
 ;; ./lisp/*.el
-(require 'powerline)
-(require 'material-theme)
 (require 'electric-return)
 (require 'init-autocomplete)
 (require 'init-clojure)
