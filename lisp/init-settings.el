@@ -24,8 +24,6 @@
 (add-to-list 'exec-path "$HOME/bin")
 (setq ns-use-srgb-colorspace t)
 (tool-bar-mode -1)
-(set-frame-position (selected-frame) 0 0)
-(add-hook 'after-init-hook 'toggle-frame-maximized)
 
 ;;; display line numbers in margin, col nums at bottom.
 (global-linum-mode 1)
@@ -36,12 +34,19 @@
 
 ;; (set-face-attribute 'default nil :font "Monoco-15")
 
+
+
 (when (window-system)
-  (set-default-font "Fira Mono"))
-
-(add-to-list 'default-frame-alist '(font . "Fira Mono-11"))
-
-(set-face-attribute 'default nil :font "Fira Mono-11")
+  (let* ((font-name "Fira Code")
+        (font-size "13")
+        (font-str (concat font-name "-" font-size)))
+    (set-default-font font-name)
+    ;; (add-to-list 'default-frame-alist '(font . ,font-str))
+    (set-face-attribute 'default nil :font font-str)
+    (set-frame-position (selected-frame) 0 0)
+    (add-hook 'after-init-hook 'toggle-frame-maximized))
+  (smooth-scrolling-mode t)
+  )
 
 (let ((alist '(
                (33 . ".\\(?:\\(?:==\\)\\|[!=]\\)")
@@ -69,7 +74,7 @@
                           `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
 ;;; Close with CMD-w
-(global-set-key (kbd "s-w") 'delete-window)
+;; (global-set-key (kbd "s-w") 'delete-window)
 
 ;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -110,6 +115,6 @@
 (global-set-key [tab] 'indent-or-complete)
 (setq company-idle-delay 0.2)
 
-(setq x-select-enable-clipboard nil)
+;; (setq x-select-enable-clipboard nil)
 
 (provide 'init-settings)

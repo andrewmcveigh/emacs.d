@@ -52,5 +52,6 @@
             neotree-mode-map))
 
 (setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$\\|^target$\\|^pom\\.*")
+(setq neo-theme 'ascii)
 
 (provide 'init-neotree)

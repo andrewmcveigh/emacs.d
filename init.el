@@ -73,6 +73,9 @@
     material-theme
     powerline
     powerline-evil
+
+    nix-mode
+    smooth-scrolling
     )
   "My packages to install.")
 
@@ -114,8 +117,10 @@
 (require 'powerline)
 (require 'powerline-evil)
 (require 'material-theme)
+(require 'nix-mode)
+(require 'smooth-scrolling)
 
-;; ./lisp/*.el
+;; ;; ./lisp/*.el
 (require 'electric-return)
 (require 'init-autocomplete)
 (require 'init-clojure)

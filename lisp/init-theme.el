@@ -1,12 +1,12 @@
-;; (require 'powerline)
+(require 'powerline)
 
-;; (powerline-center-evil-theme)
+(powerline-center-evil-theme)
 
-;; (setq powerline-default-separator 'utf-8)
+(setq powerline-default-separator 'utf-8)
 
-;; (setq powerline-color1 "#073642")
-;; (setq powerline-color2 "#002b36")
-;; (setq powerline-color3 "#002b36")
+(setq powerline-color1 "#073642")
+(setq powerline-color2 "#002b36")
+(setq powerline-color3 "#002b36")
 
 (set-face-attribute 'mode-line-inactive nil :box nil)
 
