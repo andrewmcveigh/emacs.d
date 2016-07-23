@@ -138,6 +138,9 @@
                                (evil-window-increase-width 3)
                                (neo-buffer--lock-width)))
 
+(global-set-key (kbd "s-<left>") 'evil-prev-buffer)
+(global-set-key (kbd "s-<right>") 'evil-prev-buffer)
+
 (define-key evil-window-map "=" 'balance-windows-area)
 
 (provide 'init-evil)

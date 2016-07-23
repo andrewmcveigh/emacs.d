@@ -40,15 +40,7 @@
                        (progn (setq pe/get-directory-tree-external-command
                                     nt/gitignore-files-cmd)))
                      (nt/refresh))
-              "I" (lambda ()
-                    (interactive)
-                    (if pe/omit-enabled
-                        (progn (setq pe/directory-tree-function
-                                     'pe/get-directory-tree-async)
-                               (pe/toggle-omit nil))
-                      (progn (setq pe/directory-tree-function
-                                   'pe/get-directory-tree-external)
-                             (pe/toggle-omit t)))))
+              "I" 'neotree-hidden-file-toggle)
             neotree-mode-map))
 
 (setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$\\|^target$\\|^pom\\.*")

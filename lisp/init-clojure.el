@@ -129,12 +129,5 @@
 (add-hook 'clojure-mode-hook 'evil-paredit-mode)
 (add-hook 'clojure-mode-hook 'paren-face-mode)
 (add-hook 'clojure-mode-hook 'hs-minor-mode)
-(eval-after-load "auto-complete" '(add-to-list 'ac-modes 'cider-repl-mode))
-
-
-;;; Library Functions
-(defun cljs-node-repl ()
-  (interactive)
-  (run-clojure "lein trampoline run -m clojure.main repl.clj"))
 
 (provide 'init-clojure)
