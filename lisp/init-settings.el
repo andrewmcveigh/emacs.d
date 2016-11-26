@@ -20,12 +20,14 @@
 (global-linum-mode 1)
 (column-number-mode 1)
 
+(projectile-global-mode)
+
 ;;; Set font
 
 (when (window-system)
   (let* ((font-name "Fira Code Light")
-        (font-size "12.5")
-        (font-str (concat font-name "-" font-size)))
+         (font-size "12")
+         (font-str (concat font-name "-" font-size)))
     (set-default-font font-name)
     ;; (add-to-list 'default-frame-alist '(font . ,font-str))
     (set-face-attribute 'default nil :font font-str)
@@ -79,7 +81,9 @@
 (setq require-final-newline nil)
 ;; (setq mode-require-final-newline t)
 (global-whitespace-mode +1)
-(setq whitespace-line-column 80)
+;; (setq whitespace-line-column 80)
+(setq whitespace-line-column 1000)
+
 (setq whitespace-style
       '(face lines-tail spaces tabs newline space-mark tab-mark newline-mark))
 (setq whitespace-empty t)
@@ -90,7 +94,7 @@
 (add-to-list 'auto-mode-alist '("\\.vm\\'" . html-mode))
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
-(add-hook 'html-mode-hook (lambda () (vtl-mode 1)))
+;; (add-hook 'html-mode-hook (lambda () (vtl-mode 1)))
 
 (setq org-latex-to-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
 
@@ -110,5 +114,18 @@
 ;; (setq x-select-enable-clipboard nil)
 
 (setq js-indent-level 2)
+
+(setq org-reveal-root "file:///home/andrewmcveigh/code/reveal.js")
+
+(defun fci-mode-override-advice (&rest args))
+
+(advice-add 'org-html-fontify-code :around
+            (lambda (fun &rest args)
+              (advice-add 'fci-mode :override #'fci-mode-override-advice)
+              (let ((result  (apply fun args)))
+                (advice-remove 'fci-mode #'fci-mode-override-advice)
+                result)))
+
+(add-hook 'text-mode-hook 'flyspell-mode)
 
 (provide 'init-settings)

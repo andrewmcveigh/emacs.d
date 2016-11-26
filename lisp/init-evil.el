@@ -38,9 +38,12 @@
 ;;; visual mode
 (define-key evil-visual-state-map (kbd "W") 'paredit-wrap-round)
 
-;;; paredit
-(define-key evil-normal-state-map (kbd "<") 'paredit-forward-barf-sexp)
-(define-key evil-normal-state-map (kbd ">") 'paredit-forward-slurp-sexp)
+(defun custom-evil-paredit-mode-hook ()
+  ;;; paredit
+  (define-key evil-normal-state-map (kbd "<") 'paredit-forward-barf-sexp)
+  (define-key evil-normal-state-map (kbd ">") 'paredit-forward-slurp-sexp))
+
+(add-hook 'evil-paredit-mode-hook 'custom-evil-paredit-mode-hook)
 
 (evil-define-operator evil-yank-eol (beg end type register yank-handler)
   "Saves 'til end of line into the kill-ring."

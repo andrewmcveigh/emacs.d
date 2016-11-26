@@ -14,6 +14,8 @@
 (setq cider-repl-popup-stacktraces t)
 (setq cider-hide-special-buffers t)
 (setq cider-popup-stacktraces nil)
+(setq cider-auto-select-error-buffer nil)
+
 (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
 (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
 
@@ -21,6 +23,7 @@
 
 (put 'defcomponent 'clojure-backtracking-indent '(4 4 (2)))
 (put 'task-fn 'clojure-backtracking-indent '((2) 2))
+(define-clojure-indent (s/fdef (quote defun)))
 
 ;;; Helper Functions
 (defun cljr-setup ()
