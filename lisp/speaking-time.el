@@ -33,7 +33,7 @@
       (while (< (point) end)
         (if (forward-word 1)
             (setq n (1+ n))))
-      (format-seconds "%m:%s" (* 60 (/ (float n) (wpm)))))))
+      (format-seconds "%m:%02s" (* 60 (/ (float n) (wpm)))))))
 
 (defun find-next-paragraph ()
   (let ((element (org-element-at-point)))
