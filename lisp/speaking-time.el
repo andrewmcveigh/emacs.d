@@ -7,7 +7,7 @@
                       org-speaking-time-options-alist))
 
 (defun wpm ()
-  (let ((wpm (car (plist-get (org-export--get-inbuffer-options) :wpm))))
+  (let ((wpm (plist-get (org-export--get-inbuffer-options) :wpm)))
     (if wpm
         (float (string-to-number wpm))
       120.0)))

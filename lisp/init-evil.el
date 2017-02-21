@@ -38,6 +38,8 @@
 ;;; visual mode
 (define-key evil-visual-state-map (kbd "W") 'paredit-wrap-round)
 
+(define-key evil-normal-state-map (kbd "Y") 'evil-yank-eol)
+
 (defun custom-evil-paredit-mode-hook ()
   ;;; paredit
   (define-key evil-normal-state-map (kbd "<") 'paredit-forward-barf-sexp)
@@ -77,10 +79,8 @@
   (kbd "D") 'evil-paredit-delete-line
   (kbd "C") 'evil-paredit-change-line
   (kbd "S") 'paredit-splice-sexp
-  (kbd "Y") 'evil-yank-eol
   (kbd "X") 'paredit-backward-delete
   (kbd "x") 'paredit-forward-delete)
-
 
 (defun re-replace-in-region (start end match replacement)
   (goto-char start)

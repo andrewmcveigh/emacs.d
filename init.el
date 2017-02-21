@@ -10,7 +10,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("f81a9aabc6a70441e4a742dfd6d10b2bae1088830dc7aba9c9922f4b1bd2ba50" default)))
+    ("c7a9a68bd07e38620a5508fef62ec079d274475c8f92d75ed0c33c45fbe306bc" "f81a9aabc6a70441e4a742dfd6d10b2bae1088830dc7aba9c9922f4b1bd2ba50" default)))
  '(safe-local-variable-values
    (quote
     ((eval define-clojure-indent
@@ -52,9 +52,9 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
 
-(add-to-list 'package-pinned-packages '(clojure-mode . "melpa-stable") t)
-(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
-(add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
+;; (add-to-list 'package-pinned-packages '(clojure-mode . "melpa-stable") t)
+;; (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+;; (add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(markdown-mode . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(markdown-preview-mode . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(haskell-mode . "melpa-stable") t)
@@ -117,13 +117,14 @@
     julia-mode
 
     inf-ruby
-    ;; material-theme
     monokai-theme
 
     fill-column-indicator
 
     ox-reveal
     htmlize
+
+    session
     )
   "My packages to install.")
 
@@ -136,9 +137,8 @@
 
 ;; Packages...
 (require 'company)
-
-(require 'cider)
 (require 'clojure-mode)
+(require 'cider)
 (require 'clj-refactor)
 
 (require 'paredit)
@@ -170,24 +170,24 @@
 
 (require 'ox-reveal)
 (require 'htmlize)
+(require 'rust-mode)
+(require 'session)
 
-;; ;; ./lisp/*.el
+;; ./lisp/*.el
 (require 'electric-return)
 (require 'init-autocomplete)
 (require 'init-clojure)
 (require 'init-evil)
-;; (require 'init-evil-magit)
 ;; (require 'init-haskell)
-;; (require 'init-keybindings)
+(require 'init-keybindings)
 (require 'init-lisp)
 (require 'init-neotree)
 ;; (require 'init-pixie)
 (require 'init-settings)
 (require 'init-theme)
-(require 'rust-mode)
 (require 'speaking-time)
 (require 'init-org)
 
 (add-to-list 'load-path "~/.emacs.d/private")
-(require 'db-conn)
+;; (require 'db-conn)
 

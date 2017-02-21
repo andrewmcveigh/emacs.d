@@ -11,10 +11,13 @@
 (setq cider-repl-display-in-current-window t)
 (setq cider-repl-use-clojure-font-lock t)
 (setq cider-repl-pop-to-buffer-on-connect nil)
-(setq cider-repl-popup-stacktraces t)
-(setq cider-hide-special-buffers t)
-(setq cider-popup-stacktraces nil)
+(setq cider-hide-special-buffers nil)
+;; (setq cider-popup-stacktraces nil)
+;; (setq cider-repl-popup-stacktraces t)
+(setq cider-show-error-buffer nil)
 (setq cider-auto-select-error-buffer nil)
+(setq cider-stacktrace-fill-column 80)
+;; (setq cider-auto-jump-to-error t)
 
 (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
 (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
@@ -23,7 +26,12 @@
 
 (put 'defcomponent 'clojure-backtracking-indent '(4 4 (2)))
 (put 'task-fn 'clojure-backtracking-indent '((2) 2))
+
 (define-clojure-indent (s/fdef (quote defun)))
+(define-clojure-indent (mlet 1))
+(define-clojure-indent (pcase 1))
+(define-clojure-indent (instance '(2 1)))
+(define-clojure-indent (class 2))
 
 ;;; Helper Functions
 (defun cljr-setup ()
@@ -55,6 +63,8 @@
     "ed" 'cider-eval-defun-at-point
     "ee" 'cider-eval-last-sexp
     "er" 'cider-eval-last-sexp-and-replace
+    "eme" 'cider-macroexpand-1
+    "ema" 'cider-macroexpand-all
     "je" 'cider-jump-to-compilation-error
     "jb" 'cider-visit-error-buffer
     "cc" 'cider-auto-connect
@@ -116,6 +126,17 @@
     (evil-clojure-keymapping)
     (cljr-setup)
     (yas-setup)))
+
+(define-minor-mode evil-clojurescript-mode
+  "Evil Clojure*"
+  :lighter " cljs&"
+  (progn
+    (clojurescript-mode)
+    (evil-clojure-leader-keys)
+    (evil-clojure-keymapping)
+    ;; (cljr-setup)
+    ;; (yas-setup)
+    ))
 
 
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . evil-clojure-mode))
