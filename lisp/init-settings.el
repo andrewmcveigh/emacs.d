@@ -97,4 +97,8 @@
 (setq default-tab-width 4)
 (setq tab-stop-list (number-sequence 4 200 4))
 
+
+(if (eq system-type 'darwin)
+    (setq ns-use-native-fullscreen nil))
+
 (provide 'init-settings)

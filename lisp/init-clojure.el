@@ -31,7 +31,7 @@
 (define-clojure-indent (mlet 1))
 (define-clojure-indent (pcase 1))
 (define-clojure-indent (instance '(2 1)))
-(define-clojure-indent (class 2))
+(define-clojure-indent (class 1))
 
 ;;; Helper Functions
 (defun cljr-setup ()
