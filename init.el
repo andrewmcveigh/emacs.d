@@ -11,6 +11,9 @@
  '(custom-safe-themes
    (quote
     ("c7a9a68bd07e38620a5508fef62ec079d274475c8f92d75ed0c33c45fbe306bc" "f81a9aabc6a70441e4a742dfd6d10b2bae1088830dc7aba9c9922f4b1bd2ba50" default)))
+ '(package-selected-packages
+   (quote
+    (coffee-mode smooth-scrolling session rust-mode paren-face ox-reveal nix-mode neotree monokai-theme markdown-mode julia-mode inf-ruby idris-mode htmlize helm-projectile haskell-mode golden-ratio go-mode geiser fill-column-indicator f evil-paredit evil-leader dockerfile-mode company clj-refactor)))
  '(safe-local-variable-values
    (quote
     ((eval define-clojure-indent
@@ -125,6 +128,7 @@
     htmlize
 
     session
+    coffee-mode
     )
   "My packages to install.")
 
@@ -172,6 +176,7 @@
 (require 'htmlize)
 (require 'rust-mode)
 (require 'session)
+(require 'coffee-mode)
 
 ;; ./lisp/*.el
 (require 'electric-return)
