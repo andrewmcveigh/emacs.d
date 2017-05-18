@@ -5,7 +5,7 @@
 (load-theme 'monokai)
 
 (let* ((font-name "Fira Code Light")
-       (font-size "15")
+       (font-size "13")
        (font-str (concat font-name "-" font-size)))
   (set-default-font font-name)
   (set-face-attribute 'default nil

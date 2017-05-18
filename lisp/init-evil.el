@@ -99,6 +99,16 @@
   (mark-paragraph)
   (evil-remove-too-much-space (region-beginning) (region-end)))
 
+(defun un-comment-paragraph ()
+  (interactive)
+  (if (evil-visual-range)
+      (comment-or-uncomment-region (region-beginning) (region-end))
+    (save-excursion
+      (backward-paragraph)
+      (evil-visual-line)
+      (forward-paragraph)
+      (comment-or-uncomment-region (region-beginning) (region-end)))))
+
 ;;; evil leader mappings
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
@@ -115,7 +125,7 @@
           (interactive)
           (paredit-doublequote)
           (paredit-forward-slurp-sexp))
-  "cp" 'comment-or-uncomment-region
+  "cp" 'un-comment-paragraph
   "cl" (lambda ()
          (interactive)
          (comment-or-uncomment-region (line-beginning-position)
@@ -127,7 +137,7 @@
   "pf" 'helm-projectile-find-file
   "p," 'paredit-backward-barf-sexp
   "p." 'paredit-backward-slurp-sexp
-  "s" 'save-buffer)
+  "s"  'save-buffer)
 
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()
@@ -143,6 +153,7 @@
 
 (global-set-key (kbd "s-<left>") 'evil-prev-buffer)
 (global-set-key (kbd "s-<right>") 'evil-prev-buffer)
+(global-set-key (kbd "S-w") 'delete-window)
 
 (define-key evil-window-map "=" 'balance-windows-area)
 

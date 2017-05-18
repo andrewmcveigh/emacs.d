@@ -55,6 +55,31 @@
   (let ((local-p (cadr (car (cider-locate-running-nrepl-ports nil)))))
     (cider-connect "localhost" local-p)))
 
+(defun cider-eval-pprint-handler (&optional buffer)
+  "Make a handler for evaluating and printing result in BUFFER."
+  (nrepl-make-response-handler (or buffer (current-buffer))
+                               (lambda (buffer value)
+                                 (with-current-buffer buffer
+                                   (let ((s (replace-regexp-in-string
+                                              "\\\\\"" "\"" (replace-regexp-in-string "\\\\n" "\n" value))))
+                                     (insert (substring (substring s 1) 0 -1)))))
+                               (lambda (_buffer out)
+                                 (cider-emit-interactive-eval-output out))
+                               (lambda (_buffer err)
+                                 (cider-emit-interactive-eval-err-output err))
+                               '()))
+
+(defun cider-eval-last-sexp-and-pprint ()
+  "Evaluate the expression preceding point and replace it with its pprinted result."
+  (interactive)
+  (let ((last-sexp (format "(with-out-str (clojure.pprint/pprint %s))" (cider-last-sexp))))
+    ;; we have to be sure the evaluation won't result in an error
+    (cider-nrepl-sync-request:eval last-sexp)
+    ;; seems like the sexp is valid, so we can safely kill it
+    (backward-kill-sexp)
+    (cider-interactive-eval last-sexp (cider-eval-pprint-handler))))
+
+
 ;;; Keybindings
 (defun evil-clojure-leader-keys ()
   (evil-leader/set-key
@@ -62,7 +87,7 @@
     "ef" 'cider-load-buffer
     "ed" 'cider-eval-defun-at-point
     "ee" 'cider-eval-last-sexp
-    "er" 'cider-eval-last-sexp-and-replace
+    "er" 'cider-eval-last-sexp-and-pprint
     "eme" 'cider-macroexpand-1
     "ema" 'cider-macroexpand-all
     "je" 'cider-jump-to-compilation-error
@@ -107,7 +132,7 @@
       (pop-to-buffer-same-window b)))
   (let ((f (buffer-file-name (window-buffer (minibuffer-selected-window))))
         (root (root-dir)))
-    (if root (load-file (s-replace (expand-file-name root) "" f))   
+    (if root (load-file (s-replace (expand-file-name root) "" f))
       (message "Not in VC dir, cannot infer project root"))))
 
 

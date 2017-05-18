@@ -1,7 +1,7 @@
 (setq ring-bell-function #'ignore)
 
-(add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
-(golden-ratio-mode 1)
+;; (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
+;; (golden-ratio-mode 1)
 
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 (add-to-list 'auto-mode-alist '("[A-Z]\\.md\\'" . gfm-mode))
@@ -16,23 +16,21 @@
 (setq ns-use-srgb-colorspace t)
 (tool-bar-mode -1)
 
-;;; display line numbers in margin, col nums at bottom.
-(global-linum-mode 1)
 (column-number-mode 1)
-
+(global-nlinum-mode 1)
 (projectile-global-mode)
 
 ;;; Set font
 
-(when (window-system) (smooth-scrolling-mode t))
+;; (when (window-system) (smooth-scrolling-mode t))
 
 ;;; Close with CMD-w
 ;; (global-set-key (kbd "s-w") 'delete-window)
 
 ;; scroll one line at a time (less "jumpy" than defaults)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+;; (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+;; (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 
 (setq scroll-bar-mode nil)
 (scroll-bar-mode -1)
@@ -46,6 +44,8 @@
 (setq whitespace-style
       '(face lines-tail spaces tabs newline space-mark tab-mark newline-mark))
 (setq whitespace-empty t)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (setq ac-ignore-case nil)
 (setq-default indent-tabs-mode nil)
@@ -98,7 +98,11 @@
 (setq tab-stop-list (number-sequence 4 200 4))
 
 
-(if (eq system-type 'darwin)
-    (setq ns-use-native-fullscreen nil))
+(if (eq system-type 'darwin) (setq ns-use-native-fullscreen nil))
+
+(setq-default fill-column 80)
+
+(setq projectile-enable-caching t)
+(setq shell-file-name "/bin/sh")
 
 (provide 'init-settings)

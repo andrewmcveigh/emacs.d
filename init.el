@@ -10,10 +10,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("c7a9a68bd07e38620a5508fef62ec079d274475c8f92d75ed0c33c45fbe306bc" "f81a9aabc6a70441e4a742dfd6d10b2bae1088830dc7aba9c9922f4b1bd2ba50" default)))
+    ("f78de13274781fbb6b01afd43327a4535438ebaeec91d93ebdbba1e3fba34d3c" "c7a9a68bd07e38620a5508fef62ec079d274475c8f92d75ed0c33c45fbe306bc" "f81a9aabc6a70441e4a742dfd6d10b2bae1088830dc7aba9c9922f4b1bd2ba50" default)))
  '(package-selected-packages
    (quote
-    (coffee-mode smooth-scrolling session rust-mode paren-face ox-reveal nix-mode neotree monokai-theme markdown-mode julia-mode inf-ruby idris-mode htmlize helm-projectile haskell-mode golden-ratio go-mode geiser fill-column-indicator f evil-paredit evil-leader dockerfile-mode company clj-refactor)))
+    (coffee-mode smooth-scrolling session rust-mode paren-face ox-reveal nix-mode neotree monokai-theme markdown-mode julia-mode inf-ruby idris-mode htmlize helm-projectile haskell-mode go-mode geiser fill-column-indicator f evil-paredit evil-leader dockerfile-mode company clj-refactor)))
  '(safe-local-variable-values
    (quote
     ((eval define-clojure-indent
@@ -89,10 +89,10 @@
     neotree
 
     helm
-    golden-ratio
     projectile
     helm-projectile
 
+    nlinum
     go-mode
 
     haskell-mode
@@ -107,11 +107,10 @@
 
     ;; Racket
     geiser
-    
+
     ;; Magit
-    ;; magit
-    ;; evil-magit
-    
+    magit
+    evil-magit
 
     nix-mode
     smooth-scrolling
@@ -155,7 +154,6 @@
 (require 'projectile)
 (require 'helm)
 (require 'helm-projectile)
-(require 'golden-ratio)
 
 (require 'dockerfile-mode)
 (require 'haskell-mode)
@@ -163,6 +161,7 @@
 
 (require 'inf-ruby)
 (require 'go-mode)
+(require 'nlinum)
 
 (require 'idris-mode)
 
@@ -177,22 +176,21 @@
 (require 'rust-mode)
 (require 'session)
 (require 'coffee-mode)
+(require 'magit)
+(require 'evil-magit)
 
 ;; ./lisp/*.el
 (require 'electric-return)
 (require 'init-autocomplete)
 (require 'init-clojure)
 (require 'init-evil)
-;; (require 'init-haskell)
+(require 'init-haskell)
 (require 'init-keybindings)
 (require 'init-lisp)
 (require 'init-neotree)
-;; (require 'init-pixie)
+;; ;; (require 'init-pixie)
 (require 'init-settings)
 (require 'init-theme)
 (require 'speaking-time)
 (require 'init-org)
-
-(add-to-list 'load-path "~/.emacs.d/private")
-;; (require 'db-conn)
-
+(require 'init-idris)

@@ -43,7 +43,8 @@
               "I" 'neotree-hidden-file-toggle)
             neotree-mode-map))
 
-(setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$\\|^target$\\|^pom\\.*")
+(setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$\\|^target$\\|^pom\\.*\\|^.*ibc$")
+
 (setq neo-theme 'ascii)
 
 ;;(when neo-persist-show

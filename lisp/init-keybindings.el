@@ -29,4 +29,8 @@
   (interactive)
   (switch-to-buffer "*scratch*"))
 
+(global-set-key (kbd "M-l") (lambda () (interactive) (insert "\u03bb"))) ;lambda
+(global-set-key (kbd "M-f") (lambda () (interactive) (insert "\u0192"))) ;function
+(global-set-key (kbd "M--") (lambda () (interactive) (insert "\u2192"))) ;right arrow
+
 (provide 'init-keybindings)
