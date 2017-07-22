@@ -1,3 +1,6 @@
+(require-packages 'dired-hacks-utils 'dired-subtree)
+(require 'dired-hacks-utils)
+(require 'dired-subtree)
 
 (use-package dired-subtree
   :demand
@@ -72,4 +75,4 @@ the frame and makes it a dedicated window for that buffer."
 (evil-leader/set-key
   "nt" 'mhj/toggle-project-explorer)
 
-(provide 'init-dired-subtree)
+(provide 'init-dired)

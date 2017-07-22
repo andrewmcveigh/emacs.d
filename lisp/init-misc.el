@@ -1,3 +1,21 @@
+(require-packages 'dockerfile-mode 'evil-magit 'evil-paredit 'f 'helm
+                  'helm-projectile 'inf-ruby 'magit 'markdown-mode 'nix-mode
+                  'paredit 'projectile 'rust-mode 's 'session 'use-package)
+(require 'dockerfile-mode)
+(require 'evil-magit)
+(require 'evil-paredit)
+(require 'helm)
+(require 'helm-projectile)
+(require 'inf-ruby)
+(require 'magit)
+(require 'markdown-mode)
+(require 'nix-mode)
+(require 'paredit)
+(require 'projectile)
+(require 'rust-mode)
+(require 'session)
+(require 'use-package)
+
 ;;; paredit customisations
 (defvar electrify-return-match
   "[\]}\)\"]"
@@ -15,4 +33,4 @@ return.")
     (newline arg)
     (indent-according-to-mode)))
 
-(provide 'electric-return)
+(provide 'init-misc)

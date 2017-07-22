@@ -1,10 +1,10 @@
+(require-packages 'clojure-mode 'cider 'clj-refactor)
 (require 'clojure-mode)
 (require 'cider)
 (require 'cider-interaction)
 (require 'cider-repl)
+(require 'clj-refactor)
 (require 'nrepl-client)
-(require 'evil)
-(require 'evil-leader)
 
 ;;; Settings
 (setq cider-prompt-save-file-on-load nil)
@@ -12,20 +12,17 @@
 (setq cider-repl-use-clojure-font-lock t)
 (setq cider-repl-pop-to-buffer-on-connect nil)
 (setq cider-hide-special-buffers nil)
-;; (setq cider-popup-stacktraces nil)
-;; (setq cider-repl-popup-stacktraces t)
 (setq cider-show-error-buffer nil)
+(setq cider-auto-jump-to-error nil)
 (setq cider-auto-select-error-buffer nil)
 (setq cider-stacktrace-fill-column 80)
-;; (setq cider-auto-jump-to-error t)
+(setq cider-words-of-inspiration '("Fuck cider"))
+(setq cider-repl-display-help-banner nil)
+(setq cljr-favor-prefix-notation nil)
+(setq cljr-favor-private-functions nil)
 
 (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
 (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
-
-(setq cljr-favor-prefix-notation nil)
-
-(put 'defcomponent 'clojure-backtracking-indent '(4 4 (2)))
-(put 'task-fn 'clojure-backtracking-indent '((2) 2))
 
 (define-clojure-indent (s/fdef (quote defun)))
 (define-clojure-indent (mlet 1))
@@ -46,14 +43,6 @@
 (defun doc-for-var ()
   (interactive)
   (cider-doc-lookup (cider-symbol-at-point)))
-
-(defun yas-setup ()
-  (yas/minor-mode 1))
-
-(defun cider-auto-connect ()
-  (interactive)
-  (let ((local-p (cadr (car (cider-locate-running-nrepl-ports nil)))))
-    (cider-connect "localhost" local-p)))
 
 (defun cider-eval-pprint-handler (&optional buffer)
   "Make a handler for evaluating and printing result in BUFFER."
@@ -79,10 +68,27 @@
     (backward-kill-sexp)
     (cider-interactive-eval last-sexp (cider-eval-pprint-handler))))
 
+(defun reset-namespace ()
+  "Clear all mappings and aliases from the current (buffer's) namespace"
+  (interactive)
+  (let ((sexp "(do
+                 (.importClass *ns* java.lang.Class)
+                 (let [imports (.getDeclaredField clojure.lang.RT \"DEFAULT_IMPORTS\")
+                       _ (.setAccessible imports true)
+                       default-imports (vals (.get imports clojure.lang.RT))]
+                   (doseq [sym (keys (ns-map *ns*))]
+                     (ns-unmap *ns* sym)
+                     (clojure.core/require '[clojure.core :refer :all]))
+                   (doseq [sym (keys (ns-aliases *ns*))]
+                     (ns-unalias *ns* sym))
+                   (.importClass *ns* java.lang.Class)
+                   (doseq [cls default-imports]
+                     (.importClass *ns* cls))))"))
+    (cider-interactive-eval sexp)))
 
 ;;; Keybindings
-(defun evil-clojure-leader-keys ()
-  (evil-leader/set-key
+(defun set-keys (mode)
+  (evil-leader/set-key-for-mode mode
     "ns" 'cider-repl-set-ns
     "ef" 'cider-load-buffer
     "ed" 'cider-eval-defun-at-point
@@ -92,7 +98,6 @@
     "ema" 'cider-macroexpand-all
     "je" 'cider-jump-to-compilation-error
     "jb" 'cider-visit-error-buffer
-    "cc" 'cider-auto-connect
     "cj" 'cider-jack-in
     "cq" 'cider-quit
     "cr" 'cider-connect
@@ -102,81 +107,34 @@
     "rtf" 'cljr-thread-first-all
     "rtl" 'cljr-thread-last-all
     "ref" 'cljr-extract-function
+    "rns" 'reset-namespace
     "===" 'clojure-align
-    (kbd "RET") 'cider-repl-return
-    ))
+    (kbd "RET") 'cider-repl-return))
 
-(defvar load-command
-  "(load-file \"%s\")\n")
+(set-keys 'clojure-mode)
+(set-keys 'cider-repl-mode)
+(set-keys 'org-mode)
 
-(defun load-file (file-name)
-  "Load a Clojure file FILE-NAME into the inferior Clojure process."
-  (comint-check-source file-name) ; Check to see if buffer needs saved.
-  (setq inf-clojure-prev-l/c-dir/file (cons (file-name-directory    file-name)
-                                            (file-name-nondirectory file-name)))
-  (comint-send-string (inf-clojure-proc) (format load-command file-name)))
-
-(defun root-dir ()
-  (or (projectile-project-root)
-      (let ((backend (vc-deduce-backend)))
-        (and backend
-             (ignore-errors
-               (vc-call-backend backend 'root default-directory))))))
-
-(defun load-current-buffer ()
-  (interactive)
-  (save-buffer)
-  (when (not (inf-clojure-connected-p))
-    (let ((b (window-buffer (minibuffer-selected-window))))
-      (run-clojure inf-clojure-program)
-      (pop-to-buffer-same-window b)))
-  (let ((f (buffer-file-name (window-buffer (minibuffer-selected-window))))
-        (root (root-dir)))
-    (if root (load-file (s-replace (expand-file-name root) "" f))
-      (message "Not in VC dir, cannot infer project root"))))
-
-
-(defun evil-clojure-keymapping ()
-  (define-key evil-normal-state-map "gf" 'jump-to-var)
-  (define-key evil-normal-state-map (kbd "K") 'doc-for-var))
-
-
-;;; Modes
-(define-minor-mode evil-clojure-mode
-  "Evil Clojure*"
-  :lighter " cl&"
-  (progn
-    (clojure-mode)
-    (evil-clojure-leader-keys)
-    (evil-clojure-keymapping)
-    (cljr-setup)
-    (yas-setup)))
-
-(define-minor-mode evil-clojurescript-mode
-  "Evil Clojure*"
-  :lighter " cljs&"
-  (progn
-    (clojurescript-mode)
-    (evil-clojure-leader-keys)
-    (evil-clojure-keymapping)
-    ;; (cljr-setup)
-    ;; (yas-setup)
-    ))
-
-
-(add-to-list 'auto-mode-alist '("\\.clj\\'" . evil-clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.cljs\\'" . evil-clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.cljc\\'" . evil-clojure-mode))
+(evil-define-key 'normal clojure-mode-map (kbd "gf") 'jump-to-var)
+(evil-define-key 'normal clojure-mode-map (kbd "K")  'doc-for-var)
 
 ;;; Hooks
 (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
 (add-hook 'cider-repl-mode-hook 'evil-mode)
-(add-hook 'cider-repl-mode-hook 'evil-clojure-mode)
 (add-hook 'cider-repl-mode-hook 'evil-paredit-mode)
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
+(add-hook 'cider-repl-mode-hook 'cljr-setup)
 (add-hook 'clojure-mode-hook 'paredit-mode)
 (add-hook 'clojure-mode-hook 'evil-paredit-mode)
 (add-hook 'clojure-mode-hook 'paren-face-mode)
 (add-hook 'clojure-mode-hook 'hs-minor-mode)
+(add-hook 'clojure-mode-hook 'cljr-setup)
+(add-hook 'org-mode-hook
+          (progn
+            (define-key paredit-mode-map (kbd "RET") 'newline-and-indent)
+            (paredit-mode)
+            (evil-paredit-mode)
+            (cljr-setup)
+            (paren-face-mode)))
 
 (provide 'init-clojure)

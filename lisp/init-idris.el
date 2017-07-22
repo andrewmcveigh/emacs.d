@@ -1,3 +1,4 @@
+(require-package 'idris-mode)
 (require 'idris-mode)
 
 (evil-leader/set-key-for-mode 'idris-mode

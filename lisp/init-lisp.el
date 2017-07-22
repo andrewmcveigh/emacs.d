@@ -9,7 +9,7 @@
 
 ;;; Keybindings
 (defun evil-elisp-leader-keys ()
-  (evil-leader/set-key
+  (evil-leader/set-key-for-mode 'emacs-lisp-mode
     "ef" 'eval-buffer
     "ee" 'eval-last-sexp
     "er" 'eval-last-sexp-and-replace

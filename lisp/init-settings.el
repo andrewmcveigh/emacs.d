@@ -10,7 +10,7 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(defalias 'ncd 'neotree-dir)
+;; (defalias 'ncd 'neotree-dir)
 
 (add-to-list 'exec-path "$HOME/bin")
 (setq ns-use-srgb-colorspace t)
@@ -103,6 +103,112 @@
 (setq-default fill-column 80)
 
 (setq projectile-enable-caching t)
-(setq shell-file-name "/bin/sh")
+;; (setq shell-file-name "/bin/sh")
+
+; Map escape to cancel (like C-g)...
+(global-set-key (kbd "ESC") 'keyboard-quit) ;; all platforms?
+(define-key isearch-mode-map (kbd "ESC") 'isearch-abort)   ;; isearch
+(define-key isearch-mode-map (kbd "ESC") 'isearch-abort)   ;; \e seems to work better for terminals
+(define-key minibuffer-local-map (kbd "ESC") 'keyboard-escape-quit)
+(define-key query-replace-map (kbd "ESC") 'keyboard-quit)
+
+(add-hook 'dired-mode-hook 'auto-revert-mode)
+
+(defun replace-digits-by-subscript (string)
+  (replace-regexp-in-string "[0-9]"
+    (lambda (v) (format "%c" (+ (string-to-number v) 8320))) string))
+(replace-digits-by-subscript "123456789")
+
+(defun char-to-subscript (c)
+  (cond ((and (>= c 97) (<= c 122))
+         (format "%c" (aref "ₐ   ₑ  ₕᵢⱼₖₗₘₙₒₚ ᵣₛₜᵤᵥ ₓ  " (- c 97))))
+        ((and (>= c 48) (<= c 57))
+         (format "%c" (aref "₀₁₂₃₄₅₆₇₈₉" (- c 48))))))
+
+(defun subscript ()
+  (interactive)
+  (let ((replacement (char-to-subscript (char-after (point)))))
+    (delete-char 1)
+    (insert replacement)))
+
+(defconst greek-letter-alist
+  '((Alpha . "Α")
+    (Beta . "Β")
+    (Gamma . "Γ")
+    (Delta . "Δ")
+    (Epsilon . "Ε")
+    (Zeta . "Ζ")
+    (Eta . "Η")
+    (Theta . "Θ")
+    (Iota . "Ι")
+    (Kappa . "Κ")
+    (Lambda . "Λ")
+    (Mu . "Μ")
+    (Nu . "Ν")
+    (Xi . "Ξ")
+    (Omicron . "Ο")
+    (Pi . "Π")
+    (Rho . "Ρ")
+    (Sigma . "Σ")
+    (Tau . "Τ")
+    (Upsilon . "Υ")
+    (Phi . "Φ")
+    (Chi . "Χ")
+    (Psi . "Ψ")
+    (Omega . "Ω")
+    (alpha . "α")
+    (beta . "β")
+    (gamma . "γ")
+    (delta . "δ")
+    (epsilon . "ε")
+    (zeta . "ζ")
+    (eta . "η")
+    (theta . "θ")
+    (iota . "ι")
+    (kappa . "κ")
+    (lambda . "λ")
+    (mu . "μ")
+    (nu . "ν")
+    (xi . "ξ")
+    (omicron . "ο")
+    (pi . "π")
+    (rho . "ρ")
+    (sigma . "σ")
+    (tau . "τ")
+    (upsilon . "υ")
+    (phi . "φ")
+    (chi . "χ")
+    (psi . "ψ")
+    (omega . "ω")))
+
+(defun replace-word-from-alist (alist)
+  (interactive)
+  (let* ((b (bounds-of-thing-at-point 'word))
+         (k (thing-at-point 'word))
+         (l (alist-get (intern-soft k) alist)))
+    (kill-region (car b) (cdr b))
+    (insert l)))
+
+(defun replace-symbol-from-alist (alist)
+  (interactive)
+  (let* ((b (bounds-of-thing-at-point 'symbol))
+         (k (thing-at-point 'symbol))
+         (l (alist-get (intern-soft k) alist)))
+    (kill-region (car b) (cdr b))
+    (insert l)))
+
+(defun greek ()
+  (interactive)
+  (replace-word-from-alist greek-letter-alist))
+
+(defconst mathsym-alist
+  '((<= . "≤")
+    (>= . "≥")
+    (union . "∪")
+    (prime . "′")))
+
+(defun mathsym ()
+  (interactive)
+  (replace-symbol-from-alist mathsym-alist))
 
 (provide 'init-settings)

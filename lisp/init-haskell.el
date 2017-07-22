@@ -1,11 +1,15 @@
+(require-package 'haskell-mode)
+(require 'haskell-mode)
 
 (setq
  ;; ghc-ghc-options '("-fno-warn-missing-signatures")
  haskell-compile-cabal-build-command "cd %s && stack build"
  haskell-process-type 'stack-ghci
  haskell-interactive-popup-errors nil
- ;; haskell-process-args-stack-ghci '("--ghc-options=-ferror-spans" "--with-ghc=ghci-ng")
+ haskell-process-args-stack-ghci '("--no-load")
  haskell-process-path-ghci "stack")
+
+;; "--ghc-options=-ferror-spans" "--with-ghc=ghci-ng"
 
 (defun set-exec-path-from-shell-PATH ()
   "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell. "

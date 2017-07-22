@@ -12,6 +12,7 @@ directory to make multiple eshell windows easier."
     (rename-buffer (concat "*eshell: " name "*"))))
 
 (defun eshell/x ()
+  (interactive)
   (insert "exit")
   (eshell-send-input))
 
