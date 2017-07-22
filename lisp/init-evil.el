@@ -1,5 +1,8 @@
+(require-packages 'evil 'evil-leader)
+(require 'evil)
 (require 'evil-leader)
 (require 'evil-paredit)
+(require 'init-eshell)
 
 ;;; Settings
 (evil-mode t)
@@ -38,7 +41,15 @@
 ;;; visual mode
 (define-key evil-visual-state-map (kbd "W") 'paredit-wrap-round)
 
-(define-key evil-normal-state-map (kbd "Y") 'evil-yank-eol)
+(evil-define-operator evil-paredit-yank-eol (beg end type register)
+  "Saves whole lines into the kill-ring."
+  :motion evil-forward-char
+  :move-point nil
+  (interactive "<R><x>")
+  (let* ((beg (point))
+         (end (evil-paredit-kill-end)))
+    (evil-paredit-yank beg end type register)
+    (goto-char beg)))
 
 (defun custom-evil-paredit-mode-hook ()
   ;;; paredit
@@ -47,35 +58,11 @@
 
 (add-hook 'evil-paredit-mode-hook 'custom-evil-paredit-mode-hook)
 
-(evil-define-operator evil-yank-eol (beg end type register yank-handler)
-  "Saves 'til end of line into the kill-ring."
-  :motion nil
-  :keep-visual t
-  (interactive "<R><x>")
-  ;; act linewise in Visual state
-  (let* ((beg (or beg (point)))
-         (end (or end beg)))
-    (when (evil-visual-state-p)
-      (unless (memq type '(line block))
-        (let ((range (evil-expand beg end 'line)))
-          (setq beg (evil-range-beginning range)
-                end (evil-range-end range)
-                type (evil-type range))))
-      (evil-exit-visual-state))
-    (cond
-     ((eq type 'block)
-      (let ((temporary-goal-column most-positive-fixnum)
-            (last-command 'next-line))
-        (evil-yank beg end 'block register yank-handler)))
-     ((eq type 'line)
-      (evil-yank beg end type register yank-handler))
-     (t
-      (evil-yank beg (line-end-position) type register yank-handler)))))
-
 (evil-define-key 'normal evil-paredit-mode-map
   (kbd "d") 'evil-paredit-delete
   (kbd "c") 'evil-paredit-change
   (kbd "y") 'evil-paredit-yank
+  (kbd "Y") 'evil-paredit-yank-eol
   (kbd "D") 'evil-paredit-delete-line
   (kbd "C") 'evil-paredit-change-line
   (kbd "S") 'paredit-splice-sexp
@@ -116,9 +103,9 @@
   "yy" 'pbcopy
   "pp" 'pbpaste
   "dd" 'pbcut
+  "de" 'dired
   "e=" 'evil-remove-too-much-space
   "=ip" 'evil-remove-too-much-space-in-current-paragraph
-  "nt" 'neotree-toggle
   "w[" 'paredit-wrap-square
   "w{" 'paredit-wrap-curly
   "w\"" (lambda ()
@@ -134,27 +121,30 @@
              (interactive)
              (comment-or-uncomment-region (line-beginning-position)
                                           (line-end-position)))
-  "pf" 'helm-projectile-find-file
-  "p," 'paredit-backward-barf-sexp
-  "p." 'paredit-backward-slurp-sexp
-  "s"  'save-buffer)
+  "pf"  'helm-projectile-find-file
+  "p,"  'paredit-backward-barf-sexp
+  "p."  'paredit-backward-slurp-sexp
+  "s"   'save-buffer
+  "esh" (lambda ()
+          (interactive)
+          (if (string-equal "eshell-mode" major-mode)
+              (eshell/x)
+            (eshell/sh))))
 
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()
                                (interactive)
-                               (neo-buffer--unlock-width)
-                               (evil-window-decrease-width 3)
-                               (neo-buffer--lock-width)))
+                               (evil-window-decrease-width 3)))
+
 (global-set-key (kbd "s-\>") (lambda ()
                                (interactive)
-                               (neo-buffer--unlock-width)
-                               (evil-window-increase-width 3)
-                               (neo-buffer--lock-width)))
+                               (evil-window-increase-width 3)))
 
 (global-set-key (kbd "s-<left>") 'evil-prev-buffer)
-(global-set-key (kbd "s-<right>") 'evil-prev-buffer)
-(global-set-key (kbd "S-w") 'delete-window)
+(global-set-key (kbd "s-<right>") 'evil-next-buffer)
+(global-set-key (kbd "s-w")       '(lambda () (interactive) (window--delete)))
 
-(define-key evil-window-map "=" 'balance-windows-area)
+
+(define-key evil-window-map "=" 'balance-windows)
 
 (provide 'init-evil)
