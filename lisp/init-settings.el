@@ -1,3 +1,4 @@
+(require-package 'nlinum)
 (setq ring-bell-function #'ignore)
 
 ;; (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
@@ -18,6 +19,7 @@
 
 (column-number-mode 1)
 (global-nlinum-mode 1)
+
 (projectile-global-mode)
 
 ;;; Set font
@@ -45,7 +47,12 @@
       '(face lines-tail spaces tabs newline space-mark tab-mark newline-mark))
 (setq whitespace-empty t)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(defun delete-whitespace ()
+  (message (buffer-name))
+  (if (not (string-prefix-p "slides.org" (buffer-name)))
+      (delete-trailing-whitespace)))
+
+(add-hook 'before-save-hook 'delete-whitespace)
 
 (setq ac-ignore-case nil)
 (setq-default indent-tabs-mode nil)
@@ -210,5 +217,18 @@
 (defun mathsym ()
   (interactive)
   (replace-symbol-from-alist mathsym-alist))
+
+;; Configure desktop saving
+(setq desktop-restore-eager 5)
+(setq desktop-save (quote if-exists))
+(desktop-save-mode 1)
+
+(setq ruby-insert-encoding-magic-comment nil)
+
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 (provide 'init-settings)

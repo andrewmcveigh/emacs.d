@@ -1,4 +1,5 @@
 (require-package 'idris-mode)
+(require 'init-haskell)
 (require 'idris-mode)
 
 (evil-leader/set-key-for-mode 'idris-mode

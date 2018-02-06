@@ -1,24 +1,26 @@
-(require-packages 'fill-column-indicator 'monokai-theme 'nlinum 'paren-face)
+(require-packages 'fill-column-indicator 'dracula-theme 'nlinum 'paren-face)
 (require 'fill-column-indicator)
-(require 'monokai-theme)
 (require 'nlinum)
 (require 'paren-face)
+(require 'dracula-theme)
 
-(setq monokai-background "#111111")
+(load-theme 'dracula)
 
-(load-theme 'monokai)
+(set-background-color "#111120")
+(set-face-background 'whitespace-space "#111120")
+(set-face-foreground 'whitespace-space "#333342")
 
 (setq paren-face-regexp "[()]")
 
-(set-face-foreground 'parenthesis "#666666")
+(set-face-foreground 'parenthesis "#444453")
 
-(custom-theme-set-faces
- 'monokai
- '(org-block-begin-line
-   ((t (:underline "#333333" :foreground "#AAAAAA" :background "#333333"))))
- '(org-block ((t (:background "#111111"))))
- '(org-block-end-line
-   ((t (:overline "#333333" :foreground "#AAAAAA" :background "#333333")))))
+;; (custom-theme-set-faces
+;;  'monokai
+;;  '(org-block-begin-line
+;;    ((t (:underline "#333333" :foreground "#AAAAAA" :background "#333333"))))
+;;  '(org-block ((t (:background "#111111"))))
+;;  '(org-block-end-line
+;;    ((t (:overline "#333333" :foreground "#AAAAAA" :background "#333333")))))
 
 (defun on-off-fci-before-company(command)
   (when (string= "show" command)
@@ -36,6 +38,12 @@
 
 (defface todo-comment '((t (:foreground "#ffa198"))) "Pink")
 (defface special-comment '((t (:foreground "#2aa198"))) "Cyan")
+(font-lock-add-keywords 'haskel-mode '(("-- \\(TODO:\\)" 1 'todo-comment t)))
+(font-lock-add-keywords 'haskel-mode '(("--: \\(.*\\)" 1 'special-comment t)))
+(font-lock-add-keywords 'idris-mode '(("-- \\(TODO:\\)" 1 'todo-comment t)))
+(font-lock-add-keywords 'idris-mode '(("--: \\(.*\\)" 1 'special-comment t)))
+(font-lock-add-keywords 'idris-mode '(("||| \\(TODO:\\)" 1 'todo-comment t)))
+(font-lock-add-keywords 'idris-mode '(("|||: \\(.*\\)" 1 'special-comment t)))
 (font-lock-add-keywords 'clojure-mode '(("; \\(TODO:\\)" 1 'todo-comment t)))
 (font-lock-add-keywords 'clojure-mode '((";: \\(.*\\)" 1 'special-comment t)))
 

@@ -3,7 +3,7 @@
 
 (setq dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
 
-(setq autoload-file (concat dotfiles-dir "loaddefs.el"))
+;;(setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq custom-file   (concat dotfiles-dir "custom.el"))
 (load custom-file)
 
@@ -35,16 +35,20 @@
   (dolist (p pkgs) (require-package p)))
 
 (add-to-list 'load-path (concat dotfiles-dir "lisp"))
-(require 'init-misc)
+
 (require 'init-evil)
+(require 'init-misc)
 (require 'init-autocomplete)
 (require 'init-clojure)
-(require 'init-dired)
 (require 'init-eshell)
 (require 'init-haskell)
 (require 'init-idris)
 (require 'init-keybindings)
 (require 'init-lisp)
 (require 'init-org)
+(require 'init-ruby)
 (require 'init-settings)
 (require 'init-theme)
+
+(when (not (display-graphic-p))
+  (require 'init-emacs-nw))

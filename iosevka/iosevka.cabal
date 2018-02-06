@@ -1,0 +1,21 @@
+name:          iosevka
+version:       0.1.0.0
+author:        Andrew Mcveigh
+maintainer:    me@andrewmcveigh.com
+build-type:    Simple
+cabal-version: >= 1.9.2
+
+executable iosevka
+  main-is:        IosevkaConfigGen.hs
+  build-depends:  base
+  hs-source-dirs: bin
+
+-- executable ssh2
+--   main-is:        ssh2.hs
+--   build-depends:  base, text, tools, process
+--   hs-source-dirs: bin
+
+-- executable secrets
+--   main-is:        secrets.hs
+--   build-depends:  base, text, tools, unordered-containers
+--   hs-source-dirs: bin

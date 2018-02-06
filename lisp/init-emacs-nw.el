@@ -11,6 +11,13 @@
                       :inherit 'fixed-pitch
                       :weight 'semi-light))
 
-(set-background-color "#111120")
+(set-background-color "#111111")
+(set-face-background 'whitespace-space "#111111")
+(set-face-foreground 'whitespace-space "#333333")
+(set-face-foreground 'parenthesis "#444444")
+(set-face-background 'linum "#111111")
+(set-face-foreground 'linum "#444444")
 
 (require 'init-ligatures)
+
+(provide 'init-emacs-nw)

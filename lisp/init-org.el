@@ -9,13 +9,15 @@
   (define-key evil-normal-state-map (kbd "<f9>") 'org-set-speaking-time)
   (define-key evil-normal-state-map (kbd "<") 'org-promote-subtree)
   (define-key evil-normal-state-map (kbd ">") 'org-demote-subtree)
+  (define-key evil-insert-state-map (kbd "C-y") (lambda () (interactive) (insert "λ")))
+  (define-key evil-insert-state-map (kbd "C-S-Y") (lambda () (interactive) (insert "Λ")))
   (evil-leader/set-key-for-mode 'org-mode "ll" 'org-latex-export-to-pdf)
   (evil-leader/set-key-for-mode 'org-mode "lr" 'org-reveal-export-to-html)
-  (evil-leader/set-key-for-mode 'org-mode "ost" 'org-set-speaking-time)
-  )
+  (evil-leader/set-key-for-mode 'org-mode "ost" 'org-set-speaking-time))
 
 (add-hook 'org-mode-hook 'custom-evil-org-mode-hook)
 
+(setq org-reveal-root "/home/andrewmcveigh/code/reveal.js")
 (setq org-reveal-title-slide "<h1 class=\"title\">%t</h1>")
 (setq org-src-preserve-indentation t)
 (setq org-src-tab-acts-natively t)
@@ -24,7 +26,9 @@
   (evil-leader/set-key-for-mode mode
     "ts" 'subscript
     "tg" 'greek
-    "tm" 'mathsym))
+    "tm" 'mathsym
+
+    ))
 
 (set-keys 'org-mode)
 

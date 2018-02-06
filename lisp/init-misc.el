@@ -1,6 +1,7 @@
 (require-packages 'dockerfile-mode 'evil-magit 'evil-paredit 'f 'helm
                   'helm-projectile 'inf-ruby 'magit 'markdown-mode 'nix-mode
-                  'paredit 'projectile 'rust-mode 's 'session 'use-package)
+                  'paredit 'projectile 'restclient 'rust-mode 's 'session
+                  'use-package)
 (require 'dockerfile-mode)
 (require 'evil-magit)
 (require 'evil-paredit)
@@ -12,6 +13,7 @@
 (require 'nix-mode)
 (require 'paredit)
 (require 'projectile)
+(require 'restclient)
 (require 'rust-mode)
 (require 'session)
 (require 'use-package)

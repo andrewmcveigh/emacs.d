@@ -1,11 +1,13 @@
-(require-packages 'evil 'evil-leader)
+(require-packages 'evil 'evil-leader 'evil-commentary 'evil-paredit)
 (require 'evil)
+(require 'evil-commentary)
 (require 'evil-leader)
 (require 'evil-paredit)
 (require 'init-eshell)
 
 ;;; Settings
 (evil-mode t)
+(evil-commentary-mode)
 (global-evil-leader-mode)
 
 ;;; Helper Functions
@@ -86,16 +88,6 @@
   (mark-paragraph)
   (evil-remove-too-much-space (region-beginning) (region-end)))
 
-(defun un-comment-paragraph ()
-  (interactive)
-  (if (evil-visual-range)
-      (comment-or-uncomment-region (region-beginning) (region-end))
-    (save-excursion
-      (backward-paragraph)
-      (evil-visual-line)
-      (forward-paragraph)
-      (comment-or-uncomment-region (region-beginning) (region-end)))))
-
 ;;; evil leader mappings
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
@@ -112,7 +104,6 @@
           (interactive)
           (paredit-doublequote)
           (paredit-forward-slurp-sexp))
-  "cp" 'un-comment-paragraph
   "cl" (lambda ()
          (interactive)
          (comment-or-uncomment-region (line-beginning-position)
@@ -140,11 +131,23 @@
                                (interactive)
                                (evil-window-increase-width 3)))
 
-(global-set-key (kbd "s-<left>") 'evil-prev-buffer)
+(global-set-key (kbd "s-<left>")  'evil-prev-buffer)
 (global-set-key (kbd "s-<right>") 'evil-next-buffer)
-(global-set-key (kbd "s-w")       '(lambda () (interactive) (window--delete)))
-
+(global-set-key (kbd "s-w")       (lambda () (interactive) (window--delete)))
 
 (define-key evil-window-map "=" 'balance-windows)
+
+;; override weird new gd behaviour, default to 1st location in buffer
+(evil-define-motion evil-goto-definition ()
+  "Go to definition or first occurrence of symbol under point."
+  :jump t
+  :type exclusive
+  (let* ((string (evil-find-symbol t))
+         (search (format "\\_<%s\\_>" (regexp-quote string)))
+         ientry ipos)
+    (if (null string)
+        (user-error "No symbol under cursor")
+      (setq isearch-forward t)
+      (evil-search search t t (point-min)))))
 
 (provide 'init-evil)
