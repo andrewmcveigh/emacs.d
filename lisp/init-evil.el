@@ -104,6 +104,8 @@
           (interactive)
           (paredit-doublequote)
           (paredit-forward-slurp-sexp))
+  "wh" 'previous-buffer
+  "wl" 'next-buffer
   "cl" (lambda ()
          (interactive)
          (comment-or-uncomment-region (line-beginning-position)
@@ -133,6 +135,9 @@
 
 (global-set-key (kbd "s-<left>")  'evil-prev-buffer)
 (global-set-key (kbd "s-<right>") 'evil-next-buffer)
+(global-set-key (kbd "C-S-H")   'previous-buffer)
+(global-set-key (kbd "C-S-L") 'next-buffer)
+
 (global-set-key (kbd "s-w")       (lambda () (interactive) (window--delete)))
 
 (define-key evil-window-map "=" 'balance-windows)

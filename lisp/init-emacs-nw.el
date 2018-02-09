@@ -17,6 +17,12 @@
 (set-face-foreground 'parenthesis "#444444")
 (set-face-background 'linum "#111111")
 (set-face-foreground 'linum "#444444")
+(set-cursor-color "#999999")
+(setq blink-cursor-count 0)
+
+(evil-define-key 'normal cider-repl-mode-map (kbd "RET") 'cider-repl-return)
+(evil-define-key 'normal cider-repl-mode-map (kbd "<up>") 'cider-repl-previous-input)
+(evil-define-key 'normal cider-repl-mode-map (kbd "<down>") 'cider-repl-next-input)
 
 (require 'init-ligatures)
 

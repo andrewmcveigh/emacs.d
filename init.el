@@ -37,18 +37,25 @@
 (add-to-list 'load-path (concat dotfiles-dir "lisp"))
 
 (require 'init-evil)
-(require 'init-misc)
 (require 'init-autocomplete)
 (require 'init-clojure)
-(require 'init-eshell)
-(require 'init-haskell)
-(require 'init-idris)
 (require 'init-keybindings)
 (require 'init-lisp)
-(require 'init-org)
-(require 'init-ruby)
 (require 'init-settings)
 (require 'init-theme)
+(require 'init-misc)
 
-(when (not (display-graphic-p))
+(defvar gui? (display-graphic-p))
+
+(when gui?
+  (require 'init-eshell)
+  (require 'init-haskell)
+  (require 'init-idris)
+  (require 'init-ruby)
+  ;;(require 'init-org)
+ )
+
+(when (not gui?)
+  (require-package 'xclip)
+  (xclip-mode 1)
   (require 'init-emacs-nw))
