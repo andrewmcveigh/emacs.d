@@ -235,12 +235,12 @@
 (define-key evil-motion-state-map "gd" 'evil-goto-definition)
 
 (defun math-prettify-symbols ()
-  (let ((syms '(("_Gamma"  . ?Γ)
-                ("_Delta"  . ?Δ)
-                ("_Rho"    . ?Ρ)
-                ("_Theta"  . ?Θ)
-                ("_Forall" . ?∀)
-                )))
+  (let ((syms '(("_Gamma"   . ?Γ)
+                ("_Delta"   . ?Δ)
+                ("_Rho"     . ?Ρ)
+                ("_Theta"   . ?Θ)
+                ("_Forall"  . ?∀)
+                ("_epsilon" . ?ε))))
     (dolist (s syms)
       (push s prettify-symbols-alist))))
 

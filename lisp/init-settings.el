@@ -1,4 +1,4 @@
-(require-package 'nlinum)
+(require-packages 'nlinum 'projectile)
 (setq ring-bell-function #'ignore)
 
 ;; (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
