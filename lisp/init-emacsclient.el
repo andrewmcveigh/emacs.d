@@ -13,4 +13,8 @@
 
 (set-background-color "#111120")
 
+(evil-define-key 'normal cider-repl-mode-map (kbd "RET") 'cider-repl-return)
+(evil-define-key 'normal cider-repl-mode-map (kbd "<up>") 'cider-repl-previous-input)
+(evil-define-key 'normal cider-repl-mode-map (kbd "<down>") 'cider-repl-next-input)
+
 (require 'init-ligatures)

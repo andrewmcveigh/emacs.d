@@ -47,13 +47,11 @@
 
 (defvar gui? (display-graphic-p))
 
-(when gui?
-  (require 'init-eshell)
-  (require 'init-haskell)
-  (require 'init-idris)
-  (require 'init-ruby)
-  ;;(require 'init-org)
- )
+(require 'init-eshell)
+(require 'init-haskell)
+(require 'init-idris)
+(require 'init-ruby)
+(require 'init-org)
 
 (when (not gui?)
   (require-package 'xclip)

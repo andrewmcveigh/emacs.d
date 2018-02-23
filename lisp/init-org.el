@@ -1,5 +1,6 @@
-(require-packages 'htmlize 'ox-reveal)
-(require 'org-mode)
+(require-packages 'htmlize)
+;; 'ox-reveal
+;; (require 'org-mode)
 (require 'ox-reveal)
 (require 'htmlize)
 (require 'evil)
