@@ -207,10 +207,6 @@
    connection
    tooling))
 
-(defun toggle-type-checking ()
-  (interactive)
-  (cider-interactive-eval "(lift.middleware/toggle)"))
-
 (defun lift-bounds-pos (bounds)
   (let* ((start (car-safe bounds))
          (end   (car-safe (cdr-safe bounds)))
@@ -235,6 +231,13 @@
             expr-pos
             expr)))
 
+(defun toggle-type-checking ()
+  (interactive)
+  (cider-interactive-eval
+   (positional-op "toggle-type-checker")
+   nil
+   (cider-defun-at-point 'bounds)))
+
 (defun type-of-expr-at-point ()
   (interactive)
   (cider-interactive-eval
@@ -257,6 +260,7 @@
      pos
      (cider-eval-print-handler)
      (cider-defun-at-point 'bounds))))
+
 
 (defun lift-request:load-file
     (ns file-contents file-path file-name &optional connection callback)
