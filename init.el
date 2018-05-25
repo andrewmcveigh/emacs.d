@@ -52,6 +52,7 @@
 (require 'init-idris)
 (require 'init-ruby)
 (require 'init-org)
+(require 'init-emacsclient)
 
 (when (not gui?)
   (require-package 'xclip)

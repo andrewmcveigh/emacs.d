@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (require-packages 'evil 'evil-leader 'evil-commentary 'evil-paredit)
 (require 'evil)
 (require 'evil-commentary)
@@ -42,6 +43,17 @@
 (define-key evil-motion-state-map (kbd "\d") 'evil-jump-item)
 ;;; visual mode
 (define-key evil-visual-state-map (kbd "W") 'paredit-wrap-round)
+
+(defun insert-key (key)
+  (lambda ()
+    (interactive)
+    (insert key)))
+
+(evil-define-key 'insert haskell-mode-map (kbd "M-a") (insert-key "∀"))      ;forall
+(evil-define-key 'insert clojure-mode-map (kbd "M-l") (insert-key "\u03bb")) ;lambda
+(evil-define-key 'insert clojure-mode-map (kbd "M-f") (insert-key "\u0192")) ;function
+(evil-define-key 'insert clojure-mode-map (kbd "M--") (insert-key "\u2192")) ;right arrow
+(evil-define-key 'insert clojure-mode-map (kbd "M-8") (insert-key "✳"))
 
 (evil-define-operator evil-paredit-yank-eol (beg end type register)
   "Saves whole lines into the kill-ring."
@@ -122,7 +134,10 @@
           (interactive)
           (if (string-equal "eshell-mode" major-mode)
               (eshell/x)
-            (eshell/sh))))
+            (eshell/sh)))
+  "g"   (lambda ()
+          (interactive)
+          (set-input-method 'greek)))
 
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()

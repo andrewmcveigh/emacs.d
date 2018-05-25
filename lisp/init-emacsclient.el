@@ -18,3 +18,4 @@
 (evil-define-key 'normal cider-repl-mode-map (kbd "<down>") 'cider-repl-next-input)
 
 (require 'init-ligatures)
+(provide 'init-emacsclient)

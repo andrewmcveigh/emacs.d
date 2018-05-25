@@ -384,7 +384,9 @@ command `cider-debug-defun-at-point'."
                 ("_Rho"     . ?Ρ)
                 ("_Theta"   . ?Θ)
                 ("_Forall"  . ?∀)
-                ("_epsilon" . ?ε))))
+                ("forall"   . ?∀)
+                ("_epsilon" . ?ε)
+                ("_kind"    . ?✳))))
     (dolist (s syms)
       (push s prettify-symbols-alist))))
 
