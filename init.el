@@ -18,8 +18,10 @@
   '(((markdown-mode         . "melpa-stable") t)
     ((markdown-preview-mode . "melpa-stable") t)
     ((haskell-mode          . "melpa-stable") t)
+    ((flycheck-haskell      . "melpa-stable") t)
     ((go-mode               . "melpa-stable") t)
-    ((geiser                . "melpa-stable") t)))
+    ((geiser                . "melpa-stable") t)
+    ))
 
 (require 'package)
 (dolist (a archives)        (add-to-list 'package-archives a))
