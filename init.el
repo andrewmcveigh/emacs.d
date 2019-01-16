@@ -11,16 +11,22 @@
       `(("." . ,(expand-file-name (concat dotfiles-dir "bak")))))
 
 (defvar archives
-  '(("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
-    ("melpa" . "http://melpa.milkbox.net/packages/")))
+  '(("melpa-stable" . "https://melpa.org/packages/")
+    ("melpa" . "https://melpa.org/packages/")))
 
 (defvar pinned-packages
   '(((markdown-mode         . "melpa-stable") t)
     ((markdown-preview-mode . "melpa-stable") t)
     ((haskell-mode          . "melpa-stable") t)
+    ((purescript-mode       . "melpa-stable") t)
+    ((psc-ide               . "melpa-stable") t)
     ((flycheck-haskell      . "melpa-stable") t)
     ((go-mode               . "melpa-stable") t)
     ((geiser                . "melpa-stable") t)
+
+    ((clojure-mode          . "melpa-stable") t)
+    ((cider                 . "melpa-stable") t)
+
     ))
 
 (require 'package)
@@ -41,6 +47,7 @@
 (require 'init-evil)
 (require 'init-autocomplete)
 (require 'init-clojure)
+(require 'init-flycheck)
 (require 'init-keybindings)
 (require 'init-lisp)
 (require 'init-settings)
@@ -51,9 +58,14 @@
 
 (require 'init-eshell)
 (require 'init-haskell)
+(require 'init-purescript)
 (require 'init-idris)
-(require 'init-ruby)
+(require 'init-nix)
 (require 'init-org)
+(require 'init-ruby)
+
+(require 'init-magit)
+
 (require 'init-emacsclient)
 
 (when (not gui?)

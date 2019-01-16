@@ -1,10 +1,10 @@
-(require-packages 'clojure-mode 'cider 'clj-refactor 'paren-face)
+(require-packages 'clojure-mode 'cider 'paren-face) ; 'clj-refactor 
 (require 'clojure-mode)
 (require 'cider)
-(require 'cider-interaction)
-(require 'cider-repl)
+; (require 'cider-interaction)
+; (require 'cider-repl)
 ;; (require 'clj-refactor)
-(require 'nrepl-client)
+; (require 'nrepl-client)
 
 ;;; Settings
 (setq cider-prompt-save-file-on-load nil)
@@ -22,8 +22,8 @@
 (setq cljr-favor-private-functions nil)
 (setq cljr-warn-on-eval nil)
 
-(add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
-(add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
+; (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
+; (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
 
 (define-clojure-indent (s/fdef (quote defun)))
 (define-clojure-indent (mlet 1))

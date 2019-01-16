@@ -8,6 +8,8 @@
 
 ;; (setq dante-repl-command-line '("nix-shell" "--run" "'cabal repl'"))
 
+(set-face-foreground 'haskell-literate-comment-face "#B0B0D0")
+
 (setq
  ;; ghc-ghc-options '("-fno-warn-missing-signatures" "-fwarn-incomplete-patterns")
  ;; haskell-compile-cabal-build-command "nix-shell --run=\"cabal install --builddir=dist/dante\""
@@ -40,7 +42,13 @@
 
 
 (evil-leader/set-key-for-mode 'haskell-mode
-  "ee" 'dante-eval-block
+  ;; "ee" 'dante-eval-block
+  "je" 'flycheck-next-error
+  "jp" 'flycheck-previous-error
+  )
+
+(evil-leader/set-key-for-mode 'literate-haskell-mode
+  ;; "ee" 'dante-eval-block
   "je" 'flycheck-next-error)
 
 ;; (evil-define-key 'normal haskell-mode-map (kbd "gf") 'xref-find-definitions)
@@ -50,12 +58,12 @@
 ;; (define-key evil-motion-state-map "gd" 'evil-goto-definition)
 
 
-(defun flycheck-haskell-runghc-command (args)
-  "Customised cos nix-shell"
-  (list "bash" "-c"
-        (format "cd %s && nix-shell --run 'runghc -i %s'"
-                (projectile-project-root)
-                (string-join args " "))))
+;; (defun flycheck-haskell-runghc-command (args)
+;;   "Customised cos nix-shell"
+;;   (list "bash" "-c"
+;;         (format "cd %s && nix-shell --run 'runghc -i %s'"
+;;                 (projectile-project-root)
+;;                 (string-join args " "))))
 
 (defun hlint-hook ()
   (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))

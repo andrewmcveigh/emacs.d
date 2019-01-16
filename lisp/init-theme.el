@@ -38,8 +38,8 @@
 
 (defface todo-comment '((t (:foreground "#ffa198"))) "Pink")
 (defface special-comment '((t (:foreground "#2aa198"))) "Cyan")
-(font-lock-add-keywords 'haskel-mode '(("-- \\(TODO:\\)" 1 'todo-comment t)))
-(font-lock-add-keywords 'haskel-mode '(("--: \\(.*\\)" 1 'special-comment t)))
+(font-lock-add-keywords 'haskell-mode '(("-- \\(TODO:\\)" 1 'todo-comment t)))
+(font-lock-add-keywords 'haskell-mode '(("--: \\(.*\\)" 1 'special-comment t)))
 (font-lock-add-keywords 'idris-mode '(("-- \\(TODO:\\)" 1 'todo-comment t)))
 (font-lock-add-keywords 'idris-mode '(("--: \\(.*\\)" 1 'special-comment t)))
 (font-lock-add-keywords 'idris-mode '(("||| \\(TODO:\\)" 1 'todo-comment t)))

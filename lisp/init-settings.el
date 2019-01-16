@@ -77,6 +77,12 @@
 (global-set-key [tab] 'indent-or-complete)
 (setq company-idle-delay 0.2)
 
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "<return>") nil)
+  (define-key company-active-map (kbd "RET") nil)
+  (define-key company-active-map (kbd "<tab>") #'company-complete-selection)
+  )
+
 ;; (setq x-select-enable-clipboard nil)
 
 (setq js-indent-level 2)
@@ -230,5 +236,9 @@
 
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
+
+(setq css-indent-offset 2)
+
+(setq auto-revert-verbose nil)
 
 (provide 'init-settings)
