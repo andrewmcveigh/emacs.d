@@ -26,6 +26,7 @@
 
     ((clojure-mode          . "melpa-stable") t)
     ((cider                 . "melpa-stable") t)
+    ((clj-refactor          . "melpa-stable") t)
 
     ))
 
@@ -63,6 +64,7 @@
 (require 'init-nix)
 (require 'init-org)
 (require 'init-ruby)
+(require 'init-rust)
 
 (require 'init-magit)
 

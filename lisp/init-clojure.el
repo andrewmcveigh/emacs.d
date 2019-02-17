@@ -1,9 +1,11 @@
-(require-packages 'clojure-mode 'cider 'paren-face) ; 'clj-refactor 
+(require-packages 'clojure-mode 'cider 'paren-face 'clj-refactor)
+
 (require 'clojure-mode)
 (require 'cider)
 ; (require 'cider-interaction)
 ; (require 'cider-repl)
-;; (require 'clj-refactor)
+(require 'clj-refactor)
+
 ; (require 'nrepl-client)
 
 ;;; Settings
@@ -29,12 +31,13 @@
 (define-clojure-indent (mlet 1))
 (define-clojure-indent (pcase 1))
 (define-clojure-indent (instance '(2 1)))
+(define-clojure-indent (defui '(1 1)))
 (define-clojure-indent (class 1))
 (define-clojure-indent (match '(:defn)))
 
 ;;; Helper Functions
 (defun cljr-setup ()
-  (clj-refactor-mode 1)
+   (clj-refactor-mode 1)
   ;; insert keybinding setup here
   )
 
@@ -341,7 +344,7 @@ command `cider-debug-defun-at-point'."
 (defun set-keys (mode)
   (evil-leader/set-key-for-mode mode
     "ns" 'cider-repl-set-ns
-    "ef" 'lift-load-buffer
+    "ef" 'cider-eval-buffer
     "ed" 'cider-eval-defun-at-point
     ;; "ee" 'type-check-cider-eval-last-sexp
     "ee" 'cider-eval-last-sexp
@@ -374,7 +377,7 @@ command `cider-debug-defun-at-point'."
 (set-keys 'cider-repl-mode)
 (set-keys 'org-mode)
 
-(evil-define-key 'normal clojure-mode-map (kbd "gf") 'jump-to-var)
+(evil-define-key 'normal clojure-mode-map (kbd "gf") 'cider-find-var)
 (evil-define-key 'normal clojure-mode-map (kbd "K")  'doc-for-var)
 (define-key evil-motion-state-map "gd" 'evil-goto-definition)
 

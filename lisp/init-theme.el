@@ -37,6 +37,7 @@
 (global-fci-mode 1)
 
 (defface todo-comment '((t (:foreground "#ffa198"))) "Pink")
+(defface done-comment '((t (:foreground "#282838"))) "Almost Hidden")
 (defface special-comment '((t (:foreground "#2aa198"))) "Cyan")
 (font-lock-add-keywords 'haskell-mode '(("-- \\(TODO:\\)" 1 'todo-comment t)))
 (font-lock-add-keywords 'haskell-mode '(("--: \\(.*\\)" 1 'special-comment t)))
@@ -46,5 +47,8 @@
 (font-lock-add-keywords 'idris-mode '(("|||: \\(.*\\)" 1 'special-comment t)))
 (font-lock-add-keywords 'clojure-mode '(("; \\(TODO:\\)" 1 'todo-comment t)))
 (font-lock-add-keywords 'clojure-mode '((";: \\(.*\\)" 1 'special-comment t)))
+(font-lock-add-keywords 'rust-mode '(("// \\(TODO:\\)" 1 'todo-comment t)))
+(font-lock-add-keywords 'rust-mode '(("//: \\(.*\\)" 1 'special-comment t)))
+(font-lock-add-keywords 'rust-mode '(("// \\(DONE:.*\\)" 1 'done-comment t)))
 
 (provide 'init-theme)
