@@ -49,29 +49,29 @@
   (interactive)
   (cider-doc-lookup (cider-symbol-at-point)))
 
-(defun cider-eval-pprint-handler (&optional buffer)
-  "Make a handler for evaluating and printing result in BUFFER."
-  (nrepl-make-response-handler (or buffer (current-buffer))
-                               (lambda (buffer value)
-                                 (with-current-buffer buffer
-                                   (let ((s (replace-regexp-in-string
-                                              "\\\\\"" "\"" (replace-regexp-in-string "\\\\n" "\n" value))))
-                                     (insert (substring (substring s 1) 0 -1)))))
-                               (lambda (_buffer out)
-                                 (cider-emit-interactive-eval-output out))
-                               (lambda (_buffer err)
-                                 (cider-emit-interactive-eval-err-output err))
-                               '()))
+;; (defun cider-eval-pprint-handler (&optional buffer)
+;;   "Make a handler for evaluating and printing result in BUFFER."
+;;   (nrepl-make-response-handler (or buffer (current-buffer))
+;;                                (lambda (buffer value)
+;;                                  (with-current-buffer buffer
+;;                                    (let ((s (replace-regexp-in-string
+;;                                               "\\\\\"" "\"" (replace-regexp-in-string "\\\\n" "\n" value))))
+;;                                      (insert (substring (substring s 1) 0 -1)))))
+;;                                (lambda (_buffer out)
+;;                                  (cider-emit-interactive-eval-output out))
+;;                                (lambda (_buffer err)
+;;                                  (cider-emit-interactive-eval-err-output err))
+;;                                '()))
 
-(defun cider-eval-last-sexp-and-pprint ()
-  "Evaluate the expression preceding point and replace it with its pprinted result."
-  (interactive)
-  (let ((last-sexp (format "(with-out-str (clojure.pprint/pprint %s))" (cider-last-sexp))))
-    ;; we have to be sure the evaluation won't result in an error
-    (cider-nrepl-sync-request:eval last-sexp)
-    ;; seems like the sexp is valid, so we can safely kill it
-    (backward-kill-sexp)
-    (cider-interactive-eval last-sexp (cider-eval-pprint-handler))))
+;; (defun cider-eval-last-sexp-and-pprint ()
+;;   "Evaluate the expression preceding point and replace it with its pprinted result."
+;;   (interactive)
+;;   (let ((last-sexp (format "(with-out-str (clojure.pprint/pprint %s))" (cider-last-sexp))))
+;;     ;; we have to be sure the evaluation won't result in an error
+;;     (cider-nrepl-sync-request:eval last-sexp)
+;;     ;; seems like the sexp is valid, so we can safely kill it
+;;     (backward-kill-sexp)
+;;     (cider-interactive-eval last-sexp (cider-eval-pprint-handler))))
 
 (defun reset-namespace ()
   "Clear all mappings and aliases from the current (buffer's) namespace"
@@ -192,23 +192,23 @@
     (kill-sexp)
     (cider-interactive-eval (format wrap arg) (cider-eval-pprint-handler) bounds)))
 
-(defun nrepl--raw-request (op input &optional ns line column)
-  (nconc (and ns `("ns" ,ns))
-         `("op" op "code" ,(substring-no-properties input))
-         (when cider-enlighten-mode
-           '("enlighten" "true"))
-         (let ((file (or (buffer-file-name) (buffer-name))))
-           (when (and line column file)
-             `("file" ,file
-               "line" ,line
-               "column" ,column)))))
+;; (defun nrepl--raw-request (op input &optional ns line column)
+;;   (nconc (and ns `("ns" ,ns))
+;;          `("op" op "code" ,(substring-no-properties input))
+;;          (when cider-enlighten-mode
+;;            '("enlighten" "true"))
+;;          (let ((file (or (buffer-file-name) (buffer-name))))
+;;            (when (and line column file)
+;;              `("file" ,file
+;;                "line" ,line
+;;                "column" ,column)))))
 
-(defun nrepl-request:raw (op input callback connection &optional ns line column additional-params tooling)
-  (nrepl-send-request
-   (append (nrepl--raw-request op input ns line column) additional-params)
-   callback
-   connection
-   tooling))
+;; (defun nrepl-request:raw (op input callback connection &optional ns line column additional-params tooling)
+;;   (nrepl-send-request
+;;    (append (nrepl--raw-request op input ns line column) additional-params)
+;;    callback
+;;    connection
+;;    tooling))
 
 (defun lift-bounds-pos (bounds)
   (let* ((start (car-safe bounds))
@@ -308,37 +308,37 @@
          :both)
         (message "Loading %s..." filename)))))
 
-(defun cider-eval-last-sexp (&optional output-to-current-buffer)
-  "Evaluate the expression preceding point.
-If invoked with OUTPUT-TO-CURRENT-BUFFER, print the result in the current buffer."
-  (interactive "P")
-  (cider-interactive-eval nil
-                          (when output-to-current-buffer (cider-eval-print-handler))
-                          (cider-last-sexp 'bounds)
-                          `("file-name" ,(buffer-file-name)
-                            "expr-pos"  ,(lift-bounds-pos (cider-last-sexp 'bounds)))))
+;; (defun cider-eval-last-sexp (&optional output-to-current-buffer)
+;;   "Evaluate the expression preceding point.
+;; If invoked with OUTPUT-TO-CURRENT-BUFFER, print the result in the current buffer."
+;;   (interactive "P")
+;;   (cider-interactive-eval nil
+;;                           (when output-to-current-buffer (cider-eval-print-handler))
+;;                           (cider-last-sexp 'bounds)
+;;                           `("file-name" ,(buffer-file-name)
+;;                             "expr-pos"  ,(lift-bounds-pos (cider-last-sexp 'bounds)))))
 
-(defun cider-eval-defun-at-point (&optional debug-it)
-  "Evaluate the current toplevel form, and print result in the minibuffer.
-With DEBUG-IT prefix argument, also debug the entire form as with the
-command `cider-debug-defun-at-point'."
-  (interactive "P")
-  (let ((inline-debug (eq 16 (car-safe debug-it))))
-    (when debug-it
-      (when (derived-mode-p 'clojurescript-mode)
-        (when (y-or-n-p (concat "The debugger doesn't support ClojureScript yet, and we need help with that."
-                                "  \nWould you like to read the Feature Request?"))
-          (browse-url "https://github.com/clojure-emacs/cider/issues/1416"))
-        (user-error "The debugger does not support ClojureScript"))
-      (when inline-debug
-        (cider--prompt-and-insert-inline-dbg)))
-    (cider-interactive-eval (when (and debug-it (not inline-debug))
-                              (concat "#dbg\n" (cider-defun-at-point)))
-                            ;; (when output-to-current-buffer (cider-eval-print-handler))
-                            nil
-                            (cider-defun-at-point 'bounds)
-                            `("file-name" ,(buffer-file-name)
-                              "expr-pos"  ,(lift-bounds-pos (cider-defun-at-point 'bounds))))))
+;; (defun cider-eval-defun-at-point (&optional debug-it)
+;;   "Evaluate the current toplevel form, and print result in the minibuffer.
+;; With DEBUG-IT prefix argument, also debug the entire form as with the
+;; command `cider-debug-defun-at-point'."
+;;   (interactive "P")
+;;   (let ((inline-debug (eq 16 (car-safe debug-it))))
+;;     (when debug-it
+;;       (when (derived-mode-p 'clojurescript-mode)
+;;         (when (y-or-n-p (concat "The debugger doesn't support ClojureScript yet, and we need help with that."
+;;                                 "  \nWould you like to read the Feature Request?"))
+;;           (browse-url "https://github.com/clojure-emacs/cider/issues/1416"))
+;;         (user-error "The debugger does not support ClojureScript"))
+;;       (when inline-debug
+;;         (cider--prompt-and-insert-inline-dbg)))
+;;     (cider-interactive-eval (when (and debug-it (not inline-debug))
+;;                               (concat "#dbg\n" (cider-defun-at-point)))
+;;                             ;; (when output-to-current-buffer (cider-eval-print-handler))
+;;                             nil
+;;                             (cider-defun-at-point 'bounds)
+;;                             `("file-name" ,(buffer-file-name)
+;;                               "expr-pos"  ,(lift-bounds-pos (cider-defun-at-point 'bounds))))))
 
 ;;; Keybindings
 (defun set-keys (mode)

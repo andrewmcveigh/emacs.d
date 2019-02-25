@@ -1,4 +1,5 @@
 (require-packages 'fill-column-indicator 'dracula-theme 'nlinum 'paren-face)
+
 (require 'fill-column-indicator)
 (require 'nlinum)
 (require 'paren-face)

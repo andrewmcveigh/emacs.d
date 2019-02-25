@@ -67,6 +67,7 @@
 (require 'init-rust)
 
 (require 'init-magit)
+(require 'init-markdown)
 
 (require 'init-emacsclient)
 
