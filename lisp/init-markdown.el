@@ -10,7 +10,7 @@
 
 (defun md-reset-face (face)
   (let* ((font-name "Iosevka")
-         (font-size "13")
+         (font-size "17")
          (font-str (concat font-name "-" font-size)))
     (set-face-attribute face nil
                         :font font-str

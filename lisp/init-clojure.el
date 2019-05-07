@@ -15,8 +15,9 @@
 (setq cider-repl-pop-to-buffer-on-connect nil)
 (setq cider-hide-special-buffers nil)
 (setq cider-show-error-buffer nil)
-(setq cider-auto-jump-to-error nil)
-(setq cider-auto-select-error-buffer nil)
+(setq cider-auto-jump-to-error t)
+
+(setq cider-auto-select-error-buffer t)
 (setq cider-stacktrace-fill-column 80)
 (setq cider-words-of-inspiration '("Fuck cider"))
 (setq cider-repl-display-help-banner nil)
@@ -102,6 +103,19 @@
   (interactive)
   (let ((sexp "(do (load-file \"dev/user.clj\") (user/run-spec-tests-in-current-ns))"))
     (cider-interactive-eval sexp)))
+
+(defun user/clear-current-ns ()
+  (interactive)
+  (let ((sexp "(do
+                 (doseq [[k] (filter (fn [[_ v]] (= (str (:ns (meta v))) (str *ns*))) (ns-map *ns*))]
+                   (ns-unmap *ns* k))
+                 (doseq [[k] (ns-aliases *ns*)] (ns-unalias *ns* k))
+                 (doseq [[k] (ns-refers *ns*)] (ns-unmap *ns* k)))"))
+    (cider-interactive-eval sexp)))
+
+(customize-set-variable
+ 'cider-test-defining-forms
+ '("deftest" "defspec" "deftest-system" "deftest-system-with-keys"))
 
 (defun type-check-cider-eval-last-sexp ()
   (interactive)
@@ -357,6 +371,7 @@
     "ema" 'cider-macroexpand-all
     "eur" 'user/reset
     "eus" 'user/run-spec-tests-in-current-ns
+    "uns" 'user/clear-current-ns
     "je" 'cider-jump-to-compilation-error
     "jb" 'cider-visit-error-buffer
     "cj" 'cider-jack-in
@@ -374,6 +389,7 @@
     (kbd "RET") 'cider-repl-return))
 
 (set-keys 'clojure-mode)
+(set-keys 'clojurec-mode)
 (set-keys 'cider-repl-mode)
 (set-keys 'org-mode)
 

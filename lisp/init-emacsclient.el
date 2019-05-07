@@ -1,5 +1,5 @@
 (let* ((font-name "Iosevka")
-       (font-size "14")
+       (font-size "17")
        (font-str (concat font-name "-" font-size)))
   (set-default-font font-name)
   (set-face-attribute 'default nil

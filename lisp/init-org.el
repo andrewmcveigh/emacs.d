@@ -104,4 +104,13 @@
               (para-end (paragraphs-end))
               (time (org-speaking-time para-start para-end)))
          time)))))
+
+;; active Org-babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(;; other Babel languages
+   (plantuml . t)))
+
+(setq org-plantuml-jar-path (substitute-in-file-name "$PLANTUML_JAR/lib/plantuml.jar"))
+
 (provide 'init-org)
