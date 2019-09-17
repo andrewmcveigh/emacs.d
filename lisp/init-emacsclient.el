@@ -1,18 +1,34 @@
-(let* ((font-name "Iosevka")
-       (font-size "17")
-       (font-str (concat font-name "-" font-size)))
-  (set-default-font font-name)
-  (set-face-attribute 'default nil
-                      :font font-str
-                      :inherit 'fixed-pitch
-                      ;; :style 'ligset-haskell
-                      :weight 'light
-                      )
-  (set-face-attribute 'font-lock-keyword-face nil
-                      :font font-str
-                      :inherit 'fixed-pitch
-                      :weight 'light
-                      ))
+(defun set-font-size (sz)
+  (let* ((font-name "Iosevka")
+         (font-size sz))
+    (set-default-font font-name)
+    (set-face-attribute 'default nil
+                        :family font-name
+                        :height font-size
+                        :inherit 'fixed-pitch
+                        ;; :style 'ligset-haskell
+                        :weight 'light
+                        )
+    (set-face-attribute 'font-lock-keyword-face nil
+                        :family font-name
+                        :height font-size
+                        :inherit 'fixed-pitch
+                        :weight 'light)))
+
+(set-font-size 140)
+
+
+(defun font-scale-up ()
+  (let ((sz (face-attribute 'default :height)))
+    (set-font-size (+ sz 20))))
+
+(defun font-scale-down ()
+  (let ((sz (face-attribute 'default :height)))
+    (set-font-size (- sz 20))))
+
+;; (font-scale-up)
+
+;; (set-font-size 150)
 
 (set-background-color "#111120")
 

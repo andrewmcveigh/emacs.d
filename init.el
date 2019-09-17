@@ -1,3 +1,4 @@
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (setq inhibit-splash-screen t)
 (switch-to-buffer "*scratch*")
 
@@ -15,7 +16,11 @@
     ("melpa" . "https://melpa.org/packages/")))
 
 (defvar pinned-packages
-  '(((markdown-mode         . "melpa-stable") t)
+  '(
+    ((evil-mode             . "melpa-stable") t)
+    ((evil                  . "melpa-stable") t)
+
+    ((markdown-mode         . "melpa-stable") t)
     ((markdown-preview-mode . "melpa-stable") t)
     ((haskell-mode          . "melpa-stable") t)
     ((purescript-mode       . "melpa-stable") t)
