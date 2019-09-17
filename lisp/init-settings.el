@@ -192,7 +192,10 @@
     (phi . "φ")
     (chi . "χ")
     (psi . "ψ")
-    (omega . "ω")))
+    (omega . "ω")
+    (forall . "∀")
+    (arr . "\u2192")
+    ))
 
 (defun replace-word-from-alist (alist)
   (interactive)
