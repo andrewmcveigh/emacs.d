@@ -2,28 +2,28 @@
 
 (require 'clojure-mode)
 (require 'cider)
-; (require 'cider-interaction)
-; (require 'cider-repl)
+;; (require 'cider-eldoc)
 (require 'clj-refactor)
 
-; (require 'nrepl-client)
-
 ;;; Settings
-(setq cider-prompt-save-file-on-load nil)
-(setq cider-repl-display-in-current-window t)
-(setq cider-repl-use-clojure-font-lock t)
-(setq cider-repl-pop-to-buffer-on-connect nil)
-(setq cider-hide-special-buffers nil)
-(setq cider-show-error-buffer nil)
-(setq cider-auto-jump-to-error t)
+(setq cider-save-file-on-load t)
 
-(setq cider-auto-select-error-buffer t)
-(setq cider-stacktrace-fill-column 80)
+;; (setq cider-repl-display-in-current-window t)
+;; (setq cider-repl-use-clojure-font-lock t)
+;; (setq cider-repl-pop-to-buffer-on-connect nil)
+;; (setq cider-hide-special-buffers nil)
+;; (setq cider-show-error-buffer nil)
+
+(setq cider-auto-jump-to-error t)
+(setq cider-auto-select-error-buffer nil)
 (setq cider-words-of-inspiration '("Fuck cider"))
 (setq cider-repl-display-help-banner nil)
-(setq cljr-favor-prefix-notation nil)
-(setq cljr-favor-private-functions nil)
-(setq cljr-warn-on-eval nil)
+(setq cider-highlight-compilation-errors t)
+
+;; (setq cider-stacktrace-fill-column 80)
+;; (setq cljr-favor-prefix-notation nil)
+;; (setq cljr-favor-private-functions nil)
+;; (setq cljr-warn-on-eval nil)
 
 ; (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
 ; (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
@@ -117,255 +117,13 @@
  'cider-test-defining-forms
  '("deftest" "defspec" "deftest-system" "deftest-system-with-keys"))
 
-(defun type-check-cider-eval-last-sexp ()
-  (interactive)
-  (let* ((bounds (cider-last-sexp 'bounds))
-         (expr (cider-last-sexp))
-         (wrap "(if (try (require 'tools) true (catch Throwable _))
-                  ((resolve 'tools/check-eval) '%s)
-                  %s)"))
-    (cider-interactive-eval (format wrap expr expr) nil bounds)))
-
-(defun prep-current-expr ()
-  (interactive)
-  (let* ((bounds     (cider-sexp-at-point 'bounds))
-         (expr       (cider-sexp-at-point))
-         (top-bounds (cider-defun-at-point 'bounds))
-         (top-expr   (cider-defun-at-point))
-         (file       (buffer-file-name))
-         (exprm      (format "{:start %s :end %s :expr %s}"
-                             (car bounds)
-                             (cadr bounds)
-                             (prin1-to-string expr)))
-         (top-exprm  (format "{:start %s :end %s :expr %s}"
-                             (car top-bounds)
-                             (cadr top-bounds)
-                             (prin1-to-string top-expr)))
-         (arg        (format "{:file \"%s\" :expr %s :top-level %s}"
-                             file exprm top-exprm)))
-    [bounds arg]))
-
-(defun type-of-current-expr ()
-  (interactive)
-  (let* ((bounds     (cider-sexp-at-point 'bounds))
-         (expr       (cider-sexp-at-point))
-         (top-bounds (cider-defun-at-point 'bounds))
-         (top-expr   (cider-defun-at-point))
-         (file       (buffer-file-name))
-         (exprm      (format "{:start %s :end %s :expr %s}"
-                             (car bounds)
-                             (cadr bounds)
-                             (prin1-to-string expr)))
-         (top-exprm  (format "{:start %s :end %s :expr %s}"
-                             (car top-bounds)
-                             (cadr top-bounds)
-                             (prin1-to-string top-expr)))
-         (arg        (format "{:file \"%s\" :expr %s :top-level %s}"
-                             file exprm top-exprm))
-         (wrap   "(lift.middleware/t '%s)"))
-    (cider-interactive-eval (format wrap arg) nil bounds)))
-
-(defun type-search-current-expr ()
-  (interactive)
-  (let* ((bounds     (cider-sexp-at-point 'bounds))
-         (expr       (cider-sexp-at-point))
-         (top-bounds (cider-defun-at-point 'bounds))
-         (top-expr   (cider-defun-at-point))
-         (file       (buffer-file-name))
-         (exprm      (format "{:start %s :end %s :expr %s}"
-                             (car bounds)
-                             (cadr bounds)
-                             (prin1-to-string expr)))
-         (top-exprm  (format "{:start %s :end %s :expr %s}"
-                             (car top-bounds)
-                             (cadr top-bounds)
-                             (prin1-to-string top-expr)))
-         (arg        (format "{:file \"%s\" :expr %s :top-level %s}"
-                             file exprm top-exprm))
-         (wrap   "(do (require 'type) (tools/type-search (tools/t '%s)))"))
-    (cider-interactive-eval (format wrap arg) nil bounds)))
-
-(defun type-search-fill-current-expr ()
-  (interactive)
-  (let* ((bounds     (cider-sexp-at-point 'bounds))
-         (expr       (cider-sexp-at-point))
-         (top-bounds (cider-defun-at-point 'bounds))
-         (top-expr   (cider-defun-at-point))
-         (file       (buffer-file-name))
-         (exprm      (format "{:start %s :end %s :expr %s}"
-                             (car bounds)
-                             (cadr bounds)
-                             (prin1-to-string expr)))
-         (top-exprm  (format "{:start %s :end %s :expr %s}"
-                             (car top-bounds)
-                             (cadr top-bounds)
-                             (prin1-to-string top-expr)))
-         (arg        (format "{:file \"%s\" :expr %s :top-level %s}"
-                             file exprm top-exprm))
-         (wrap   "(do (require 'type) (let [x (first (tools/type-search (tools/t '%s)))] (with-out-str (pr x))))"))
-    (kill-sexp)
-    (cider-interactive-eval (format wrap arg) (cider-eval-pprint-handler) bounds)))
-
-;; (defun nrepl--raw-request (op input &optional ns line column)
-;;   (nconc (and ns `("ns" ,ns))
-;;          `("op" op "code" ,(substring-no-properties input))
-;;          (when cider-enlighten-mode
-;;            '("enlighten" "true"))
-;;          (let ((file (or (buffer-file-name) (buffer-name))))
-;;            (when (and line column file)
-;;              `("file" ,file
-;;                "line" ,line
-;;                "column" ,column)))))
-
-;; (defun nrepl-request:raw (op input callback connection &optional ns line column additional-params tooling)
-;;   (nrepl-send-request
-;;    (append (nrepl--raw-request op input ns line column) additional-params)
-;;    callback
-;;    connection
-;;    tooling))
-
-(defun lift-bounds-pos (bounds)
-  (let* ((start (car-safe bounds))
-         (end   (car-safe (cdr-safe bounds)))
-         (line  (when start (line-number-at-pos start)))
-         (col   (when start (cider-column-number-at-pos start))))
-    (list line col start end)))
-
-(defun positional-op (op)
-  (let* ((top-pos  (lift-bounds-pos (cider-defun-at-point 'bounds)))
-         (expr-pos (lift-bounds-pos (cider-sexp-at-point 'bounds)))
-         (top      (cider-defun-at-point))
-         (expr     (cider-sexp-at-point))
-         (file     (buffer-file-name)))
-    (format "{:lift.middleware/op %s
-              :file \"%s\"
-              :top  {:pos %s :code %s}
-              :expr {:pos %s :code %s}}"
-            op
-            file
-            top-pos
-            (prin1-to-string top)
-            expr-pos
-            expr)))
-
-(defun toggle-type-checking ()
-  (interactive)
-  (cider-interactive-eval
-   (positional-op "toggle-type-checker")
-   nil
-   (cider-defun-at-point 'bounds)))
-
-(defun type-of-expr-at-point ()
-  (interactive)
-  (cider-interactive-eval
-   (positional-op "type-of-expr-at-point")
-   nil
-   (cider-defun-at-point 'bounds)))
-
-(defun type-search-expr-at-point ()
-  (interactive)
-  (cider-interactive-eval
-   (positional-op "type-search-expr-at-point")
-   nil
-   (cider-defun-at-point 'bounds)))
-
-(defun type-replace-expr-at-point ()
-  (interactive)
-  (let ((pos (positional-op "type-replace-expr-at-point")))
-    (kill-sexp)
-    (cider-interactive-eval
-     pos
-     (cider-eval-print-handler)
-     (cider-defun-at-point 'bounds))))
-
-
-(defun lift-request:load-file
-    (ns file-contents file-path file-name &optional connection callback)
-  (cider-nrepl-send-request `("op" "load-file"
-                              "ns" ,ns
-                              "file" ,file-contents
-                              "file-path" ,file-path
-                              "file-name" ,file-name)
-                            (or callback
-                                (cider-load-file-handler (current-buffer)))
-                            connection))
-
-(defun lift-load-buffer ()
-  (interactive)
-  (check-parens)
-  (cider-ensure-connected)
-  (let ((buffer (current-buffer)))
-    (with-current-buffer buffer
-      (unless buffer-file-name
-        (user-error "Buffer `%s' is not associated with a file" (current-buffer)))
-      (when (and cider-save-file-on-load
-                 (buffer-modified-p)
-                 (or (eq cider-save-file-on-load t)
-                     (y-or-n-p (format "Save file %s? " buffer-file-name))))
-        (save-buffer))
-      (remove-overlays nil nil 'cider-temporary t)
-      (cider--clear-compilation-highlights)
-      (cider--quit-error-window)
-      (let ((filename (buffer-file-name buffer))
-            (ns-form  (cider-ns-form)))
-        (cider-map-connections
-         (lambda (connection)
-           (when ns-form
-             (cider-repl--cache-ns-form ns-form connection))
-           (lift-request:load-file
-            (cider-current-ns)
-            (cider-file-string filename)
-            (funcall cider-to-nrepl-filename-function
-                     (cider--server-filename filename))
-            (file-name-nondirectory filename)
-            connection))
-         :both)
-        (message "Loading %s..." filename)))))
-
-;; (defun cider-eval-last-sexp (&optional output-to-current-buffer)
-;;   "Evaluate the expression preceding point.
-;; If invoked with OUTPUT-TO-CURRENT-BUFFER, print the result in the current buffer."
-;;   (interactive "P")
-;;   (cider-interactive-eval nil
-;;                           (when output-to-current-buffer (cider-eval-print-handler))
-;;                           (cider-last-sexp 'bounds)
-;;                           `("file-name" ,(buffer-file-name)
-;;                             "expr-pos"  ,(lift-bounds-pos (cider-last-sexp 'bounds)))))
-
-;; (defun cider-eval-defun-at-point (&optional debug-it)
-;;   "Evaluate the current toplevel form, and print result in the minibuffer.
-;; With DEBUG-IT prefix argument, also debug the entire form as with the
-;; command `cider-debug-defun-at-point'."
-;;   (interactive "P")
-;;   (let ((inline-debug (eq 16 (car-safe debug-it))))
-;;     (when debug-it
-;;       (when (derived-mode-p 'clojurescript-mode)
-;;         (when (y-or-n-p (concat "The debugger doesn't support ClojureScript yet, and we need help with that."
-;;                                 "  \nWould you like to read the Feature Request?"))
-;;           (browse-url "https://github.com/clojure-emacs/cider/issues/1416"))
-;;         (user-error "The debugger does not support ClojureScript"))
-;;       (when inline-debug
-;;         (cider--prompt-and-insert-inline-dbg)))
-;;     (cider-interactive-eval (when (and debug-it (not inline-debug))
-;;                               (concat "#dbg\n" (cider-defun-at-point)))
-;;                             ;; (when output-to-current-buffer (cider-eval-print-handler))
-;;                             nil
-;;                             (cider-defun-at-point 'bounds)
-;;                             `("file-name" ,(buffer-file-name)
-;;                               "expr-pos"  ,(lift-bounds-pos (cider-defun-at-point 'bounds))))))
-
 ;;; Keybindings
 (defun set-keys (mode)
   (evil-leader/set-key-for-mode mode
     "ns" 'cider-repl-set-ns
     "ef" 'cider-eval-buffer
     "ed" 'cider-eval-defun-at-point
-    ;; "ee" 'type-check-cider-eval-last-sexp
     "ee" 'cider-eval-last-sexp
-    "tt" 'toggle-type-checking
-    "te" 'type-of-expr-at-point
-    "ts" 'type-search-expr-at-point
-    "tr" 'type-replace-expr-at-point
     "er" 'cider-eval-last-sexp-and-pprint
     "eme" 'cider-macroexpand-1
     "ema" 'cider-macroexpand-all
@@ -378,6 +136,7 @@
     "cq" 'cider-quit
     "cr" 'cider-connect
     "cz" 'cider-switch-to-relevant-repl-buffer
+    "ccns" 'user/clear-current-ns
     "ccb" 'cider-repl-clear-buffer
     "fu" 'cljr-find-usages
     "fg" 'rgrep
@@ -410,11 +169,13 @@
       (push s prettify-symbols-alist))))
 
 ;;; Hooks
-(add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
 (add-hook 'cider-repl-mode-hook 'evil-mode)
 (add-hook 'cider-repl-mode-hook 'evil-paredit-mode)
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 (add-hook 'cider-repl-mode-hook 'cljr-setup)
+
+(add-hook 'cider-interaction-mode-hook 'cider-eldoc-setup)
+
 (add-hook 'clojure-mode-hook 'paredit-mode)
 (add-hook 'clojure-mode-hook 'evil-paredit-mode)
 (add-hook 'clojure-mode-hook 'paren-face-mode)
