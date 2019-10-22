@@ -20,6 +20,15 @@
 (column-number-mode 1)
 (global-nlinum-mode 1)
 
+(setq projectile-generic-command "find -L . -type f -print0")
+(setq projectile-project-root-files-top-down-recurring '(".git"))
+(setq projectile-project-root-files-functions '(projectile-root-top-down-recurring))
+(setq helm-ag-base-command "ag --nocolor --nogroup --follow")
+(setq projectile-indexing-method 'alien)
+(setq projectile-git-command "~/bin/sub-ls")
+
+(setq projectile-enable-caching nil)
+
 (projectile-global-mode)
 
 ;;; Set font

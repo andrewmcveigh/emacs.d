@@ -1,11 +1,13 @@
-(require-packages 'dockerfile-mode 'evil-magit 'evil-paredit 'f 'helm
-                  'helm-projectile 'inf-ruby 'magit 'markdown-mode 'nix-mode
-                  'paredit 'projectile 'restclient 'rust-mode 's 'session
-                  'use-package)
+(require-packages 'ag 'dockerfile-mode 'evil-magit 'evil-paredit 'f 'helm
+                  'helm-ag 'helm-projectile 'inf-ruby 'magit 'markdown-mode
+                  'nix-mode 'paredit 'projectile 'restclient 'rust-mode 's
+                  'session 'use-package)
+(require 'ag)
 (require 'dockerfile-mode)
 (require 'evil-magit)
 (require 'evil-paredit)
 (require 'helm)
+(require 'helm-ag)
 (require 'helm-projectile)
 (require 'inf-ruby)
 (require 'magit)
@@ -17,6 +19,8 @@
 (require 'rust-mode)
 (require 'session)
 (require 'use-package)
+
+(setq ag-arguments '("--follow" "--smart-case" "--stats"))
 
 ;;; paredit customisations
 (defvar electrify-return-match
