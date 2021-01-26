@@ -96,10 +96,6 @@
 
 (setq js-indent-level 2)
 
-(add-hook 'java-mode-hook (lambda ()
-                            (setq c-basic-offset 4
-                                  tab-width 4
-                                  indent-tabs-mode t)))
 
 (setq org-reveal-root "file:///home/andrewmcveigh/code/reveal.js")
 
@@ -257,5 +253,16 @@
 (setq css-indent-offset 2)
 
 (setq auto-revert-verbose nil)
+
+(add-hook 'java-mode-hook (lambda ()
+                            (setq c-basic-offset 4
+                                  tab-width 4
+                                  indent-tabs-mode nil)))
+(add-hook 'makefile-mode (lambda ()
+                            (setq c-basic-offset 4
+                                  tab-width 4
+                                  indent-tabs-mode t)))
+(setq-default indent-tabs-mode nil)
+(setq-default kotlin-tab-width 2)
 
 (provide 'init-settings)

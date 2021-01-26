@@ -1,7 +1,7 @@
 (require-packages 'ag 'dockerfile-mode 'evil-magit 'evil-paredit 'f 'helm
                   'helm-ag 'helm-projectile 'inf-ruby 'magit 'markdown-mode
                   'nix-mode 'paredit 'projectile 'restclient 'rust-mode 's
-                  'session 'use-package)
+                  'session 'sparql-mode 'ttl-mode 'use-package)
 (require 'ag)
 (require 'dockerfile-mode)
 (require 'evil-magit)
@@ -18,6 +18,8 @@
 (require 'restclient)
 (require 'rust-mode)
 (require 'session)
+(require 'sparql-mode)
+(require 'ttl-mode)
 (require 'use-package)
 
 (setq ag-arguments '("--follow" "--smart-case" "--stats"))
@@ -38,5 +40,7 @@ return.")
         (save-excursion (newline-and-indent)))
     (newline arg)
     (indent-according-to-mode)))
+
+(add-to-list 'auto-mode-alist '("\\.sparql\\'" . sparql-mode))
 
 (provide 'init-misc)

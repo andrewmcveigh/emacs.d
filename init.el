@@ -33,6 +33,9 @@
     ((cider                 . "melpa-stable") t)
     ((clj-refactor          . "melpa-stable") t)
 
+    ((gnuplot               . "melpa-stable") t)
+    ((gnuplot-mode          . "melpa-stable") t)
+
     ))
 
 (require 'package)
@@ -53,6 +56,7 @@
 (require 'init-evil)
 (require 'init-autocomplete)
 (require 'init-clojure)
+(require 'init-dreame)
 (require 'init-flycheck)
 (require 'init-keybindings)
 (require 'init-lisp)

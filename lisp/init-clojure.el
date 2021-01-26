@@ -12,9 +12,8 @@
 ;; (setq cider-repl-use-clojure-font-lock t)
 ;; (setq cider-repl-pop-to-buffer-on-connect nil)
 ;; (setq cider-hide-special-buffers nil)
-;; (setq cider-show-error-buffer nil)
-
-(setq cider-auto-jump-to-error t)
+(setq cider-show-error-buffer nil)
+(setq cider-auto-jump-to-error nil)
 (setq cider-auto-select-error-buffer nil)
 (setq cider-words-of-inspiration '("Fuck cider"))
 (setq cider-repl-display-help-banner nil)
@@ -107,7 +106,7 @@
 (defun user/clear-current-ns ()
   (interactive)
   (let ((sexp "(do
-                 (doseq [[k] (filter (fn [[_ v]] (= (str (:ns (meta v))) (str *ns*))) (ns-map *ns*))]
+                 (doseq [[k] (clojure.core/filter (fn [[_ v]] (= (str (:ns (meta v))) (str *ns*))) (ns-map *ns*))]
                    (ns-unmap *ns* k))
                  (doseq [[k] (ns-aliases *ns*)] (ns-unalias *ns* k))
                  (doseq [[k] (ns-refers *ns*)] (ns-unmap *ns* k)))"))

@@ -1,10 +1,12 @@
 (require-packages 'htmlize)
+(require-packages 'gnuplot)
 ;; 'ox-reveal
 ;; (require 'org-mode)
 (require 'ox-reveal)
 (require 'htmlize)
 (require 'evil)
 (require 'evil-leader)
+(require 'gnuplot)
 
 (defun custom-evil-org-mode-hook ()
   (define-key evil-normal-state-map (kbd "<f8>") 'org-reveal-export-to-html)

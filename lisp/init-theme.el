@@ -39,6 +39,7 @@
 
 (defface todo-comment '((t (:foreground "#ffa198"))) "Pink")
 (defface note-comment '((t (:foreground "#40a0f0"))) "Blue")
+(defface case-comment '((t (:foreground "#f44e4e"))) "Coral")
 (defface done-comment '((t (:foreground "#282838"))) "Almost Hidden")
 (defface special-comment '((t (:foreground "#2aa198"))) "Cyan")
 (defface title-comment '((t (:foreground "#60b0ff"))) "Lighter Blue")
@@ -53,6 +54,7 @@
   (font-lock-add-keywords 'idris-mode '(("|||: \\(.*\\)" 1 'special-comment t)))
   (font-lock-add-keywords 'clojure-mode '(("; \\(TODO:\\)" 1 'todo-comment t)))
   (font-lock-add-keywords 'clojure-mode '(("; \\(NOTE:\\)" 1 'note-comment t)))
+  (font-lock-add-keywords 'clojure-mode '(("; \\(CASE:\\)" 1 'case-comment t)))
   (font-lock-add-keywords 'clojure-mode '(("; \\(DONE:.*\\)" 1 'done-comment t)))
   (font-lock-add-keywords 'clojure-mode '((";: \\(.*\\)" 1 'special-comment t)))
   (font-lock-add-keywords 'clojure-mode '(("; \\(#.*\\)" 1 'title-comment t)))

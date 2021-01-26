@@ -15,7 +15,7 @@
                         :inherit 'fixed-pitch
                         :weight 'light)))
 
-(set-font-size 140)
+;; (set-font-size 140)
 
 
 (defun font-scale-up ()
@@ -28,7 +28,7 @@
 
 ;; (font-scale-up)
 
-;; (set-font-size 150)
+(set-font-size 170)
 
 (set-background-color "#111120")
 
