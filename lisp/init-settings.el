@@ -1,8 +1,12 @@
-(require-packages 'nlinum 'projectile)
+(require-packages 'nlinum 'projectile 'undo-tree)
+(require 'undo-tree)
+
 (setq ring-bell-function #'ignore)
 
 ;; (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
 ;; (golden-ratio-mode 1)
+(global-undo-tree-mode)
+(evil-set-undo-system 'undo-tree)
 
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 (add-to-list 'auto-mode-alist '("[A-Z]\\.md\\'" . gfm-mode))
@@ -264,5 +268,8 @@
                                   indent-tabs-mode t)))
 (setq-default indent-tabs-mode nil)
 (setq-default kotlin-tab-width 2)
+
+(set-frame-parameter (selected-frame) 'alpha '(90 . 50))
+(add-to-list 'default-frame-alist '(alpha . (90 . 50)))
 
 (provide 'init-settings)

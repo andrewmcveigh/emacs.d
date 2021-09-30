@@ -1,7 +1,7 @@
 (let* ((font-name "Iosevka")
        (font-size "13")
        (font-str (concat font-name "-" font-size)))
-  (set-default-font font-name)
+  ;; (set-default-font font-name)
   (set-face-attribute 'default nil
                       :font font-str
                       :inherit 'fixed-pitch

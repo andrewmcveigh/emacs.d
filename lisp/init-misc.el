@@ -1,10 +1,9 @@
-(require-packages 'ag 'dockerfile-mode 'evil-magit 'evil-paredit 'f 'helm
+(require-packages 'ag 'dockerfile-mode 'evil-paredit 'f 'helm
                   'helm-ag 'helm-projectile 'inf-ruby 'magit 'markdown-mode
                   'nix-mode 'paredit 'projectile 'restclient 'rust-mode 's
                   'session 'sparql-mode 'ttl-mode 'use-package)
 (require 'ag)
 (require 'dockerfile-mode)
-(require 'evil-magit)
 (require 'evil-paredit)
 (require 'helm)
 (require 'helm-ag)

@@ -19,6 +19,9 @@
 (setq cider-repl-display-help-banner nil)
 (setq cider-highlight-compilation-errors t)
 
+;; why would you ever want a popup to auto select
+(setq cider-auto-select-test-report-buffer nil)
+
 ;; (setq cider-stacktrace-fill-column 80)
 ;; (setq cljr-favor-prefix-notation nil)
 ;; (setq cljr-favor-private-functions nil)
@@ -151,6 +154,7 @@
 (set-keys 'cider-repl-mode)
 (set-keys 'org-mode)
 
+(evil-define-key 'insert clojure-mode-map (kbd "C-:") (lambda () (interactive) (insert "∶")))
 (evil-define-key 'normal clojure-mode-map (kbd "gf") 'cider-find-var)
 (evil-define-key 'normal clojure-mode-map (kbd "K")  'doc-for-var)
 (define-key evil-motion-state-map "gd" 'evil-goto-definition)
@@ -188,5 +192,25 @@
             (evil-paredit-mode)
             (cljr-setup)
             (paren-face-mode)))
+
+(defun cider--test-reload ()
+  (when (cider-connected-p)
+    (let ((ns (funcall cider-test-infer-test-ns (cider-current-ns t))))
+      (cider-interactive-eval (format "(require '%s :reload)" ns))
+      (cider--test-silently))))
+
+;;;###autoload
+(define-minor-mode cider-auto-test-reload-mode
+  "Toggle automatic testing of Clojure files.
+
+When enabled this reruns tests every time a Clojure file is loaded.
+Only runs tests corresponding to the loaded file's namespace and does
+nothing if no tests are defined or if the file failed to load."
+  nil (cider-mode " Test") nil
+  :global t
+  (if cider-auto-test-reload-mode
+      (add-hook 'cider-file-loaded-hook #'cider--test-reload)
+    (remove-hook 'cider-file-loaded-hook #'cider--test-reload)))
+
 
 (provide 'init-clojure)

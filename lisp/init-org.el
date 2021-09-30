@@ -1,5 +1,7 @@
 (require-packages 'htmlize)
 (require-packages 'gnuplot)
+;; (require-packages 'org-mode)
+
 ;; 'ox-reveal
 ;; (require 'org-mode)
 (require 'ox-reveal)
@@ -112,6 +114,8 @@
  'org-babel-load-languages
  '(;; other Babel languages
    (plantuml . t)))
+
+;; -DPLANTUML_LIMIT_SIZE=8192
 
 (setq org-plantuml-jar-path (substitute-in-file-name "$PLANTUML_JAR/lib/plantuml.jar"))
 

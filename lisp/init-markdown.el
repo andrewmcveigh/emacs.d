@@ -26,7 +26,7 @@
 (md-reset-face 'markdown-inline-code-face)
 (md-reset-face 'markdown-header-delimiter-face)
 (md-reset-face 'markdown-html-entity-face)
-(md-reset-face 'markdown-footnote-face)
+;; (md-reset-face 'markdown-footnote-face)
 (md-reset-face 'markdown-footnote-marker-face)
 (md-reset-face 'markdown-footnote-text-face)
 (md-reset-face 'markdown-header-face)

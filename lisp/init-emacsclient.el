@@ -1,7 +1,7 @@
 (defun set-font-size (sz)
   (let* ((font-name "Iosevka")
          (font-size sz))
-    (set-default-font font-name)
+    ;; (set-default-font font-name)
     (set-face-attribute 'default nil
                         :family font-name
                         :height font-size
@@ -28,7 +28,7 @@
 
 ;; (font-scale-up)
 
-(set-font-size 170)
+(set-font-size 115)
 
 (set-background-color "#111120")
 

@@ -13,7 +13,8 @@
 
 (defvar archives
   '(("melpa-stable" . "https://melpa.org/packages/")
-    ("melpa" . "https://melpa.org/packages/")))
+    ("melpa" . "https://melpa.org/packages/")
+    ("org" . "https://orgmode.org/elpa/")))
 
 (defvar pinned-packages
   '(
@@ -75,7 +76,6 @@
 (require 'init-ruby)
 (require 'init-rust)
 
-(require 'init-magit)
 (require 'init-markdown)
 
 (require 'init-emacsclient)
