@@ -1,6 +1,6 @@
 (require-packages 'htmlize)
 (require-packages 'gnuplot)
-;; (require-packages 'org-mode)
+;; (require-package 'visual-fill-column)
 
 ;; 'ox-reveal
 ;; (require 'org-mode)
@@ -9,8 +9,10 @@
 (require 'evil)
 (require 'evil-leader)
 (require 'gnuplot)
+;; (require 'visual-fill-column)
 
 (defun custom-evil-org-mode-hook ()
+  (define-key evil-normal-state-map "gq" 'fill-paragraph)
   (define-key evil-normal-state-map (kbd "<f8>") 'org-reveal-export-to-html)
   (define-key evil-normal-state-map (kbd "<f9>") 'org-set-speaking-time)
   (define-key evil-normal-state-map (kbd "<") 'org-promote-subtree)
@@ -21,7 +23,11 @@
   (evil-leader/set-key-for-mode 'org-mode "lr" 'org-reveal-export-to-html)
   (evil-leader/set-key-for-mode 'org-mode "ost" 'org-set-speaking-time))
 
+;; (require 'visual-line)
+
+;; (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
 (add-hook 'org-mode-hook 'custom-evil-org-mode-hook)
+;; (add-hook 'org-mode-hook #'visual-line-mode)
 
 (setq org-reveal-root "/home/andrewmcveigh/code/reveal.js")
 (setq org-reveal-title-slide "<h1 class=\"title\">%t</h1>")
