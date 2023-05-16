@@ -88,7 +88,8 @@
       (indent-according-to-mode))))
 
 (global-set-key [tab] 'indent-or-complete)
-(setq company-idle-delay 0.2)
+(setq company-dabbrev-downcase nil)
+(setq company-idle-delay 0.13)
 
 (with-eval-after-load 'company
   (define-key company-active-map (kbd "<return>") nil)

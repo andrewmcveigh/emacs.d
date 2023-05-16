@@ -1,3 +1,4 @@
+(setq evil-want-C-i-jump nil)
 ;; -*- lexical-binding: t -*-
 (require-packages 'evil 'evil-leader 'evil-commentary 'evil-paredit)
 (require 'evil)
@@ -137,7 +138,8 @@
             (eshell/sh)))
   "g"   (lambda ()
           (interactive)
-          (set-input-method 'greek)))
+          (set-input-method 'greek))
+  "hm" 'helm-mini)
 
 ;;; Resize windows
 (global-set-key (kbd "s-\<") (lambda ()

@@ -57,7 +57,7 @@
 (require 'init-evil)
 (require 'init-autocomplete)
 (require 'init-clojure)
-(require 'init-dreame)
+;; (require 'init-dreame)
 (require 'init-flycheck)
 (require 'init-keybindings)
 (require 'init-lisp)
@@ -67,18 +67,20 @@
 
 (defvar gui? (display-graphic-p))
 
-(require 'init-eshell)
-(require 'init-haskell)
-(require 'init-purescript)
-(require 'init-idris)
+;; (require 'init-eshell)
+;; (require 'init-haskell)
+;; (require 'init-purescript)
+;; (require 'init-idris)
 (require 'init-nix)
 (require 'init-org)
-(require 'init-ruby)
-(require 'init-rust)
+;; (require 'init-ruby)
+;; (require 'init-rust)
 
 (require 'init-markdown)
 
 (require 'init-emacsclient)
+
+(require 'speaking-time)
 
 (when (not gui?)
   (require-package 'xclip)
