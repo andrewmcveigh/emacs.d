@@ -37,6 +37,10 @@
     ((gnuplot               . "melpa-stable") t)
     ((gnuplot-mode          . "melpa-stable") t)
 
+    ((nix-mode          . "melpa-stable") t)
+
+    ((hcl-mode          . "melpa-stable") t)
+
     ))
 
 (require 'package)
@@ -57,7 +61,6 @@
 (require 'init-evil)
 (require 'init-autocomplete)
 (require 'init-clojure)
-;; (require 'init-dreame)
 (require 'init-flycheck)
 (require 'init-keybindings)
 (require 'init-lisp)
@@ -76,7 +79,9 @@
 ;; (require 'init-ruby)
 ;; (require 'init-rust)
 
-(require 'init-markdown)
+;; (require 'init-magit)
+; (require 'init-markdown)
+(require 'init-terraform)
 
 (require 'init-emacsclient)
 
