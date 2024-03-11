@@ -1,9 +1,28 @@
-(require-packages 'clojure-mode 'cider 'paren-face 'clj-refactor)
+(require-packages 'clojure-mode 'cider 'paredit 'paren-face 'clj-refactor)
 
 (require 'clojure-mode)
-(require 'cider)
+;; (require 'cider)
 ;; (require 'cider-eldoc)
-(require 'clj-refactor)
+;; (require 'clj-refactor)
+(require 'paredit)
+
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :hook ((clojure-mode . lsp)
+;;          (clojurec-mode . lsp)
+;;          (clojurescript-mode . lsp))
+;;   :config
+;;   ;; add paths to your local installation of project mgmt tools, like lein
+;;   (setenv "PATH" (concat
+;;                    "/usr/local/bin" path-separator
+;;                    (getenv "PATH")))
+;;   (dolist (m '(clojure-mode
+;;                clojurec-mode
+;;                clojurescript-mode
+;;                clojurex-mode))
+;;      (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+;;   ;; (setq lsp-clojure-server-command '("/path/to/clojure-lsp"))
+;;   ) ;; Optional: In case `clojure-lsp` is not in your $PATH
 
 ;;; Settings
 (setq cider-save-file-on-load t)
@@ -175,15 +194,15 @@
 (add-hook 'cider-repl-mode-hook 'evil-mode)
 (add-hook 'cider-repl-mode-hook 'evil-paredit-mode)
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
-(add-hook 'cider-repl-mode-hook 'cljr-setup)
+;; (add-hook 'cider-repl-mode-hook 'cljr-setup)
 
-(add-hook 'cider-interaction-mode-hook 'cider-eldoc-setup)
+;; (add-hook 'cider-interaction-mode-hook 'cider-eldoc-setup)
 
 (add-hook 'clojure-mode-hook 'paredit-mode)
 (add-hook 'clojure-mode-hook 'evil-paredit-mode)
 (add-hook 'clojure-mode-hook 'paren-face-mode)
 (add-hook 'clojure-mode-hook 'hs-minor-mode)
-(add-hook 'clojure-mode-hook 'cljr-setup)
+;; (add-hook 'clojure-mode-hook 'cljr-setup)
 (add-hook 'clojure-mode-hook 'math-prettify-symbols)
 (add-hook 'org-mode-hook
           (progn
@@ -193,24 +212,24 @@
             (cljr-setup)
             (paren-face-mode)))
 
-(defun cider--test-reload ()
-  (when (cider-connected-p)
-    (let ((ns (funcall cider-test-infer-test-ns (cider-current-ns t))))
-      (cider-interactive-eval (format "(require '%s :reload)" ns))
-      (cider--test-silently))))
+;; (defun cider--test-reload ()
+;;   (when (cider-connected-p)
+;;     (let ((ns (funcall cider-test-infer-test-ns (cider-current-ns t))))
+;;       (cider-interactive-eval (format "(require '%s :reload)" ns))
+;;       (cider--test-silently))))
 
-;;;###autoload
-(define-minor-mode cider-auto-test-reload-mode
-  "Toggle automatic testing of Clojure files.
+;; ;;;###autoload
+;; (define-minor-mode cider-auto-test-reload-mode
+;;   "Toggle automatic testing of Clojure files.
 
-When enabled this reruns tests every time a Clojure file is loaded.
-Only runs tests corresponding to the loaded file's namespace and does
-nothing if no tests are defined or if the file failed to load."
-  nil (cider-mode " Test") nil
-  :global t
-  (if cider-auto-test-reload-mode
-      (add-hook 'cider-file-loaded-hook #'cider--test-reload)
-    (remove-hook 'cider-file-loaded-hook #'cider--test-reload)))
+;; When enabled this reruns tests every time a Clojure file is loaded.
+;; Only runs tests corresponding to the loaded file's namespace and does
+;; nothing if no tests are defined or if the file failed to load."
+;;   nil (cider-mode " Test") nil
+;;   :global t
+;;   (if cider-auto-test-reload-mode
+;;       (add-hook 'cider-file-loaded-hook #'cider--test-reload)
+;;     (remove-hook 'cider-file-loaded-hook #'cider--test-reload)))
 
 
 (provide 'init-clojure)

@@ -75,7 +75,7 @@
 ;; (require 'init-purescript)
 ;; (require 'init-idris)
 (require 'init-nix)
-(require 'init-org)
+;; (require 'init-org)
 ;; (require 'init-ruby)
 ;; (require 'init-rust)
 
@@ -85,7 +85,7 @@
 
 (require 'init-emacsclient)
 
-(require 'speaking-time)
+;(require 'speaking-time)
 
 (when (not gui?)
   (require-package 'xclip)

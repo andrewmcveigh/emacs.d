@@ -1,6 +1,5 @@
 (require-packages 'htmlize)
 (require-packages 'gnuplot)
-;; (require-package 'visual-fill-column)
 
 ;; 'ox-reveal
 ;; (require 'org-mode)
@@ -9,7 +8,6 @@
 (require 'evil)
 (require 'evil-leader)
 (require 'gnuplot)
-;; (require 'visual-fill-column)
 
 ;; (defun custom-evil-org-mode-hook ()
 ;;   (define-key evil-normal-state-map "gq" 'fill-paragraph)

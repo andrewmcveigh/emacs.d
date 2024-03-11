@@ -28,7 +28,7 @@
 
 ;; (font-scale-up)
 
-(set-font-size 115)
+(set-font-size 165)
 
 (set-background-color "#111120")
 

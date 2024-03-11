@@ -1,6 +1,8 @@
 (setq evil-want-C-i-jump nil)
 ;; -*- lexical-binding: t -*-
-(require-packages 'evil 'evil-leader 'evil-commentary 'evil-paredit)
+(require-packages 'evil 'evil-leader 'evil-commentary ; 'evil-paredit
+                  )
+
 (require 'evil)
 (require 'evil-commentary)
 (require 'evil-leader)

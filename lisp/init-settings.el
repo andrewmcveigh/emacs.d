@@ -1,6 +1,7 @@
 (require-packages 'nlinum 'projectile 'undo-tree)
 (require 'undo-tree)
 
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo-tree")))
 (setq ring-bell-function #'ignore)
 
 ;; (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
